@@ -3,1222 +3,922 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merak MedTech - Innovative Medical Solutions</title>
+    <title>Merak MedTech | Future of Healthcare</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        ::-webkit-scrollbar { display: none; }
-        * { -ms-overflow-style: none; scrollbar-width: none; }
-        html { scroll-behavior: smooth; }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        ::-webkit-scrollbar{display:none}
+        *{-ms-overflow-style:none;scrollbar-width:none}
+        html{scroll-behavior:smooth}
 
-        :root {
-            --primary: #2563EB;
-            --primary-light: #3B82F6;
-            --primary-soft: #DBEAFE;
-            --secondary: #10B981;
-            --secondary-soft: #D1FAE5;
-            --accent: #F59E0B;
-            --accent-soft: #FEF3C7;
-            --pink: #EC4899;
-            --pink-soft: #FCE7F3;
-            --purple: #8B5CF6;
-            --purple-soft: #EDE9FE;
-            --teal: #14B8A6;
-            --teal-soft: #CCFBF1;
-            --dark: #1E293B;
-            --gray-900: #0F172A;
-            --gray-700: #334155;
-            --gray-500: #64748B;
-            --gray-400: #94A3B8;
-            --gray-300: #CBD5E1;
-            --gray-200: #E2E8F0;
-            --gray-100: #F1F5F9;
-            --gray-50: #F8FAFC;
-            --white: #FFFFFF;
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            --radius-2xl: 24px;
-            --radius-full: 9999px;
+        :root{
+            --mint:#00C9A7;
+            --ocean:#0066FF;
+            --sky:#E8F4FD;
+            --coral:#FF6B6B;
+            --sun:#FFB347;
+            --lavender:#A78BFA;
+            --blush:#FDE8EF;
+            --cream:#FFFDF7;
+            --ice:#F0F9FF;
+            --carbon:#111827;
+            --slate:#374151;
+            --muted:#6B7280;
+            --silver:#9CA3AF;
+            --smoke:#E5E7EB;
+            --cloud:#F3F4F6;
+            --snow:#F9FAFB;
+            --white:#FFFFFF;
+            --glass:rgba(255,255,255,0.72);
+            --glass-border:rgba(255,255,255,0.5);
         }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--gray-50);
-            color: var(--gray-700);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        body{
+            font-family:'Montserrat',sans-serif;
+            background:var(--snow);
+            color:var(--slate);
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
         }
 
-        /* ===== PRELOADER ===== */
-        .preloader {
-            position: fixed; inset: 0;
-            background: var(--white);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 100000;
-            transition: opacity 0.7s cubic-bezier(.4,0,.2,1), visibility 0.7s;
+        /* ===================== PRELOADER ===================== */
+        #preloader{
+            position:fixed;inset:0;background:var(--white);
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            z-index:999999;transition:opacity .8s,visibility .8s;
         }
-        .preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
-        .pl-wrap { text-align: center; }
-        .pl-logo {
-            font-size: clamp(1.8rem, 5vw, 2.4rem);
-            font-weight: 900; color: var(--primary);
-            letter-spacing: 4px;
-            animation: plPulse 1.6s ease-in-out infinite;
+        #preloader.done{opacity:0;visibility:hidden;pointer-events:none}
+        .pre-logo{font-size:clamp(2rem,5vw,2.8rem);font-weight:900;letter-spacing:3px;color:var(--ocean)}
+        .pre-logo span{color:var(--mint)}
+        .pre-bar{width:180px;height:3px;background:var(--smoke);border-radius:10px;margin-top:24px;overflow:hidden}
+        .pre-bar i{display:block;height:100%;width:40%;background:linear-gradient(90deg,var(--ocean),var(--mint));border-radius:10px;animation:preSlide 1s ease-in-out infinite}
+        @keyframes preSlide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+
+        /* ===================== MESH GRADIENT BLOBS ===================== */
+        .mesh{position:fixed;pointer-events:none;z-index:-1}
+        .mesh-1{width:clamp(300px,50vw,700px);height:clamp(300px,50vw,700px);top:-15%;right:-10%;background:radial-gradient(circle,rgba(0,201,167,.12),transparent 70%);filter:blur(60px)}
+        .mesh-2{width:clamp(250px,40vw,600px);height:clamp(250px,40vw,600px);bottom:-10%;left:-8%;background:radial-gradient(circle,rgba(0,102,255,.10),transparent 70%);filter:blur(60px)}
+        .mesh-3{width:clamp(200px,35vw,500px);height:clamp(200px,35vw,500px);top:40%;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(167,139,250,.08),transparent 70%);filter:blur(60px)}
+
+        /* ===================== NAVIGATION ===================== */
+        .topbar{
+            position:fixed;top:0;left:0;width:100%;z-index:9999;
+            padding:clamp(12px,2vw,20px) 0;
+            transition:all .5s cubic-bezier(.4,0,.2,1);
         }
-        .pl-logo span { color: var(--secondary); }
-        @keyframes plPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.06); opacity: 0.7; }
+        .topbar.pinned{
+            background:var(--glass);
+            backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+            box-shadow:0 4px 30px rgba(0,0,0,.04);
+            border-bottom:1px solid var(--glass-border);
+            padding:clamp(8px,1.2vw,14px) 0;
         }
-        .pl-dots { display: flex; gap: 8px; justify-content: center; margin-top: 22px; }
-        .pl-dots i {
-            width: 10px; height: 10px; border-radius: 50%; display: block;
-            animation: plBounce 1.4s ease-in-out infinite;
-        }
-        .pl-dots i:nth-child(1) { background: var(--primary); }
-        .pl-dots i:nth-child(2) { background: var(--secondary); animation-delay: 0.15s; }
-        .pl-dots i:nth-child(3) { background: var(--accent); animation-delay: 0.3s; }
-        @keyframes plBounce {
-            0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
-            40% { transform: scale(1.1); opacity: 1; }
+        .topbar-inner{
+            max-width:1380px;margin:0 auto;
+            padding:0 clamp(16px,4vw,40px);
+            display:flex;align-items:center;justify-content:space-between;
         }
 
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;
-            padding: clamp(10px, 2vw, 18px) 0;
-            background: rgba(255,255,255,0.65);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            transition: all 0.5s cubic-bezier(.4,0,.2,1);
+        /* Logo */
+        .brand{display:flex;align-items:center;gap:clamp(8px,1.5vw,14px);text-decoration:none;z-index:10001}
+        .brand-mark{
+            width:clamp(38px,5vw,48px);height:clamp(38px,5vw,48px);
+            background:linear-gradient(135deg,var(--ocean),var(--mint));
+            border-radius:clamp(10px,1.5vw,14px);
+            display:flex;align-items:center;justify-content:center;
+            color:#fff;font-weight:900;font-size:clamp(.9rem,1.8vw,1.15rem);
+            transition:transform .4s cubic-bezier(.4,0,.2,1);
+            flex-shrink:0;position:relative;overflow:hidden;
         }
-        .navbar.scrolled {
-            background: rgba(255,255,255,0.97);
-            box-shadow: 0 1px 20px rgba(0,0,0,0.06);
-            padding: clamp(7px, 1.2vw, 12px) 0;
+        .brand-mark::after{
+            content:'';position:absolute;inset:0;
+            background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%);
+            transform:translateX(-100%);
+            animation:brandShine 3s ease-in-out infinite;
         }
-        .nav-inner {
-            max-width: 1320px; margin: 0 auto;
-            padding: 0 clamp(14px, 4vw, 32px);
-            display: flex; align-items: center; justify-content: space-between;
+        @keyframes brandShine{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+        .brand:hover .brand-mark{transform:rotate(8deg) scale(1.08)}
+        .brand-name h1{font-size:clamp(1rem,2.4vw,1.35rem);font-weight:900;color:var(--carbon);letter-spacing:.5px;line-height:1.15}
+        .brand-name h1 b{color:var(--ocean)}
+        .brand-name small{font-size:clamp(.48rem,1vw,.6rem);color:var(--silver);letter-spacing:2.5px;text-transform:uppercase;font-weight:600;display:block}
+
+        /* Nav links */
+        .top-links{display:flex;align-items:center;gap:clamp(4px,1vw,8px);list-style:none}
+        .top-links a{
+            text-decoration:none;color:var(--muted);font-size:clamp(.76rem,1.1vw,.88rem);
+            font-weight:600;padding:9px clamp(14px,1.8vw,22px);
+            border-radius:var(--radius-pill,50px);
+            transition:all .35s cubic-bezier(.4,0,.2,1);
         }
-        .logo {
-            display: flex; align-items: center;
-            gap: clamp(8px, 1.5vw, 12px);
-            text-decoration: none; z-index: 10001;
+        .top-links a:hover,.top-links a.cur{color:var(--ocean);background:var(--ice)}
+        .top-links .cta-pill{
+            background:linear-gradient(135deg,var(--ocean),var(--mint))!important;
+            color:#fff!important;padding:10px clamp(20px,2.5vw,28px)!important;
+            box-shadow:0 4px 16px rgba(0,102,255,.2);
         }
-        .logo-icon {
-            width: clamp(36px, 5vw, 46px); height: clamp(36px, 5vw, 46px);
-            background: linear-gradient(135deg, var(--primary), var(--teal));
-            border-radius: var(--radius-md);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--white); font-weight: 900;
-            font-size: clamp(0.85rem, 1.8vw, 1.1rem);
-            flex-shrink: 0;
-            transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+        .top-links .cta-pill:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,102,255,.3)}
+
+        /* Hamburger */
+        .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:10001;padding:6px}
+        .ham s{display:block;width:24px;height:2.5px;background:var(--carbon);border-radius:4px;text-decoration:none;transition:all .4s cubic-bezier(.68,-.55,.27,1.55)}
+        .ham.on s:nth-child(1){transform:rotate(45deg) translate(5px,5.5px)}
+        .ham.on s:nth-child(2){opacity:0;transform:scaleX(0)}
+        .ham.on s:nth-child(3){transform:rotate(-45deg) translate(5px,-5.5px)}
+
+        /* Mobile overlay */
+        .mob-overlay{
+            display:none;position:fixed;inset:0;
+            background:rgba(255,255,255,.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+            z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+            opacity:0;visibility:hidden;transition:all .45s cubic-bezier(.4,0,.2,1);
         }
-        .logo:hover .logo-icon { transform: rotate(8deg) scale(1.08); }
-        .logo-txt h1 {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            font-weight: 900; color: var(--dark);
-            line-height: 1.15; letter-spacing: 0.5px;
+        .mob-overlay.on{opacity:1;visibility:visible}
+        .mob-overlay a{
+            text-decoration:none;color:var(--carbon);font-size:clamp(1.2rem,4vw,1.6rem);
+            font-weight:700;padding:14px 44px;border-radius:16px;
+            transition:all .35s;transform:translateY(25px);opacity:0;
         }
-        .logo-txt h1 b { color: var(--primary); font-weight: 900; }
-        .logo-txt p {
-            font-size: clamp(0.5rem, 1vw, 0.62rem);
-            color: var(--gray-400); letter-spacing: 2.5px;
-            text-transform: uppercase; font-weight: 600;
+        .mob-overlay.on a{transform:translateY(0);opacity:1}
+        .mob-overlay.on a:nth-child(1){transition-delay:.06s}
+        .mob-overlay.on a:nth-child(2){transition-delay:.12s}
+        .mob-overlay.on a:nth-child(3){transition-delay:.18s}
+        .mob-overlay.on a:nth-child(4){transition-delay:.24s}
+        .mob-overlay.on a:nth-child(5){transition-delay:.30s}
+        .mob-overlay a:hover{color:var(--ocean);background:var(--ice)}
+        .mob-overlay .mob-cta{background:linear-gradient(135deg,var(--ocean),var(--mint));color:#fff!important;border-radius:50px;margin-top:10px}
+
+        @media(max-width:1024px){.top-links{display:none}.ham{display:flex}.mob-overlay{display:flex}}
+
+        /* ===================== HERO SLIDER ===================== */
+        .hero{position:relative;width:100%;height:100svh;min-height:500px;max-height:960px;overflow:hidden}
+
+        .hero-slides{position:relative;width:100%;height:100%}
+        .hslide{position:absolute;inset:0;opacity:0;transition:opacity 1.3s cubic-bezier(.4,0,.2,1);z-index:1;will-change:opacity}
+        .hslide.live{opacity:1;z-index:2}
+
+        /* Dual image layers */
+        .hslide-wide,.hslide-tall{
+            position:absolute;inset:0;background-size:cover;background-position:center;
+            transform:scale(1.12);transition:transform 9s cubic-bezier(.25,.46,.45,.94);will-change:transform;
         }
-        .nav-menu {
-            display: flex; align-items: center;
-            gap: clamp(2px, 0.8vw, 6px); list-style: none;
+        .hslide.live .hslide-wide,.hslide.live .hslide-tall{transform:scale(1)}
+
+        @media(orientation:portrait) and (max-width:1024px){.hslide-wide{display:none!important}.hslide-tall{display:block!important}}
+        @media(orientation:landscape){.hslide-wide{display:block!important}.hslide-tall{display:none!important}}
+        @media(min-width:1025px){.hslide-wide{display:block!important}.hslide-tall{display:none!important}}
+
+        /* Overlays */
+        .hslide-ov{position:absolute;inset:0}
+        @media(orientation:landscape),(min-width:1025px){
+            .hslide-ov{background:linear-gradient(135deg,rgba(255,255,255,.93) 0%,rgba(255,255,255,.72) 40%,rgba(255,255,255,.25) 100%)}
         }
-        .nav-menu a {
-            text-decoration: none; color: var(--gray-500);
-            font-size: clamp(0.76rem, 1.1vw, 0.88rem);
-            font-weight: 600;
-            padding: 9px clamp(14px, 1.8vw, 22px);
-            border-radius: var(--radius-full);
-            transition: all 0.35s cubic-bezier(.4,0,.2,1);
-        }
-        .nav-menu a:hover, .nav-menu a.on { color: var(--primary); background: var(--primary-soft); }
-        .nav-menu .cta-link {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light)) !important;
-            color: var(--white) !important;
-            padding: 10px clamp(20px, 2.5vw, 28px) !important;
-            box-shadow: 0 4px 16px rgba(37,99,235,0.25);
-        }
-        .nav-menu .cta-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+        @media(orientation:portrait) and (max-width:1024px){
+            .hslide-ov{background:linear-gradient(180deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,.65) 45%,rgba(255,255,255,.96) 80%,rgba(255,255,255,.99) 100%)}
         }
 
-        .hamburger {
-            display: none; flex-direction: column; gap: 5.5px;
-            cursor: pointer; z-index: 10001; padding: 6px;
+        /* Slide content */
+        .hslide-body{position:absolute;z-index:5;max-width:min(640px,85vw)}
+        @media(orientation:landscape),(min-width:1025px){
+            .hslide-body{top:50%;left:clamp(30px,7vw,100px);transform:translateY(-50%)}
         }
-        .hamburger:active { transform: scale(0.9); }
-        .hamburger i {
-            display: block; width: 24px; height: 2.5px;
-            background: var(--dark); border-radius: 4px;
-            transition: all 0.4s cubic-bezier(.68,-.55,.27,1.55);
-        }
-        .hamburger.open i:nth-child(1) { transform: rotate(45deg) translate(5.5px, 5.5px); }
-        .hamburger.open i:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.open i:nth-child(3) { transform: rotate(-45deg) translate(5.5px, -5.5px); }
-
-        .mob-nav {
-            display: none; position: fixed; inset: 0;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            z-index: 10000;
-            flex-direction: column; align-items: center; justify-content: center;
-            gap: 8px; opacity: 0; visibility: hidden;
-            transition: all 0.45s cubic-bezier(.4,0,.2,1);
-        }
-        .mob-nav.open { opacity: 1; visibility: visible; }
-        .mob-nav a {
-            text-decoration: none; color: var(--dark);
-            font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 700;
-            padding: 14px 44px; border-radius: var(--radius-lg);
-            transition: all 0.35s cubic-bezier(.4,0,.2,1);
-            transform: translateY(25px); opacity: 0;
-        }
-        .mob-nav.open a { transform: translateY(0); opacity: 1; }
-        .mob-nav.open a:nth-child(1) { transition-delay: 0.08s; }
-        .mob-nav.open a:nth-child(2) { transition-delay: 0.14s; }
-        .mob-nav.open a:nth-child(3) { transition-delay: 0.20s; }
-        .mob-nav.open a:nth-child(4) { transition-delay: 0.26s; }
-        .mob-nav.open a:nth-child(5) { transition-delay: 0.32s; }
-        .mob-nav a:hover { color: var(--primary); background: var(--primary-soft); }
-        .mob-nav .mob-cta {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white) !important; border-radius: var(--radius-full); margin-top: 8px;
+        @media(orientation:portrait) and (max-width:1024px){
+            .hslide-body{bottom:clamp(50px,8vw,90px);left:50%;transform:translateX(-50%);text-align:center;width:92vw;max-width:92vw}
         }
 
-        /* ===== HERO SLIDER ===== */
-        .hero {
-            position: relative; width: 100%;
-            height: 100svh; min-height: 480px; max-height: 920px;
-            overflow: hidden; background: var(--gray-100);
+        .hs-badge{
+            display:inline-flex;align-items:center;gap:7px;
+            padding:7px 18px;background:var(--ice);color:var(--ocean);
+            border-radius:50px;font-size:clamp(.58rem,1.2vw,.74rem);
+            font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+            margin-bottom:clamp(12px,2.5vw,22px);border:1px solid rgba(0,102,255,.1);
+            opacity:0;transform:translateY(22px);transition:all .7s cubic-bezier(.4,0,.2,1) .2s;
         }
-        .slides-box { position: relative; width: 100%; height: 100%; }
-        .slide {
-            position: absolute; inset: 0; opacity: 0;
-            transition: opacity 1.2s cubic-bezier(.4,0,.2,1);
-            z-index: 1; will-change: opacity;
-        }
-        .slide.on { opacity: 1; z-index: 2; }
+        .hslide.live .hs-badge{opacity:1;transform:translateY(0)}
 
-        /* Slide Background - Desktop (landscape) */
-        .slide-bg {
-            position: absolute; inset: 0;
-            background-size: cover; background-position: center;
-            transform: scale(1.1);
-            transition: transform 8s cubic-bezier(.25,.46,.45,.94);
-            will-change: transform;
+        .hs-title{
+            font-size:clamp(1.6rem,5vw,3.6rem);font-weight:900;color:var(--carbon);
+            line-height:1.08;letter-spacing:-.5px;margin-bottom:clamp(10px,2vw,20px);
+            opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.4,0,.2,1) .35s;
         }
-        .slide.on .slide-bg { transform: scale(1); }
-
-        /* Slide Background - Mobile/Portrait source swap via data attributes */
-        .slide-bg-mobile {
-            position: absolute; inset: 0;
-            background-size: cover; background-position: center top;
-            transform: scale(1.08);
-            transition: transform 8s cubic-bezier(.25,.46,.45,.94);
-            will-change: transform;
-            display: none;
-        }
-        .slide.on .slide-bg-mobile { transform: scale(1); }
-
-        /* Orientation & screen based image switching */
-        @media (orientation: portrait) and (max-width: 1024px) {
-            .slide-bg { display: none !important; }
-            .slide-bg-mobile { display: block !important; }
-        }
-        @media (orientation: landscape) {
-            .slide-bg { display: block !important; }
-            .slide-bg-mobile { display: none !important; }
-        }
-        /* Desktop always landscape */
-        @media (min-width: 1025px) {
-            .slide-bg { display: block !important; }
-            .slide-bg-mobile { display: none !important; }
+        .hslide.live .hs-title{opacity:1;transform:translateY(0)}
+        .hs-title .pop{
+            background:linear-gradient(135deg,var(--ocean),var(--mint));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            background-clip:text;
         }
 
-        .slide-ov {
-            position: absolute; inset: 0;
-            background: linear-gradient(135deg,
-                rgba(255,255,255,0.94) 0%,
-                rgba(255,255,255,0.80) 35%,
-                rgba(255,255,255,0.30) 100%
-            );
+        .hs-text{
+            font-size:clamp(.82rem,1.7vw,1.08rem);color:var(--muted);
+            line-height:1.75;margin-bottom:clamp(18px,3vw,34px);font-weight:400;
+            opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.4,0,.2,1) .5s;
         }
+        .hslide.live .hs-text{opacity:1;transform:translateY(0)}
 
-        /* Portrait overlay adjustment */
-        @media (orientation: portrait) and (max-width: 1024px) {
-            .slide-ov {
-                background: linear-gradient(180deg,
-                    rgba(255,255,255,0.55) 0%,
-                    rgba(255,255,255,0.75) 40%,
-                    rgba(255,255,255,0.95) 75%,
-                    rgba(255,255,255,0.98) 100%
-                );
-            }
+        .hs-btns{
+            display:flex;gap:clamp(8px,1.5vw,14px);flex-wrap:wrap;
+            opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.4,0,.2,1) .65s;
         }
-
-        .slide-body {
-            position: absolute; z-index: 3;
-            top: 50%; left: clamp(20px, 6vw, 90px);
-            transform: translateY(-50%);
-            max-width: min(620px, 82vw);
-        }
-        @media (orientation: portrait) and (max-width: 1024px) {
-            .slide-body {
-                top: auto; bottom: clamp(60px, 10vw, 100px);
-                left: 50%; transform: translateX(-50%);
-                text-align: center;
-                max-width: 92vw; width: 92vw;
-            }
-        }
-
-        .slide-tag {
-            display: inline-flex; align-items: center; gap: 7px;
-            padding: 7px 18px;
-            background: var(--primary-soft); color: var(--primary);
-            border-radius: var(--radius-full);
-            font-size: clamp(0.6rem, 1.3vw, 0.76rem);
-            font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-            margin-bottom: clamp(12px, 2.5vw, 20px);
-            opacity: 0; transform: translateY(22px);
-            transition: all 0.7s cubic-bezier(.4,0,.2,1) 0.2s;
-        }
-        .slide.on .slide-tag { opacity: 1; transform: translateY(0); }
-
-        .slide-heading {
-            font-size: clamp(1.5rem, 5vw, 3.4rem);
-            font-weight: 900; color: var(--dark);
-            line-height: 1.1; letter-spacing: -0.5px;
-            margin-bottom: clamp(10px, 2vw, 18px);
-            opacity: 0; transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(.4,0,.2,1) 0.35s;
-        }
-        .slide.on .slide-heading { opacity: 1; transform: translateY(0); }
-        .slide-heading .hl { color: var(--primary); }
-
-        .slide-desc {
-            font-size: clamp(0.8rem, 1.7vw, 1.05rem);
-            color: var(--gray-500); line-height: 1.75;
-            margin-bottom: clamp(18px, 3vw, 32px); font-weight: 400;
-            opacity: 0; transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(.4,0,.2,1) 0.5s;
-        }
-        .slide.on .slide-desc { opacity: 1; transform: translateY(0); }
-
-        .slide-actions {
-            display: flex; gap: clamp(8px, 1.5vw, 14px); flex-wrap: wrap;
-            opacity: 0; transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(.4,0,.2,1) 0.65s;
-        }
-        .slide.on .slide-actions { opacity: 1; transform: translateY(0); }
-
-        @media (orientation: portrait) and (max-width: 1024px) {
-            .slide-actions { justify-content: center; }
-        }
+        .hslide.live .hs-btns{opacity:1;transform:translateY(0)}
+        @media(orientation:portrait) and (max-width:1024px){.hs-btns{justify-content:center}}
 
         /* Buttons */
-        .btn-main {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3vw, 36px);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white); border: none; border-radius: var(--radius-full);
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.78rem, 1.3vw, 0.92rem);
-            font-weight: 700; cursor: pointer; text-decoration: none;
-            box-shadow: 0 4px 18px rgba(37,99,235,0.3);
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
-            position: relative; overflow: hidden;
+        .btn-a{
+            display:inline-flex;align-items:center;gap:8px;
+            padding:clamp(13px,1.8vw,17px) clamp(26px,3vw,38px);
+            background:linear-gradient(135deg,var(--ocean),var(--mint));
+            color:#fff;border:none;border-radius:50px;
+            font-family:'Montserrat',sans-serif;font-size:clamp(.78rem,1.3vw,.92rem);
+            font-weight:700;cursor:pointer;text-decoration:none;
+            box-shadow:0 4px 20px rgba(0,102,255,.25);
+            transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;
         }
-        .btn-main::after {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-            transition: left 0.6s;
+        .btn-a::after{
+            content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+            transition:left .6s;
         }
-        .btn-main:hover::after { left: 100%; }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(37,99,235,0.4); }
-        .btn-main:active { transform: translateY(-1px) scale(0.98); }
+        .btn-a:hover::after{left:100%}
+        .btn-a:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,102,255,.35)}
 
-        .btn-soft {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3vw, 36px);
-            background: var(--white); color: var(--dark);
-            border: 2px solid var(--gray-200); border-radius: var(--radius-full);
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.78rem, 1.3vw, 0.92rem);
-            font-weight: 700; cursor: pointer; text-decoration: none;
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
+        .btn-b{
+            display:inline-flex;align-items:center;gap:8px;
+            padding:clamp(13px,1.8vw,17px) clamp(26px,3vw,38px);
+            background:var(--white);color:var(--carbon);
+            border:2px solid var(--smoke);border-radius:50px;
+            font-family:'Montserrat',sans-serif;font-size:clamp(.78rem,1.3vw,.92rem);
+            font-weight:700;cursor:pointer;text-decoration:none;
+            transition:all .4s cubic-bezier(.4,0,.2,1);
         }
-        .btn-soft:hover {
-            border-color: var(--primary); color: var(--primary);
-            transform: translateY(-3px); box-shadow: 0 6px 20px rgba(37,99,235,0.1);
-        }
+        .btn-b:hover{border-color:var(--ocean);color:var(--ocean);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,102,255,.08)}
 
-        /* Slider Controls */
-        .sl-arrows {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 100%; display: flex; justify-content: space-between;
-            padding: 0 clamp(8px, 2vw, 28px); z-index: 10; pointer-events: none;
+        /* Slider nav */
+        .hero-arrows{
+            position:absolute;top:50%;transform:translateY(-50%);
+            width:100%;display:flex;justify-content:space-between;
+            padding:0 clamp(10px,2.5vw,30px);z-index:10;pointer-events:none;
         }
-        @media (orientation: portrait) and (max-width: 768px) {
-            .sl-arrows { top: 38%; }
+        @media(orientation:portrait) and (max-width:768px){.hero-arrows{top:35%}}
+        .h-arr{
+            width:clamp(40px,6vw,56px);height:clamp(40px,6vw,56px);
+            border-radius:50%;background:var(--glass);
+            border:1.5px solid var(--glass-border);backdrop-filter:blur(12px);
+            display:flex;align-items:center;justify-content:center;
+            cursor:pointer;pointer-events:all;color:var(--carbon);
+            font-size:clamp(.9rem,1.6vw,1.2rem);
+            box-shadow:0 4px 16px rgba(0,0,0,.04);
+            transition:all .4s cubic-bezier(.4,0,.2,1);
         }
-        .sl-arr {
-            width: clamp(38px, 5.5vw, 52px); height: clamp(38px, 5.5vw, 52px);
-            border-radius: 50%; background: var(--white);
-            border: 1.5px solid var(--gray-200);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; pointer-events: all; color: var(--dark);
-            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
-        }
-        .sl-arr:hover {
-            background: var(--primary); color: var(--white);
-            border-color: var(--primary); box-shadow: 0 6px 24px rgba(37,99,235,0.3);
-            transform: scale(1.08);
-        }
-        .sl-arr:active { transform: scale(0.95); }
+        .h-arr:hover{background:var(--ocean);color:#fff;border-color:var(--ocean);box-shadow:0 8px 28px rgba(0,102,255,.25);transform:scale(1.08)}
 
-        .sl-dots {
-            position: absolute;
-            bottom: clamp(18px, 3.5vw, 35px);
-            left: 50%; transform: translateX(-50%);
-            display: flex; gap: 8px; z-index: 10;
+        .hero-dots{
+            position:absolute;bottom:clamp(16px,3vw,32px);left:50%;transform:translateX(-50%);
+            display:flex;gap:8px;z-index:10;
         }
-        @media (orientation: portrait) and (max-width: 1024px) {
-            .sl-dots { bottom: clamp(14px, 2.5vw, 24px); }
+        @media(orientation:portrait) and (max-width:1024px){.hero-dots{bottom:clamp(12px,2vw,22px)}}
+        .h-dot{
+            width:10px;height:10px;border-radius:50px;background:var(--smoke);
+            cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1);
         }
-        .sl-dot {
-            width: 10px; height: 10px;
-            border-radius: var(--radius-full);
-            background: var(--gray-300); cursor: pointer;
-            transition: all 0.5s cubic-bezier(.4,0,.2,1);
-        }
-        .sl-dot.on { width: 36px; background: var(--primary); }
+        .h-dot.on{width:38px;background:linear-gradient(90deg,var(--ocean),var(--mint))}
 
-        .sl-prog {
-            position: absolute; bottom: 0; left: 0;
-            width: 100%; height: 3px;
-            background: var(--gray-200); z-index: 10;
-        }
-        .sl-prog-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0;
-        }
+        .hero-prog{position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--smoke);z-index:10}
+        .hero-prog-fill{height:100%;background:linear-gradient(90deg,var(--ocean),var(--mint));width:0}
 
-        /* ===== STATS ===== */
-        .stats-bar {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-100);
-            padding: clamp(18px, 3vw, 32px) 0;
+        /* ===================== TRUST STRIP ===================== */
+        .trust-strip{
+            background:var(--white);border-bottom:1px solid var(--cloud);
+            padding:clamp(24px,3.5vw,40px) 0;
         }
-        .stats-row {
-            max-width: 1320px; margin: 0 auto;
-            padding: 0 clamp(14px, 4vw, 32px);
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: clamp(8px, 2vw, 20px);
+        .trust-row{
+            max-width:1380px;margin:0 auto;padding:0 clamp(16px,4vw,40px);
+            display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,24px);
         }
-        .stat {
-            text-align: center; padding: clamp(8px, 1.5vw, 16px); position: relative;
+        .trust-box{text-align:center;padding:clamp(10px,1.5vw,18px);position:relative}
+        .trust-box:not(:last-child)::after{content:'';position:absolute;right:0;top:12%;height:76%;width:1px;background:var(--cloud)}
+        .trust-num{
+            font-size:clamp(1.5rem,3.5vw,2.6rem);font-weight:900;
+            background:linear-gradient(135deg,var(--ocean),var(--mint));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            line-height:1;margin-bottom:5px;
         }
-        .stat:not(:last-child)::after {
-            content: ''; position: absolute;
-            right: 0; top: 15%; height: 70%;
-            width: 1px; background: var(--gray-100);
-        }
-        .stat-val {
-            font-size: clamp(1.4rem, 3.5vw, 2.3rem);
-            font-weight: 900; color: var(--primary);
-            line-height: 1; margin-bottom: 4px;
-        }
-        .stat-lbl {
-            font-size: clamp(0.58rem, 1.2vw, 0.76rem);
-            color: var(--gray-400); font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1.5px;
-        }
+        .trust-lbl{font-size:clamp(.55rem,1.1vw,.72rem);color:var(--silver);font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
 
-        /* ===== MARQUEE ===== */
-        .marq {
-            background: linear-gradient(135deg, var(--primary-soft), var(--teal-soft), var(--accent-soft));
-            padding: clamp(12px, 2vw, 18px) 0; overflow: hidden;
+        /* ===================== TICKER ===================== */
+        .ticker{
+            background:linear-gradient(90deg,var(--ice),var(--sky),var(--blush),var(--cream),var(--ice));
+            background-size:200% 100%;animation:tickerBg 12s ease infinite;
+            padding:clamp(13px,2vw,18px) 0;overflow:hidden;
         }
-        .marq-track {
-            display: flex; width: max-content;
-            animation: marqScroll 40s linear infinite;
-            will-change: transform;
+        @keyframes tickerBg{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .ticker-track{display:flex;width:max-content;animation:tickerSlide 50s linear infinite;will-change:transform}
+        .ticker-item{
+            display:flex;align-items:center;gap:12px;
+            padding:0 clamp(22px,3vw,40px);white-space:nowrap;
+            font-size:clamp(.7rem,1.3vw,.88rem);font-weight:700;
+            color:var(--silver);text-transform:uppercase;letter-spacing:2px;
         }
-        .marq-item {
-            display: flex; align-items: center; gap: 10px;
-            padding: 0 clamp(20px, 3vw, 38px);
-            white-space: nowrap;
-            font-size: clamp(0.72rem, 1.4vw, 0.92rem);
-            font-weight: 700; color: var(--gray-400);
-            text-transform: uppercase; letter-spacing: 2px;
+        .ticker-item em{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:block;font-style:normal}
+        .ticker-item:nth-child(odd) em{background:var(--ocean)}
+        .ticker-item:nth-child(even) em{background:var(--mint)}
+        @keyframes tickerSlide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+        /* ===================== SECTIONS COMMON ===================== */
+        .sec{padding:clamp(60px,10vw,120px) 0;position:relative}
+        .wrap{max-width:1380px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+        .sec-header{text-align:center;margin-bottom:clamp(36px,6vw,70px)}
+        .sec-chip{
+            display:inline-flex;align-items:center;gap:6px;
+            padding:6px 18px;background:var(--ice);color:var(--ocean);
+            border:1px solid rgba(0,102,255,.08);border-radius:50px;
+            font-size:clamp(.55rem,1vw,.68rem);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+            margin-bottom:clamp(10px,2vw,18px);
         }
-        .marq-dot {
-            width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+        .sec-heading{
+            font-size:clamp(1.6rem,4.2vw,2.8rem);font-weight:900;color:var(--carbon);
+            line-height:1.15;margin-bottom:clamp(8px,1.5vw,16px);letter-spacing:-.3px;
         }
-        .marq-item:nth-child(odd) .marq-dot { background: var(--primary); }
-        .marq-item:nth-child(even) .marq-dot { background: var(--secondary); }
-        @keyframes marqScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .sec-heading .pop{
+            background:linear-gradient(135deg,var(--ocean),var(--mint));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        }
+        .sec-lead{
+            font-size:clamp(.84rem,1.5vw,1rem);color:var(--silver);
+            max-width:540px;margin:0 auto;line-height:1.8;font-weight:400;
         }
 
-        /* ===== SECTION ===== */
-        .section { padding: clamp(50px, 8vw, 100px) 0; position: relative; }
-        .container {
-            max-width: 1320px; margin: 0 auto;
-            padding: 0 clamp(14px, 4vw, 32px);
+        /* ===================== PRODUCTS ===================== */
+        .products-sec{background:var(--white)}
+
+        .tab-bar{
+            display:flex;justify-content:center;gap:clamp(5px,1vw,10px);
+            margin-bottom:clamp(30px,5vw,55px);flex-wrap:wrap;
         }
-        .sec-head { text-align: center; margin-bottom: clamp(30px, 5vw, 60px); }
-        .sec-tag {
-            display: inline-block; padding: 5px 18px;
-            background: var(--primary-soft); color: var(--primary);
-            border-radius: var(--radius-full);
-            font-size: clamp(0.58rem, 1.1vw, 0.7rem);
-            font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-            margin-bottom: clamp(10px, 2vw, 16px);
+        .tab{
+            padding:clamp(8px,1.2vw,11px) clamp(16px,2.2vw,26px);
+            background:var(--snow);border:1.5px solid var(--smoke);border-radius:50px;
+            color:var(--muted);font-family:'Montserrat',sans-serif;
+            font-size:clamp(.68rem,1.2vw,.82rem);font-weight:600;cursor:pointer;
+            transition:all .4s cubic-bezier(.4,0,.2,1);
         }
-        .sec-title {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: 900; color: var(--dark);
-            line-height: 1.15; margin-bottom: clamp(8px, 1.5vw, 14px);
-            letter-spacing: -0.3px;
-        }
-        .sec-title .hl { color: var(--primary); }
-        .sec-sub {
-            font-size: clamp(0.82rem, 1.5vw, 0.98rem);
-            color: var(--gray-400); max-width: 520px;
-            margin: 0 auto; line-height: 1.75; font-weight: 400;
+        .tab:hover,.tab.on{
+            background:linear-gradient(135deg,var(--ocean),var(--mint));
+            border-color:var(--ocean);color:#fff;
+            box-shadow:0 4px 18px rgba(0,102,255,.2);transform:translateY(-1px);
         }
 
-        /* ===== PRODUCTS ===== */
-        .products-sec { background: var(--white); }
-        .filters {
-            display: flex; justify-content: center;
-            gap: clamp(5px, 1vw, 10px);
-            margin-bottom: clamp(28px, 4vw, 48px); flex-wrap: wrap;
+        .prod-grid{
+            display:grid;gap:clamp(14px,2.5vw,28px);
         }
-        .fbtn {
-            padding: clamp(7px, 1.2vw, 10px) clamp(14px, 2.2vw, 24px);
-            background: var(--gray-50); border: 1.5px solid var(--gray-200);
-            border-radius: var(--radius-full); color: var(--gray-500);
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.68rem, 1.2vw, 0.82rem); font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
-        }
-        .fbtn:hover, .fbtn.active {
-            background: var(--primary); border-color: var(--primary);
-            color: var(--white); box-shadow: 0 4px 16px rgba(37,99,235,0.25);
-            transform: translateY(-1px);
-        }
+        @media(min-width:1025px){.prod-grid{grid-template-columns:repeat(4,1fr)}}
+        @media(min-width:768px) and (max-width:1024px){.prod-grid{grid-template-columns:repeat(3,1fr)}}
+        @media(max-width:767px){.prod-grid{grid-template-columns:repeat(2,1fr);gap:clamp(10px,3vw,16px)}}
 
-        .pgrid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: clamp(12px, 2vw, 24px);
+        .prod-card{
+            background:var(--white);border:1.5px solid var(--cloud);
+            border-radius:clamp(16px,2.5vw,24px);overflow:hidden;cursor:pointer;
+            transition:all .5s cubic-bezier(.4,0,.2,1);
+            opacity:0;transform:translateY(40px);will-change:transform,opacity;
         }
-        @media (max-width: 1024px) { .pgrid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 600px) {
-            .pgrid { grid-template-columns: repeat(2, 1fr); gap: clamp(8px, 2.5vw, 14px); }
+        .prod-card.vis{opacity:1;transform:translateY(0)}
+        .prod-card:hover{
+            transform:translateY(-10px);
+            box-shadow:0 20px 50px rgba(0,0,0,.07);
+            border-color:rgba(0,102,255,.15);
         }
+        .pc-img{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--snow)}
+        .pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.4,0,.2,1);will-change:transform}
+        .prod-card:hover .pc-img img{transform:scale(1.08)}
 
-        .pcard {
-            background: var(--white); border: 1.5px solid var(--gray-100);
-            border-radius: var(--radius-xl); overflow: hidden; cursor: pointer;
-            transition: all 0.5s cubic-bezier(.4,0,.2,1);
-            opacity: 0; transform: translateY(35px);
-            will-change: transform, opacity;
+        .pc-badge{
+            position:absolute;top:clamp(8px,1.5vw,12px);left:clamp(8px,1.5vw,12px);
+            padding:4px 12px;border-radius:50px;
+            font-size:clamp(.48rem,.9vw,.58rem);font-weight:700;text-transform:uppercase;letter-spacing:.8px;
         }
-        .pcard.show { opacity: 1; transform: translateY(0); }
-        .pcard:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-            border-color: var(--primary-soft);
-        }
-        .pcard:active { transform: translateY(-4px) scale(0.99); }
+        .pc-badge.t1{background:var(--ice);color:var(--ocean)}
+        .pc-badge.t2{background:var(--blush);color:var(--coral)}
+        .pc-badge.t3{background:var(--cream);color:var(--sun)}
+        .pc-badge.t4{background:var(--purple-soft,#EDE9FE);color:var(--lavender)}
 
-        .pimg {
-            position: relative; width: 100%;
-            aspect-ratio: 4/3; overflow: hidden; background: var(--gray-50);
+        .pc-peek{
+            position:absolute;bottom:-50px;left:50%;transform:translateX(-50%);
+            padding:9px 22px;background:var(--white);color:var(--ocean);
+            border:1.5px solid var(--ocean);border-radius:50px;
+            font-family:'Montserrat',sans-serif;font-size:clamp(.58rem,1vw,.68rem);
+            font-weight:700;cursor:pointer;white-space:nowrap;
+            box-shadow:0 4px 14px rgba(0,0,0,.05);
+            transition:all .45s cubic-bezier(.4,0,.2,1);
         }
-        .pimg img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.7s cubic-bezier(.4,0,.2,1);
-            will-change: transform;
-        }
-        .pcard:hover .pimg img { transform: scale(1.08); }
-        .pbadge {
-            position: absolute;
-            top: clamp(6px, 1.5vw, 10px); left: clamp(6px, 1.5vw, 10px);
-            padding: 3px 10px; border-radius: var(--radius-full);
-            font-size: clamp(0.5rem, 1vw, 0.6rem);
-            font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
-        }
-        .pbadge.diag { background: var(--primary-soft); color: var(--primary); }
-        .pbadge.surg { background: var(--pink-soft); color: var(--pink); }
-        .pbadge.mon { background: var(--secondary-soft); color: var(--secondary); }
-        .pbadge.imag { background: var(--purple-soft); color: var(--purple); }
+        .prod-card:hover .pc-peek{bottom:clamp(10px,2vw,16px)}
+        .pc-peek:hover{background:var(--ocean);color:#fff}
 
-        .pview {
-            position: absolute; bottom: -45px; left: 50%;
-            transform: translateX(-50%);
-            padding: 8px 20px; background: var(--white);
-            color: var(--primary); border: 1.5px solid var(--primary);
-            border-radius: var(--radius-full);
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.6rem, 1vw, 0.7rem); font-weight: 700;
-            cursor: pointer; white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: all 0.45s cubic-bezier(.4,0,.2,1);
+        .pc-info{padding:clamp(12px,2vw,20px) clamp(10px,2vw,18px);text-align:center}
+        .pc-name{
+            font-size:clamp(.74rem,1.4vw,.95rem);font-weight:700;color:var(--carbon);
+            line-height:1.35;transition:color .35s;
         }
-        .pcard:hover .pview { bottom: clamp(8px, 2vw, 14px); }
-        .pview:hover { background: var(--primary); color: var(--white); }
+        .prod-card:hover .pc-name{color:var(--ocean)}
 
-        .pinfo {
-            padding: clamp(10px, 2vw, 18px) clamp(10px, 2vw, 16px);
-            text-align: center;
+        /* ===================== FEATURES ===================== */
+        .feat-sec{background:var(--snow)}
+        .feat-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));
+            gap:clamp(14px,2.5vw,28px);
         }
-        .pname {
-            font-size: clamp(0.72rem, 1.4vw, 0.92rem);
-            font-weight: 700; color: var(--dark);
-            line-height: 1.35;
-            transition: color 0.35s;
+        .feat-card{
+            background:var(--white);border:1.5px solid var(--cloud);
+            border-radius:clamp(16px,2.5vw,24px);
+            padding:clamp(26px,3.5vw,42px) clamp(20px,2.5vw,32px);
+            text-align:center;
+            transition:all .5s cubic-bezier(.4,0,.2,1);
+            position:relative;overflow:hidden;
         }
-        .pcard:hover .pname { color: var(--primary); }
+        .feat-card::before{
+            content:'';position:absolute;top:0;left:0;right:0;height:4px;
+            background:linear-gradient(90deg,var(--ocean),var(--mint));
+            transform:scaleX(0);transform-origin:left;
+            transition:transform .5s cubic-bezier(.4,0,.2,1);
+        }
+        .feat-card:hover::before{transform:scaleX(1)}
+        .feat-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 50px rgba(0,0,0,.06);
+            border-color:rgba(0,102,255,.12);
+        }
+        .feat-ico{
+            width:clamp(54px,7vw,72px);height:clamp(54px,7vw,72px);
+            border-radius:clamp(14px,2vw,20px);
+            display:flex;align-items:center;justify-content:center;
+            margin:0 auto clamp(14px,2vw,22px);
+            font-size:clamp(1.3rem,2.8vw,1.9rem);
+            transition:all .5s cubic-bezier(.4,0,.2,1);
+        }
+        .feat-card:nth-child(1) .feat-ico{background:var(--ice)}
+        .feat-card:nth-child(2) .feat-ico{background:linear-gradient(135deg,#D1FAE5,#A7F3D0)}
+        .feat-card:nth-child(3) .feat-ico{background:var(--purple-soft,#EDE9FE)}
+        .feat-card:nth-child(4) .feat-ico{background:var(--cream)}
+        .feat-card:nth-child(5) .feat-ico{background:var(--blush)}
+        .feat-card:nth-child(6) .feat-ico{background:var(--ice)}
+        .feat-card:hover .feat-ico{transform:scale(1.15) rotate(6deg)}
 
-        /* ===== FEATURES ===== */
-        .features-sec { background: var(--gray-50); }
-        .fgrid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-            gap: clamp(12px, 2.5vw, 24px);
-        }
-        .fcard {
-            background: var(--white); border: 1.5px solid var(--gray-100);
-            border-radius: var(--radius-xl);
-            padding: clamp(22px, 3vw, 38px) clamp(18px, 2.5vw, 30px);
-            text-align: center;
-            transition: all 0.5s cubic-bezier(.4,0,.2,1);
-        }
-        .fcard:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.06);
-            border-color: var(--primary-soft);
-        }
-        .ficon {
-            width: clamp(50px, 7vw, 68px); height: clamp(50px, 7vw, 68px);
-            border-radius: var(--radius-lg);
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto clamp(12px, 2vw, 20px);
-            font-size: clamp(1.3rem, 2.8vw, 1.8rem);
-            transition: all 0.5s cubic-bezier(.4,0,.2,1);
-        }
-        .fcard:nth-child(1) .ficon { background: var(--primary-soft); }
-        .fcard:nth-child(2) .ficon { background: var(--secondary-soft); }
-        .fcard:nth-child(3) .ficon { background: var(--purple-soft); }
-        .fcard:nth-child(4) .ficon { background: var(--accent-soft); }
-        .fcard:nth-child(5) .ficon { background: var(--pink-soft); }
-        .fcard:nth-child(6) .ficon { background: var(--teal-soft); }
-        .fcard:hover .ficon { transform: scale(1.12) rotate(6deg); }
-        .ftitle {
-            font-size: clamp(0.88rem, 1.5vw, 1.05rem);
-            font-weight: 800; color: var(--dark); margin-bottom: 8px;
-        }
-        .fdesc {
-            font-size: clamp(0.76rem, 1.2vw, 0.86rem);
-            color: var(--gray-400); line-height: 1.7;
-        }
+        .feat-ttl{font-size:clamp(.9rem,1.5vw,1.08rem);font-weight:800;color:var(--carbon);margin-bottom:10px}
+        .feat-desc{font-size:clamp(.76rem,1.2vw,.88rem);color:var(--silver);line-height:1.75}
 
-        /* ===== CTA ===== */
-        .cta-sec {
-            background: linear-gradient(135deg, var(--primary), #7C3AED, var(--primary-light));
-            background-size: 200% 200%;
-            animation: ctaGrad 8s ease infinite;
-            padding: clamp(50px, 8vw, 100px) 0;
-            text-align: center; position: relative; overflow: hidden;
+        /* ===================== CTA ===================== */
+        .cta-sec{
+            background:linear-gradient(135deg,var(--ocean),#5B21B6,var(--mint));
+            background-size:200% 200%;animation:ctaShift 10s ease infinite;
+            padding:clamp(60px,10vw,120px) 0;text-align:center;
+            position:relative;overflow:hidden;
         }
-        @keyframes ctaGrad {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        @keyframes ctaShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .cta-sec::before,.cta-sec::after{
+            content:'';position:absolute;border-radius:50%;
+            background:rgba(255,255,255,.06);
         }
-        .cta-sec::before, .cta-sec::after {
-            content: ''; position: absolute; border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-        }
-        .cta-sec::before { width: clamp(200px, 40vw, 500px); height: clamp(200px, 40vw, 500px); top: -25%; right: -8%; }
-        .cta-sec::after { width: clamp(150px, 30vw, 350px); height: clamp(150px, 30vw, 350px); bottom: -18%; left: -5%; }
-        .cta-sec .sec-tag { background: rgba(255,255,255,0.15); color: var(--white); }
-        .cta-sec .sec-title { color: var(--white); }
-        .cta-sec .sec-title .hl { color: var(--accent); }
-        .cta-sec .sec-sub { color: rgba(255,255,255,0.7); }
-        .cta-btns {
-            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-            margin-top: clamp(22px, 3.5vw, 38px); position: relative; z-index: 1;
-        }
-        .btn-w {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: clamp(13px, 2vw, 17px) clamp(26px, 3.5vw, 38px);
-            background: var(--white); color: var(--primary);
-            border: none; border-radius: var(--radius-full);
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.8rem, 1.4vw, 0.92rem); font-weight: 700;
-            cursor: pointer; text-decoration: none;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
-        }
-        .btn-w:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
-        .btn-ow {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: clamp(13px, 2vw, 17px) clamp(26px, 3.5vw, 38px);
-            background: transparent; color: var(--white);
-            border: 2px solid rgba(255,255,255,0.3); border-radius: var(--radius-full);
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.8rem, 1.4vw, 0.92rem); font-weight: 700;
-            cursor: pointer; text-decoration: none;
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
-        }
-        .btn-ow:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: rgba(255,255,255,0.7); transform: translateY(-3px);
-        }
+        .cta-sec::before{width:clamp(200px,40vw,550px);height:clamp(200px,40vw,550px);top:-25%;right:-8%}
+        .cta-sec::after{width:clamp(160px,32vw,400px);height:clamp(160px,32vw,400px);bottom:-20%;left:-6%}
 
-        /* ===== FOOTER ===== */
-        .footer {
-            background: var(--gray-900);
-            padding: clamp(40px, 6vw, 75px) 0 clamp(20px, 3vw, 30px);
-            color: rgba(255,255,255,0.4);
-        }
-        .footer-grid {
-            max-width: 1320px; margin: 0 auto;
-            padding: 0 clamp(14px, 4vw, 32px);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-            gap: clamp(24px, 4vw, 48px);
-        }
-        .fb-brand h3 {
-            font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-            font-weight: 900; color: var(--white); margin-bottom: 12px;
-        }
-        .fb-brand h3 span { color: var(--primary-light); }
-        .fb-brand p {
-            font-size: clamp(0.76rem, 1.2vw, 0.86rem);
-            line-height: 1.75; margin-bottom: 20px;
-        }
-        .f-socials { display: flex; gap: 10px; }
-        .f-socials a {
-            width: 38px; height: 38px;
-            border-radius: var(--radius-sm);
-            background: rgba(255,255,255,0.06);
-            display: flex; align-items: center; justify-content: center;
-            color: rgba(255,255,255,0.45); text-decoration: none;
-            font-size: 0.85rem; font-weight: 700;
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
-        }
-        .f-socials a:hover {
-            background: var(--primary); color: var(--white);
-            transform: translateY(-3px);
-        }
-        .f-col h4 {
-            font-size: clamp(0.82rem, 1.3vw, 0.92rem);
-            font-weight: 800; color: var(--white);
-            margin-bottom: clamp(14px, 2vw, 22px);
-        }
-        .f-col ul { list-style: none; }
-        .f-col li { margin-bottom: 10px; }
-        .f-col a {
-            color: rgba(255,255,255,0.35); text-decoration: none;
-            font-size: clamp(0.74rem, 1.1vw, 0.84rem); font-weight: 500;
-            transition: all 0.35s;
-        }
-        .f-col a:hover { color: var(--primary-light); padding-left: 6px; }
-        .f-bottom {
-            border-top: 1px solid rgba(255,255,255,0.06);
-            margin-top: clamp(30px, 5vw, 55px);
-            padding-top: clamp(16px, 2.5vw, 24px);
-            text-align: center; max-width: 1320px;
-            margin-left: auto; margin-right: auto;
-            padding-left: clamp(14px, 4vw, 32px);
-            padding-right: clamp(14px, 4vw, 32px);
-        }
-        .f-bottom p {
-            font-size: clamp(0.68rem, 1.1vw, 0.78rem);
-            color: rgba(255,255,255,0.2);
-        }
+        .cta-sec .sec-chip{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.2)}
+        .cta-sec .sec-heading{color:#fff}
+        .cta-sec .sec-heading .pop{-webkit-text-fill-color:var(--sun);color:var(--sun);background:none}
+        .cta-sec .sec-lead{color:rgba(255,255,255,.7)}
 
-        /* ===== SCROLL TOP ===== */
-        .totop {
-            position: fixed;
-            bottom: clamp(14px, 3vw, 28px); right: clamp(14px, 3vw, 28px);
-            width: clamp(40px, 5.5vw, 48px); height: clamp(40px, 5.5vw, 48px);
-            border-radius: var(--radius-md); background: var(--white);
-            border: 1.5px solid var(--gray-200); color: var(--primary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; font-weight: 900; cursor: pointer;
-            z-index: 9998; opacity: 0; visibility: hidden;
-            transform: translateY(16px);
-            transition: all 0.5s cubic-bezier(.4,0,.2,1);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        .cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:clamp(24px,4vw,44px);position:relative;z-index:1}
+        .cta-w{
+            padding:clamp(14px,2vw,18px) clamp(28px,3.5vw,40px);
+            background:#fff;color:var(--ocean);border:none;border-radius:50px;
+            font-family:'Montserrat',sans-serif;font-size:clamp(.82rem,1.4vw,.95rem);
+            font-weight:700;cursor:pointer;text-decoration:none;
+            box-shadow:0 4px 20px rgba(0,0,0,.08);
+            transition:all .4s cubic-bezier(.4,0,.2,1);
         }
-        .totop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .totop:hover {
-            background: var(--primary); color: var(--white);
-            border-color: var(--primary); transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
+        .cta-w:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+        .cta-o{
+            padding:clamp(14px,2vw,18px) clamp(28px,3.5vw,40px);
+            background:transparent;color:#fff;border:2px solid rgba(255,255,255,.3);
+            border-radius:50px;font-family:'Montserrat',sans-serif;
+            font-size:clamp(.82rem,1.4vw,.95rem);font-weight:700;
+            cursor:pointer;text-decoration:none;transition:all .4s cubic-bezier(.4,0,.2,1);
         }
+        .cta-o:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.7);transform:translateY(-3px)}
 
-        /* ===== REVEAL ===== */
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(.4,0,.2,1);
+        /* ===================== FOOTER ===================== */
+        .footer{background:var(--carbon);padding:clamp(50px,8vw,90px) 0 clamp(20px,3vw,30px);color:rgba(255,255,255,.4)}
+        .footer-grid{
+            max-width:1380px;margin:0 auto;padding:0 clamp(16px,4vw,40px);
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));
+            gap:clamp(28px,4vw,50px);
         }
-        .reveal.vis { opacity: 1; transform: translateY(0); }
+        .fb h3{font-size:clamp(1.2rem,2.5vw,1.5rem);font-weight:900;color:#fff;margin-bottom:14px}
+        .fb h3 b{color:var(--mint)}
+        .fb p{font-size:clamp(.76rem,1.2vw,.88rem);line-height:1.8;margin-bottom:22px}
+        .socials{display:flex;gap:10px}
+        .socials a{
+            width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.06);
+            display:flex;align-items:center;justify-content:center;
+            color:rgba(255,255,255,.4);text-decoration:none;
+            font-size:.85rem;font-weight:700;
+            transition:all .4s cubic-bezier(.4,0,.2,1);
+        }
+        .socials a:hover{background:var(--ocean);color:#fff;transform:translateY(-3px)}
+        .fc h4{font-size:clamp(.82rem,1.3vw,.95rem);font-weight:800;color:#fff;margin-bottom:clamp(16px,2vw,24px)}
+        .fc ul{list-style:none}
+        .fc li{margin-bottom:11px}
+        .fc a{color:rgba(255,255,255,.35);text-decoration:none;font-size:clamp(.74rem,1.1vw,.85rem);font-weight:500;transition:all .35s}
+        .fc a:hover{color:var(--mint);padding-left:6px}
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .nav-menu { display: none; }
-            .hamburger { display: flex; }
-            .mob-nav { display: flex; }
+        .foot-line{
+            border-top:1px solid rgba(255,255,255,.06);
+            margin-top:clamp(36px,5vw,60px);padding-top:clamp(18px,2.5vw,26px);
+            text-align:center;max-width:1380px;margin-left:auto;margin-right:auto;
+            padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px);
         }
-        @media (max-width: 768px) {
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            .stat:not(:last-child)::after { display: none; }
-            .stat:nth-child(odd) { border-right: 1px solid var(--gray-100); }
-            .stat:nth-child(n+3) { border-top: 1px solid var(--gray-100); }
+        .foot-line p{font-size:clamp(.65rem,1vw,.76rem);color:rgba(255,255,255,.2)}
+
+        /* ===================== SCROLL TOP ===================== */
+        .go-up{
+            position:fixed;bottom:clamp(16px,3vw,30px);right:clamp(16px,3vw,30px);
+            width:clamp(42px,5.5vw,50px);height:clamp(42px,5.5vw,50px);
+            border-radius:clamp(12px,1.8vw,16px);
+            background:var(--white);border:1.5px solid var(--smoke);
+            color:var(--ocean);display:flex;align-items:center;justify-content:center;
+            font-size:1.1rem;font-weight:900;cursor:pointer;z-index:9998;
+            opacity:0;visibility:hidden;transform:translateY(18px);
+            transition:all .5s cubic-bezier(.4,0,.2,1);
+            box-shadow:0 4px 18px rgba(0,0,0,.05);
         }
-        @media (max-width: 480px) {
-            .slide-actions { flex-direction: column; align-items: center; }
-            .slide-actions a { width: 100%; max-width: 240px; justify-content: center; text-align: center; }
-            .cta-btns { flex-direction: column; align-items: center; }
-            .cta-btns a { width: 100%; max-width: 260px; justify-content: center; }
+        .go-up.on{opacity:1;visibility:visible;transform:translateY(0)}
+        .go-up:hover{background:var(--ocean);color:#fff;border-color:var(--ocean);transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,102,255,.25)}
+
+        /* ===================== REVEAL ===================== */
+        .rv{opacity:0;transform:translateY(35px);transition:all .8s cubic-bezier(.4,0,.2,1)}
+        .rv.vis{opacity:1;transform:translateY(0)}
+
+        /* ===================== RESPONSIVE MISC ===================== */
+        @media(max-width:768px){
+            .trust-row{grid-template-columns:repeat(2,1fr)}
+            .trust-box:not(:last-child)::after{display:none}
+            .trust-box:nth-child(odd){border-right:1px solid var(--cloud)}
+            .trust-box:nth-child(n+3){border-top:1px solid var(--cloud)}
+        }
+        @media(max-width:480px){
+            .hs-btns,.slide-actions{flex-direction:column;align-items:center}
+            .hs-btns a,.slide-actions a{width:100%;max-width:250px;justify-content:center;text-align:center}
+            .cta-actions{flex-direction:column;align-items:center}
+            .cta-actions a{width:100%;max-width:270px;justify-content:center}
         }
     </style>
 </head>
 <body>
 
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="pl-wrap">
-            <div class="pl-logo">MERAK<span>+</span></div>
-            <div class="pl-dots"><i></i><i></i><i></i></div>
+<!-- Preloader -->
+<div id="preloader">
+    <div>
+        <div class="pre-logo">MERAK<span>+</span></div>
+        <div class="pre-bar"><i></i></div>
+    </div>
+</div>
+
+<!-- Mesh blobs -->
+<div class="mesh mesh-1"></div>
+<div class="mesh mesh-2"></div>
+<div class="mesh mesh-3"></div>
+
+<!-- Navbar -->
+<header class="topbar" id="topbar">
+    <div class="topbar-inner">
+        <a href="#" class="brand">
+            <div class="brand-mark">M+</div>
+            <div class="brand-name">
+                <h1>MERAK <b>MedTech</b></h1>
+                <small>Healthcare Innovation</small>
+            </div>
+        </a>
+        <ul class="top-links">
+            <li><a href="#" class="cur">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#why">Why Us</a></li>
+            <li><a href="#connect">Contact</a></li>
+            <li><a href="#" class="cta-pill">Get a Quote</a></li>
+        </ul>
+        <div class="ham" id="ham"><s></s><s></s><s></s></div>
+    </div>
+</header>
+
+<!-- Mobile overlay -->
+<div class="mob-overlay" id="mobOv">
+    <a href="#" onclick="shutMob()">Home</a>
+    <a href="#products" onclick="shutMob()">Products</a>
+    <a href="#why" onclick="shutMob()">Why Us</a>
+    <a href="#connect" onclick="shutMob()">Contact</a>
+    <a href="#" onclick="shutMob()" class="mob-cta">Get a Quote</a>
+</div>
+
+<!-- Hero Slider -->
+<section class="hero">
+    <div class="hero-slides" id="heroSlides">
+        <!-- Slide 1 -->
+        <div class="hslide live">
+            <div class="hslide-wide" style="background-image:url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=1920&q=80')"></div>
+            <div class="hslide-tall" style="background-image:url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=800&h=1400&fit=crop&q=80')"></div>
+            <div class="hslide-ov"></div>
+            <div class="hslide-body">
+                <div class="hs-badge">🏥 Leading Innovation</div>
+                <h2 class="hs-title">Advancing <span class="pop">Healthcare</span> Through Technology</h2>
+                <p class="hs-text">Discover cutting-edge medical devices designed to improve patient outcomes and transform modern healthcare delivery.</p>
+                <div class="hs-btns">
+                    <a href="#products" class="btn-a">Explore Products →</a>
+                    <a href="#" class="btn-b">Watch Demo ▶</a>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="hslide">
+            <div class="hslide-wide" style="background-image:url('https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1920&q=80')"></div>
+            <div class="hslide-tall" style="background-image:url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=1400&fit=crop&q=80')"></div>
+            <div class="hslide-ov"></div>
+            <div class="hslide-body">
+                <div class="hs-badge">🔬 Precision Diagnostics</div>
+                <h2 class="hs-title">Next-Gen <span class="pop">Diagnostic</span> Solutions</h2>
+                <p class="hs-text">State-of-the-art diagnostic equipment engineered for accuracy, speed, and reliability for professionals worldwide.</p>
+                <div class="hs-btns">
+                    <a href="#products" class="btn-a">View Catalog →</a>
+                    <a href="#" class="btn-b">Learn More ▶</a>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="hslide">
+            <div class="hslide-wide" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80')"></div>
+            <div class="hslide-tall" style="background-image:url('https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=800&h=1400&fit=crop&q=80')"></div>
+            <div class="hslide-ov"></div>
+            <div class="hslide-body">
+                <div class="hs-badge">💊 Surgical Excellence</div>
+                <h2 class="hs-title">Premium <span class="pop">Surgical</span> Instruments</h2>
+                <p class="hs-text">Crafted with surgical-grade precision meeting highest international standards for safety and performance.</p>
+                <div class="hs-btns">
+                    <a href="#products" class="btn-a">Shop Now →</a>
+                    <a href="#" class="btn-b">Contact Sales ▶</a>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="hslide">
+            <div class="hslide-wide" style="background-image:url('https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=1920&q=80')"></div>
+            <div class="hslide-tall" style="background-image:url('https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&h=1400&fit=crop&q=80')"></div>
+            <div class="hslide-ov"></div>
+            <div class="hslide-body">
+                <div class="hs-badge">🌍 Global Partner</div>
+                <h2 class="hs-title">Trusted <span class="pop">Worldwide</span> by Professionals</h2>
+                <p class="hs-text">Presence in 50+ countries. The preferred choice of leading hospitals and healthcare institutions globally.</p>
+                <div class="hs-btns">
+                    <a href="#" class="btn-a">Partner With Us →</a>
+                    <a href="#" class="btn-b">Our Story ▶</a>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-inner">
-            <a href="#" class="logo">
-                <div class="logo-icon">M+</div>
-                <div class="logo-txt">
-                    <h1>MERAK <b>MedTech</b></h1>
-                    <p>Medical Solutions</p>
-                </div>
-            </a>
-            <ul class="nav-menu">
-                <li><a href="#" class="on">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#features">Why Us</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#" class="cta-link">Get Quote</a></li>
-            </ul>
-            <div class="hamburger" id="ham"><i></i><i></i><i></i></div>
-        </div>
-    </nav>
-
-    <!-- Mobile Nav -->
-    <div class="mob-nav" id="mobNav">
-        <a href="#" onclick="closeM()">Home</a>
-        <a href="#products" onclick="closeM()">Products</a>
-        <a href="#features" onclick="closeM()">Why Us</a>
-        <a href="#contact" onclick="closeM()">Contact</a>
-        <a href="#" onclick="closeM()" class="mob-cta">Get Quote</a>
+    <div class="hero-arrows">
+        <div class="h-arr" id="hPrev">❮</div>
+        <div class="h-arr" id="hNext">❯</div>
     </div>
+    <div class="hero-dots" id="hDots">
+        <div class="h-dot on" data-i="0"></div>
+        <div class="h-dot" data-i="1"></div>
+        <div class="h-dot" data-i="2"></div>
+        <div class="h-dot" data-i="3"></div>
+    </div>
+    <div class="hero-prog"><div class="hero-prog-fill" id="hFill"></div></div>
+</section>
 
-    <!-- Hero Slider -->
-    <section class="hero">
-        <div class="slides-box" id="slidesBox">
-            <!-- Slide 1 -->
-            <div class="slide on">
-                <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=1920&q=80')"></div>
-                <div class="slide-bg-mobile" style="background-image:url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=800&h=1400&q=80&fit=crop')"></div>
-                <div class="slide-ov"></div>
-                <div class="slide-body">
-                    <div class="slide-tag">🏥 Leading Medical Innovation</div>
-                    <h2 class="slide-heading">Advancing <span class="hl">Healthcare</span> Through Technology</h2>
-                    <p class="slide-desc">Discover cutting-edge medical devices designed to improve patient outcomes and transform modern healthcare delivery.</p>
-                    <div class="slide-actions">
-                        <a href="#products" class="btn-main">Explore Products →</a>
-                        <a href="#" class="btn-soft">Watch Demo ▶</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 2 -->
-            <div class="slide">
-                <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1920&q=80')"></div>
-                <div class="slide-bg-mobile" style="background-image:url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=1400&q=80&fit=crop')"></div>
-                <div class="slide-ov"></div>
-                <div class="slide-body">
-                    <div class="slide-tag">🔬 Precision Diagnostics</div>
-                    <h2 class="slide-heading">Next-Gen <span class="hl">Diagnostic</span> Solutions</h2>
-                    <p class="slide-desc">State-of-the-art diagnostic equipment engineered for accuracy, speed, and reliability for professionals worldwide.</p>
-                    <div class="slide-actions">
-                        <a href="#products" class="btn-main">View Catalog →</a>
-                        <a href="#" class="btn-soft">Learn More ▶</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="slide">
-                <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80')"></div>
-                <div class="slide-bg-mobile" style="background-image:url('https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=800&h=1400&q=80&fit=crop')"></div>
-                <div class="slide-ov"></div>
-                <div class="slide-body">
-                    <div class="slide-tag">💊 Surgical Excellence</div>
-                    <h2 class="slide-heading">Premium <span class="hl">Surgical</span> Instruments</h2>
-                    <p class="slide-desc">Crafted with surgical-grade precision meeting highest international standards for safety and performance.</p>
-                    <div class="slide-actions">
-                        <a href="#products" class="btn-main">Shop Now →</a>
-                        <a href="#" class="btn-soft">Contact Sales ▶</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 4 -->
-            <div class="slide">
-                <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=1920&q=80')"></div>
-                <div class="slide-bg-mobile" style="background-image:url('https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&h=1400&q=80&fit=crop')"></div>
-                <div class="slide-ov"></div>
-                <div class="slide-body">
-                    <div class="slide-tag">🌍 Global Healthcare Partner</div>
-                    <h2 class="slide-heading">Trusted <span class="hl">Worldwide</span> by Professionals</h2>
-                    <p class="slide-desc">Presence in 50+ countries. The preferred choice of leading hospitals and healthcare institutions globally.</p>
-                    <div class="slide-actions">
-                        <a href="#" class="btn-main">Partner With Us →</a>
-                        <a href="#" class="btn-soft">Our Story ▶</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="sl-arrows">
-            <div class="sl-arr" id="sPrev">❮</div>
-            <div class="sl-arr" id="sNext">❯</div>
-        </div>
-        <div class="sl-dots" id="sDots">
-            <div class="sl-dot on" data-i="0"></div>
-            <div class="sl-dot" data-i="1"></div>
-            <div class="sl-dot" data-i="2"></div>
-            <div class="sl-dot" data-i="3"></div>
-        </div>
-        <div class="sl-prog"><div class="sl-prog-fill" id="sFill"></div></div>
-    </section>
+<!-- Trust Strip -->
+<div class="trust-strip">
+    <div class="trust-row">
+        <div class="trust-box rv"><div class="trust-num" data-t="500">0+</div><div class="trust-lbl">Products</div></div>
+        <div class="trust-box rv"><div class="trust-num" data-t="50">0+</div><div class="trust-lbl">Countries</div></div>
+        <div class="trust-box rv"><div class="trust-num" data-t="10000">0+</div><div class="trust-lbl">Happy Clients</div></div>
+        <div class="trust-box rv"><div class="trust-num" data-t="25">0+</div><div class="trust-lbl">Years Experience</div></div>
+    </div>
+</div>
 
-    <!-- Stats -->
-    <div class="stats-bar">
-        <div class="stats-row">
-            <div class="stat reveal"><div class="stat-val" data-t="500">0+</div><div class="stat-lbl">Products</div></div>
-            <div class="stat reveal"><div class="stat-val" data-t="50">0+</div><div class="stat-lbl">Countries</div></div>
-            <div class="stat reveal"><div class="stat-val" data-t="10000">0+</div><div class="stat-lbl">Happy Clients</div></div>
-            <div class="stat reveal"><div class="stat-val" data-t="25">0+</div><div class="stat-lbl">Years Experience</div></div>
+<!-- Ticker -->
+<div class="ticker">
+    <div class="ticker-track">
+        <div class="ticker-item"><em></em>Medical Devices</div>
+        <div class="ticker-item"><em></em>Surgical Tools</div>
+        <div class="ticker-item"><em></em>Diagnostics</div>
+        <div class="ticker-item"><em></em>Patient Monitoring</div>
+        <div class="ticker-item"><em></em>Lab Instruments</div>
+        <div class="ticker-item"><em></em>Imaging Systems</div>
+        <div class="ticker-item"><em></em>Rehabilitation</div>
+        <div class="ticker-item"><em></em>Healthcare AI</div>
+        <div class="ticker-item"><em></em>Medical Devices</div>
+        <div class="ticker-item"><em></em>Surgical Tools</div>
+        <div class="ticker-item"><em></em>Diagnostics</div>
+        <div class="ticker-item"><em></em>Patient Monitoring</div>
+        <div class="ticker-item"><em></em>Lab Instruments</div>
+        <div class="ticker-item"><em></em>Imaging Systems</div>
+        <div class="ticker-item"><em></em>Rehabilitation</div>
+        <div class="ticker-item"><em></em>Healthcare AI</div>
+    </div>
+</div>
+
+<!-- Products -->
+<section class="sec products-sec" id="products">
+    <div class="wrap">
+        <div class="sec-header rv">
+            <div class="sec-chip">Our Products</div>
+            <h2 class="sec-heading">Explore Our <span class="pop">Medical</span> Range</h2>
+            <p class="sec-lead">Premium quality medical devices designed for precision, reliability, and patient safety.</p>
+        </div>
+        <div class="tab-bar rv">
+            <button class="tab on" data-f="all">All Products</button>
+            <button class="tab" data-f="diagnostic">Diagnostics</button>
+            <button class="tab" data-f="surgical">Surgical</button>
+            <button class="tab" data-f="monitoring">Monitoring</button>
+            <button class="tab" data-f="imaging">Imaging</button>
+        </div>
+        <div class="prod-grid" id="prodGrid"></div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="sec feat-sec" id="why">
+    <div class="wrap">
+        <div class="sec-header rv">
+            <div class="sec-chip">Why Choose Us</div>
+            <h2 class="sec-heading">The Merak <span class="pop">Advantage</span></h2>
+            <p class="sec-lead">Innovation, quality, and reliability combined for world-class medical solutions.</p>
+        </div>
+        <div class="feat-grid">
+            <div class="feat-card rv"><div class="feat-ico">🔬</div><h3 class="feat-ttl">R&D Excellence</h3><p class="feat-desc">200+ engineers and scientists driving cutting-edge research for next-gen medical solutions.</p></div>
+            <div class="feat-card rv"><div class="feat-ico">✅</div><h3 class="feat-ttl">ISO Certified</h3><p class="feat-desc">All products meet ISO 13485, CE Mark, and FDA standards for highest quality and safety.</p></div>
+            <div class="feat-card rv"><div class="feat-ico">🌍</div><h3 class="feat-ttl">Global Reach</h3><p class="feat-desc">Trusted in 50+ countries with robust distribution and dedicated local support teams.</p></div>
+            <div class="feat-card rv"><div class="feat-ico">🛡️</div><h3 class="feat-ttl">5-Year Warranty</h3><p class="feat-desc">Industry-leading warranty with 24/7 support and rapid replacement guarantee.</p></div>
+            <div class="feat-card rv"><div class="feat-ico">📦</div><h3 class="feat-ttl">Fast Delivery</h3><p class="feat-desc">Express worldwide shipping with real-time tracking. 3-5 business days delivery.</p></div>
+            <div class="feat-card rv"><div class="feat-ico">🤝</div><h3 class="feat-ttl">Training & Support</h3><p class="feat-desc">Comprehensive training, installation support, and ongoing maintenance services.</p></div>
         </div>
     </div>
+</section>
 
-    <!-- Marquee -->
-    <div class="marq">
-        <div class="marq-track">
-            <div class="marq-item"><span class="marq-dot"></span>Medical Devices</div>
-            <div class="marq-item"><span class="marq-dot"></span>Surgical Tools</div>
-            <div class="marq-item"><span class="marq-dot"></span>Diagnostics</div>
-            <div class="marq-item"><span class="marq-dot"></span>Patient Monitoring</div>
-            <div class="marq-item"><span class="marq-dot"></span>Lab Instruments</div>
-            <div class="marq-item"><span class="marq-dot"></span>Imaging Systems</div>
-            <div class="marq-item"><span class="marq-dot"></span>Rehabilitation</div>
-            <div class="marq-item"><span class="marq-dot"></span>Healthcare AI</div>
-            <div class="marq-item"><span class="marq-dot"></span>Medical Devices</div>
-            <div class="marq-item"><span class="marq-dot"></span>Surgical Tools</div>
-            <div class="marq-item"><span class="marq-dot"></span>Diagnostics</div>
-            <div class="marq-item"><span class="marq-dot"></span>Patient Monitoring</div>
-            <div class="marq-item"><span class="marq-dot"></span>Lab Instruments</div>
-            <div class="marq-item"><span class="marq-dot"></span>Imaging Systems</div>
-            <div class="marq-item"><span class="marq-dot"></span>Rehabilitation</div>
-            <div class="marq-item"><span class="marq-dot"></span>Healthcare AI</div>
+<!-- CTA -->
+<section class="cta-sec" id="connect">
+    <div class="wrap">
+        <div class="sec-header rv">
+            <div class="sec-chip">Get Started Today</div>
+            <h2 class="sec-heading">Ready to Transform Your <span class="pop">Healthcare Facility?</span></h2>
+            <p class="sec-lead">Contact our team for personalized solutions, bulk pricing, and expert consultation.</p>
+        </div>
+        <div class="cta-actions rv">
+            <a href="#" class="cta-w">Request a Quote →</a>
+            <a href="#" class="cta-o">Schedule Demo ▶</a>
         </div>
     </div>
+</section>
 
-    <!-- Products -->
-    <section class="section products-sec" id="products">
-        <div class="container">
-            <div class="sec-head reveal">
-                <div class="sec-tag">Our Products</div>
-                <h2 class="sec-title">Explore Our <span class="hl">Medical</span> Range</h2>
-                <p class="sec-sub">Premium quality medical devices designed for precision, reliability, and patient safety.</p>
-            </div>
-            <div class="filters reveal">
-                <button class="fbtn active" data-f="all">All Products</button>
-                <button class="fbtn" data-f="diagnostic">Diagnostics</button>
-                <button class="fbtn" data-f="surgical">Surgical</button>
-                <button class="fbtn" data-f="monitoring">Monitoring</button>
-                <button class="fbtn" data-f="imaging">Imaging</button>
-            </div>
-            <div class="pgrid" id="pgrid"></div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="fb">
+            <h3>MERAK <b>MedTech</b></h3>
+            <p>Pioneering medical technology since 1999. Committed to advancing healthcare through innovation, precision, and reliability.</p>
+            <div class="socials"><a href="#">𝕏</a><a href="#">in</a><a href="#">f</a><a href="#">▶</a></div>
         </div>
-    </section>
+        <div class="fc"><h4>Products</h4><ul><li><a href="#">Diagnostic Devices</a></li><li><a href="#">Surgical Instruments</a></li><li><a href="#">Patient Monitors</a></li><li><a href="#">Imaging Systems</a></li><li><a href="#">Lab Equipment</a></li></ul></div>
+        <div class="fc"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Our Team</a></li><li><a href="#">Careers</a></li><li><a href="#">News & Events</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div class="fc"><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Documentation</a></li><li><a href="#">Warranty Info</a></li><li><a href="#">Training</a></li><li><a href="#">Service Request</a></li></ul></div>
+    </div>
+    <div class="foot-line"><p>© 2024 Merak MedTech. All rights reserved. | Privacy Policy | Terms of Service</p></div>
+</footer>
 
-    <!-- Features -->
-    <section class="section features-sec" id="features">
-        <div class="container">
-            <div class="sec-head reveal">
-                <div class="sec-tag">Why Choose Us</div>
-                <h2 class="sec-title">The Merak <span class="hl">Advantage</span></h2>
-                <p class="sec-sub">Innovation, quality, and reliability combined for world-class medical solutions.</p>
-            </div>
-            <div class="fgrid">
-                <div class="fcard reveal"><div class="ficon">🔬</div><h3 class="ftitle">R&D Excellence</h3><p class="fdesc">200+ engineers and scientists driving cutting-edge research for next-gen medical solutions.</p></div>
-                <div class="fcard reveal"><div class="ficon">✅</div><h3 class="ftitle">ISO Certified</h3><p class="fdesc">All products meet ISO 13485, CE Mark, and FDA standards for highest quality and safety.</p></div>
-                <div class="fcard reveal"><div class="ficon">🌍</div><h3 class="ftitle">Global Reach</h3><p class="fdesc">Trusted in 50+ countries with robust distribution and dedicated local support teams.</p></div>
-                <div class="fcard reveal"><div class="ficon">🛡️</div><h3 class="ftitle">5-Year Warranty</h3><p class="fdesc">Industry-leading warranty with 24/7 support and rapid replacement guarantee.</p></div>
-                <div class="fcard reveal"><div class="ficon">📦</div><h3 class="ftitle">Fast Delivery</h3><p class="fdesc">Express worldwide shipping with real-time tracking. 3-5 business days delivery.</p></div>
-                <div class="fcard reveal"><div class="ficon">🤝</div><h3 class="ftitle">Training & Support</h3><p class="fdesc">Comprehensive training, installation support, and ongoing maintenance services.</p></div>
-            </div>
-        </div>
-    </section>
+<!-- Scroll Top -->
+<button class="go-up" id="goUp">↑</button>
 
-    <!-- CTA -->
-    <section class="cta-sec" id="contact">
-        <div class="container">
-            <div class="sec-head reveal">
-                <div class="sec-tag">Get Started Today</div>
-                <h2 class="sec-title">Ready to Transform Your <span class="hl">Healthcare Facility?</span></h2>
-                <p class="sec-sub">Contact our team for personalized solutions, bulk pricing, and expert consultation.</p>
-            </div>
-            <div class="cta-btns reveal">
-                <a href="#" class="btn-w">Request a Quote →</a>
-                <a href="#" class="btn-ow">Schedule Demo ▶</a>
-            </div>
-        </div>
-    </section>
+<script>
+// ===== DATA =====
+const items=[
+    {t:"Digital Stethoscope Pro",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80",c:"diagnostic"},
+    {t:"Portable Ultrasound Scanner",img:"https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&q=80",c:"imaging"},
+    {t:"Surgical Instrument Kit",img:"https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=600&q=80",c:"surgical"},
+    {t:"Patient Vital Monitor",img:"https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600&q=80",c:"monitoring"},
+    {t:"Blood Pressure Analyzer",img:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80",c:"diagnostic"},
+    {t:"Endoscopy System HD",img:"https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&q=80",c:"imaging"},
+    {t:"Electrosurgical Unit",img:"https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&q=80",c:"surgical"},
+    {t:"ECG Machine 12-Lead",img:"https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&q=80",c:"monitoring"},
+    {t:"Laboratory Centrifuge",img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=80",c:"diagnostic"},
+    {t:"Digital X-Ray System",img:"https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&q=80",c:"imaging"},
+    {t:"Laparoscopic Set",img:"https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=600&q=80",c:"surgical"},
+    {t:"Pulse Oximeter Elite",img:"https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80",c:"monitoring"}
+];
+const bMap={diagnostic:['t1','Diagnostics'],surgical:['t2','Surgical'],monitoring:['t3','Monitoring'],imaging:['t4','Imaging']};
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="fb-brand">
-                <h3>MERAK <span>MedTech</span></h3>
-                <p>Pioneering medical technology since 1999. Committed to advancing healthcare through innovation, precision, and reliability.</p>
-                <div class="f-socials"><a href="#">𝕏</a><a href="#">in</a><a href="#">f</a><a href="#">▶</a></div>
-            </div>
-            <div class="f-col"><h4>Products</h4><ul><li><a href="#">Diagnostic Devices</a></li><li><a href="#">Surgical Instruments</a></li><li><a href="#">Patient Monitors</a></li><li><a href="#">Imaging Systems</a></li><li><a href="#">Lab Equipment</a></li></ul></div>
-            <div class="f-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Our Team</a></li><li><a href="#">Careers</a></li><li><a href="#">News & Events</a></li><li><a href="#">Contact</a></li></ul></div>
-            <div class="f-col"><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Documentation</a></li><li><a href="#">Warranty Info</a></li><li><a href="#">Training</a></li><li><a href="#">Service Request</a></li></ul></div>
-        </div>
-        <div class="f-bottom"><p>© 2024 Merak MedTech. All rights reserved. | Privacy Policy | Terms of Service</p></div>
-    </footer>
+// ===== PRODUCTS =====
+function renderProds(f='all'){
+    const g=document.getElementById('prodGrid');
+    const list=f==='all'?items:items.filter(p=>p.c===f);
+    g.innerHTML='';
+    list.forEach((p,i)=>{
+        const b=bMap[p.c];
+        const c=document.createElement('div');
+        c.className='prod-card';
+        c.style.transitionDelay=`${i*.06}s`;
+        c.innerHTML=`<div class="pc-img"><img src="${p.img}" alt="${p.t}" loading="lazy"><span class="pc-badge ${b[0]}">${b[1]}</span><button class="pc-peek">Quick View</button></div><div class="pc-info"><h3 class="pc-name">${p.t}</h3></div>`;
+        g.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(()=>c.classList.add('vis'),50+i*55)));
+    });
+}
+document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click',function(){
+        document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+        this.classList.add('on');
+        renderProds(this.dataset.f);
+    });
+});
+renderProds();
 
-    <!-- Scroll Top -->
-    <button class="totop" id="totop">↑</button>
+// ===== SLIDER =====
+const sls=document.querySelectorAll('.hslide'),dts=document.querySelectorAll('.h-dot'),fl=document.getElementById('hFill');
+let ci=0,at,pt;const DR=6500;
+function goS(n){
+    sls[ci].classList.remove('live');dts[ci].classList.remove('on');
+    ci=((n%sls.length)+sls.length)%sls.length;
+    sls[ci].classList.add('live');dts[ci].classList.add('on');
+    kickProg();
+}
+function kickProg(){
+    clearInterval(pt);clearTimeout(at);
+    let p=0;fl.style.width='0%';fl.style.transition='none';
+    pt=setInterval(()=>{p+=100/(DR/28);fl.style.width=Math.min(p,100)+'%';if(p>=100)clearInterval(pt)},28);
+    at=setTimeout(()=>goS(ci+1),DR);
+}
+document.getElementById('hNext').onclick=()=>goS(ci+1);
+document.getElementById('hPrev').onclick=()=>goS(ci-1);
+dts.forEach(d=>d.onclick=()=>goS(+d.dataset.i));
 
-    <script>
-        // ===== PRODUCT DATA =====
-        const products = [
-            { t: "Digital Stethoscope Pro", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80", c: "diagnostic" },
-            { t: "Portable Ultrasound Scanner", img: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&q=80", c: "imaging" },
-            { t: "Surgical Instrument Kit", img: "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=600&q=80", c: "surgical" },
-            { t: "Patient Vital Monitor", img: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600&q=80", c: "monitoring" },
-            { t: "Blood Pressure Analyzer", img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80", c: "diagnostic" },
-            { t: "Endoscopy System HD", img: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&q=80", c: "imaging" },
-            { t: "Electrosurgical Unit", img: "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&q=80", c: "surgical" },
-            { t: "ECG Machine 12-Lead", img: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&q=80", c: "monitoring" },
-            { t: "Laboratory Centrifuge", img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=80", c: "diagnostic" },
-            { t: "Digital X-Ray System", img: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&q=80", c: "imaging" },
-            { t: "Laparoscopic Set", img: "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=600&q=80", c: "surgical" },
-            { t: "Pulse Oximeter Elite", img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80", c: "monitoring" }
-        ];
+let tx=0;const sb=document.getElementById('heroSlides');
+sb.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX},{passive:true});
+sb.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].screenX;if(Math.abs(d)>50)goS(d>0?ci+1:ci-1)},{passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')goS(ci+1);if(e.key==='ArrowLeft')goS(ci-1)});
+kickProg();
 
-        const bMap = {
-            diagnostic: ['diag', 'Diagnostics'],
-            surgical: ['surg', 'Surgical'],
-            monitoring: ['mon', 'Monitoring'],
-            imaging: ['imag', 'Imaging']
-        };
+// Orientation re-trigger
+let prevO='';
+function orientFix(){
+    const nO=screen.orientation?screen.orientation.type:'';
+    if(nO!==prevO){prevO=nO;sls[ci].classList.remove('live');requestAnimationFrame(()=>requestAnimationFrame(()=>sls[ci].classList.add('live')))}
+}
+if(screen.orientation)screen.orientation.addEventListener('change',orientFix);
+window.addEventListener('orientationchange',orientFix);
+window.addEventListener('resize',(()=>{let rt;return()=>{clearTimeout(rt);rt=setTimeout(orientFix,180)}})());
 
-        function renderProducts(filter = 'all') {
-            const grid = document.getElementById('pgrid');
-            const list = filter === 'all' ? products : products.filter(p => p.c === filter);
-            grid.innerHTML = '';
-            list.forEach((p, i) => {
-                const b = bMap[p.c];
-                const card = document.createElement('div');
-                card.className = 'pcard';
-                card.style.transitionDelay = `${i * 0.06}s`;
-                card.innerHTML = `
-                    <div class="pimg">
-                        <img src="${p.img}" alt="${p.t}" loading="lazy">
-                        <span class="pbadge ${b[0]}">${b[1]}</span>
-                        <button class="pview">Quick View</button>
-                    </div>
-                    <div class="pinfo"><h3 class="pname">${p.t}</h3></div>`;
-                grid.appendChild(card);
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        setTimeout(() => card.classList.add('show'), 60 + i * 60);
-                    });
-                });
-            });
+// ===== NAV SCROLL =====
+const tb=document.getElementById('topbar'),gu=document.getElementById('goUp');
+window.addEventListener('scroll',()=>{
+    tb.classList.toggle('pinned',scrollY>50);
+    gu.classList.toggle('on',scrollY>400);
+},{passive:true});
+gu.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// ===== MOBILE MENU =====
+const hm=document.getElementById('ham'),mo=document.getElementById('mobOv');
+hm.onclick=()=>{hm.classList.toggle('on');mo.classList.toggle('on');document.body.style.overflow=mo.classList.contains('on')?'hidden':''};
+function shutMob(){hm.classList.remove('on');mo.classList.remove('on');document.body.style.overflow=''}
+
+// ===== SCROLL REVEAL =====
+const rObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+        if(e.isIntersecting){
+            e.target.classList.add('vis');
+            const sv=e.target.querySelector('.trust-num');
+            if(sv&&!sv.dataset.d){sv.dataset.d='1';cntUp(sv)}
         }
+    });
+},{threshold:.12,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(el=>rObs.observe(el));
 
-        document.querySelectorAll('.fbtn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                renderProducts(this.dataset.f);
-            });
-        });
-        renderProducts();
+function cntUp(el){
+    const tg=+el.dataset.t,dur=2200,st=performance.now();
+    function tk(now){
+        const p=Math.min((now-st)/dur,1);
+        el.textContent=Math.floor((1-Math.pow(1-p,4))*tg).toLocaleString()+'+';
+        if(p<1)requestAnimationFrame(tk);
+    }
+    requestAnimationFrame(tk);
+}
 
-        // ===== SLIDER =====
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.sl-dot');
-        const fill = document.getElementById('sFill');
-        let cur = 0, autoTimer, progTimer;
-        const DUR = 6000;
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',function(e){
+        const h=this.getAttribute('href');
+        if(h!=='#'){e.preventDefault();const t=document.querySelector(h);if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-75,behavior:'smooth'})}
+    });
+});
 
-        function goSlide(idx) {
-            slides[cur].classList.remove('on');
-            dots[cur].classList.remove('on');
-            cur = ((idx % slides.length) + slides.length) % slides.length;
-            slides[cur].classList.add('on');
-            dots[cur].classList.add('on');
-            startProg();
-        }
-        function startProg() {
-            clearInterval(progTimer); clearTimeout(autoTimer);
-            let p = 0; fill.style.width = '0%'; fill.style.transition = 'none';
-            progTimer = setInterval(() => {
-                p += 100 / (DUR / 30);
-                fill.style.width = Math.min(p, 100) + '%';
-                if (p >= 100) clearInterval(progTimer);
-            }, 30);
-            autoTimer = setTimeout(() => goSlide(cur + 1), DUR);
-        }
-        document.getElementById('sNext').onclick = () => goSlide(cur + 1);
-        document.getElementById('sPrev').onclick = () => goSlide(cur - 1);
-        dots.forEach(d => d.onclick = () => goSlide(+d.dataset.i));
-
-        let tx = 0;
-        const sb = document.getElementById('slidesBox');
-        sb.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, { passive: true });
-        sb.addEventListener('touchend', e => {
-            const d = tx - e.changedTouches[0].screenX;
-            if (Math.abs(d) > 50) goSlide(d > 0 ? cur + 1 : cur - 1);
-        }, { passive: true });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'ArrowRight') goSlide(cur + 1);
-            if (e.key === 'ArrowLeft') goSlide(cur - 1);
-        });
-        startProg();
-
-        // ===== ORIENTATION CHANGE - Reset slider for smooth transition =====
-        let lastOrientation = screen.orientation ? screen.orientation.type : '';
-        function handleOrientationChange() {
-            const newOrientation = screen.orientation ? screen.orientation.type : '';
-            if (newOrientation !== lastOrientation) {
-                lastOrientation = newOrientation;
-                // Re-trigger current slide animation
-                slides[cur].classList.remove('on');
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        slides[cur].classList.add('on');
-                    });
-                });
-            }
-        }
-        if (screen.orientation) {
-            screen.orientation.addEventListener('change', handleOrientationChange);
-        }
-        window.addEventListener('orientationchange', handleOrientationChange);
-        window.addEventListener('resize', (() => {
-            let resizeTimer;
-            return () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(handleOrientationChange, 150);
-            };
-        })());
-
-        // ===== NAVBAR SCROLL =====
-        const nav = document.getElementById('navbar');
-        const tt = document.getElementById('totop');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', scrollY > 50);
-            tt.classList.toggle('show', scrollY > 350);
-        }, { passive: true });
-        tt.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        // ===== MOBILE MENU =====
-        const ham = document.getElementById('ham');
-        const mob = document.getElementById('mobNav');
-        ham.onclick = () => {
-            ham.classList.toggle('open');
-            mob.classList.toggle('open');
-            document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
-        };
-        function closeM() {
-            ham.classList.remove('open');
-            mob.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-
-        // ===== SCROLL REVEAL =====
-        const revObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('vis');
-                    const sv = e.target.querySelector('.stat-val');
-                    if (sv && !sv.dataset.done) { sv.dataset.done = '1'; countUp(sv); }
-                }
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
-
-        function countUp(el) {
-            const target = +el.dataset.t, dur = 2200, start = performance.now();
-            function tick(now) {
-                const p = Math.min((now - start) / dur, 1);
-                el.textContent = Math.floor((1 - Math.pow(1 - p, 4)) * target).toLocaleString() + '+';
-                if (p < 1) requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick);
-        }
-
-        // ===== SMOOTH SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const t = document.querySelector(href);
-                    if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
-                }
-            });
-        });
-
-        // ===== PRELOADER =====
-        window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('preloader').classList.add('hide'), 1000);
-        });
-    </script>
+// ===== PRELOADER =====
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('done'),1200));
+</script>
 </body>
 </html>
