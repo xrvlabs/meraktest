@@ -1,705 +1,463 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RS Automotive â€” Premium Car Parts Manufacturer &amp; Global Distributor</title>
-<meta name="description" content="RS Automotive manufactures precision-engineered car parts and distributes globally and across India. Premium quality, trusted worldwide.">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
-:root{
---gold:#c9a84c;--gold-light:#e8d48b;--gold-dark:#a07c1c;
---bg:#08080a;--bg-alt:#111113;--bg-card:#161618;--bg-nav:rgba(8,8,10,.92);
---text:#f0ece2;--text-muted:#a09a8c;--text-light:#6a6560;
---border:#1e1e22;--shadow:0 4px 30px rgba(0,0,0,.5);--shadow-lg:0 16px 50px rgba(0,0,0,.6);
---heading:'Playfair Display',Georgia,serif;--body:'Inter',system-ui,sans-serif;
---radius:14px;--transition:all .45s cubic-bezier(.22,1,.36,1);
---glow:0 0 20px rgba(201,168,76,.15);
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px;scrollbar-width:none}
-html::-webkit-scrollbar{display:none}
-body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-ms-overflow-style:none}
-h1,h2,h3,h4,h5{font-family:var(--heading);font-weight:700;line-height:1.2}
-a{text-decoration:none;color:inherit}
-img{max-width:100%;display:block}
-.container{max-width:100%;margin:0 auto;padding:0 10px}
-.section{padding:80px 0}
-.section-label{font-family:var(--body);font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px}
-.section-title{font-size:clamp(1.8rem,4vw,3rem);margin-bottom:14px}
-.section-subtitle{color:var(--text-muted);font-size:1rem;max-width:600px}
-.section-header{text-align:center;margin-bottom:50px}
-.section-header .section-subtitle{margin:0 auto}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:50px;font-family:var(--body);font-weight:600;font-size:.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;transition:var(--transition);position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.1),transparent);transform:translateX(-100%);transition:transform .6s}
-.btn:hover::after{transform:translateX(100%)}
-.btn-primary{background:var(--gold);color:#0d0d0d}.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,76,.35)}
-.btn-outline{background:transparent;border:2px solid var(--gold);color:var(--gold)}.btn-outline:hover{background:var(--gold);color:#0d0d0d}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Pizza Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0b0d;
+            --text-color: #ffffff;
+            --accent-color: #ff4d4d;
+            --pizza-size: 550px;
+        }
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:16px 0;transition:var(--transition);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-.nav.scrolled{padding:10px 0;background:var(--bg-nav);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--heading);font-size:1.4rem;font-weight:900;color:var(--gold);letter-spacing:2px}
-.nav-logo span{color:var(--text);font-weight:400}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);transition:var(--transition);position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gold);transition:width .3s}
-.nav-links a:hover{color:var(--gold)}
-.nav-links a:hover::after{width:100%}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
-.nav-hamburger span{width:24px;height:2px;background:var(--text);transition:var(--transition);border-radius:2px}
-.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(8,8,10,.97);backdrop-filter:blur(30px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:28px}
-.mobile-menu.active{display:flex}
-.mobile-menu a{font-family:var(--heading);font-size:1.6rem;color:var(--text);transition:var(--transition)}
-.mobile-menu a:hover{color:var(--gold)}
-.mobile-close{position:absolute;top:20px;right:20px;font-size:2rem;background:none;border:none;color:var(--text);cursor:pointer}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
 
-/* HERO */
-.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0}
-.hero-bg img,.hero-bg video{width:100%;height:100%;object-fit:cover}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,.7) 100%)}
-.hero-content{position:relative;z-index:2;max-width:700px;padding:0 10px}
-.hero-badge{display:inline-block;padding:8px 20px;border:1px solid rgba(201,168,76,.4);border-radius:50px;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:20px;backdrop-filter:blur(10px);background:rgba(201,168,76,.06);animation:fadeInUp .8s ease both}
-.hero h1{font-size:clamp(2.2rem,5.5vw,4.2rem);color:#fff;margin-bottom:18px;font-weight:900;animation:fadeInUp .8s .15s ease both}
-.hero h1 em{color:var(--gold);font-style:normal;text-shadow:var(--glow)}
-.hero p{color:rgba(255,255,255,.75);font-size:1.05rem;margin-bottom:32px;max-width:520px;line-height:1.8;animation:fadeInUp .8s .3s ease both}
-.hero-buttons{display:flex;gap:14px;flex-wrap:wrap;animation:fadeInUp .8s .45s ease both}
-.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.4);font-size:.65rem;letter-spacing:3px;text-transform:uppercase;z-index:2;animation:fadeInUp .8s .6s ease both}
-.hero-scroll .mouse{width:22px;height:36px;border:2px solid rgba(255,255,255,.3);border-radius:12px;position:relative}
-.hero-scroll .mouse::after{content:'';width:3px;height:7px;background:var(--gold);border-radius:3px;position:absolute;top:6px;left:50%;transform:translateX(-50%);animation:scrollDown 1.5s infinite}
-@keyframes scrollDown{0%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,12px)}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            cursor: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* STATS */
-.stats{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
-.stat-item{padding:16px 8px;border-radius:var(--radius);transition:var(--transition)}
-.stat-item:hover{background:var(--bg-card);box-shadow:var(--glow)}
-.stat-item h3{font-size:clamp(1.8rem,4vw,3rem);color:var(--gold);font-weight:900;margin-bottom:6px;text-shadow:var(--glow)}
-.stat-item p{color:var(--text-muted);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;font-weight:500}
+        /* Custom Cursor */
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px; height: 8px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+        
+        .cursor-outline {
+            position: fixed;
+            top: 0; left: 0;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
 
-/* BENTO */
-.bento-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,auto);gap:14px}
-.bento-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;transition:var(--transition);min-height:200px}
-.bento-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
-.bento-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(201,168,76,.3)}
-.bento-card:hover::before{opacity:1}
-.bento-card.span-2{grid-column:span 2}
-.bento-card .icon{font-size:2.2rem;margin-bottom:14px;animation:float 3s ease-in-out infinite}
-.bento-card h3{font-size:1.15rem;margin-bottom:6px}
-.bento-card p{color:var(--text-muted);font-size:.85rem}
-.bento-card.featured{background:linear-gradient(135deg,#12120f 0%,#1e1d18 100%);border-color:rgba(201,168,76,.15)}
-.bento-card.featured p{color:#a09a8c}
-.bento-card.featured .icon{color:var(--gold)}
-.bento-card.img-card{padding:0}
-.bento-card.img-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.bento-card.img-card:hover img{transform:scale(1.06)}
+        .cursor-text {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
 
-/* PARALLAX */
-.parallax-section{position:relative;padding:120px 0;background-attachment:fixed;background-size:cover;background-position:center;overflow:hidden}
-.parallax-overlay{position:absolute;inset:0;background:rgba(0,0,0,.8)}
-.parallax-content{position:relative;z-index:2;text-align:center;color:#fff}
-.parallax-content h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:18px}
-.parallax-content p{max-width:700px;margin:0 auto 28px;color:rgba(255,255,255,.7);font-size:1rem;line-height:1.9}
+        body:active .cursor-outline {
+            width: 40px; height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-/* GALLERY */
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.gallery-item{border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;aspect-ratio:4/3}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s}
-.gallery-item:hover img{transform:scale(1.08);filter:brightness(1.1)}
-.gallery-item::after{content:'ðŸ”';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);opacity:0;transition:opacity .4s;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-.gallery-item:hover::after{opacity:1}
-.gallery-item.tall{grid-row:span 2;aspect-ratio:auto}
-.gallery-lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.95);align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px)}
-.gallery-lightbox.active{display:flex}
-.gallery-lightbox img{max-width:92vw;max-height:90vh;border-radius:var(--radius);object-fit:contain;animation:fadeInUp .4s ease}
+        /* Header */
+        header {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            z-index: 10;
+        }
 
-/* TESTIMONIALS */
-.testimonials{background:var(--bg-alt)}
-.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.testimonial-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:var(--transition);position:relative;overflow:hidden}
-.testimonial-card::before{content:'"';position:absolute;top:-8px;right:16px;font-size:5rem;color:rgba(201,168,76,.08);font-family:var(--heading)}
-.testimonial-card:hover{box-shadow:var(--shadow-lg);border-color:rgba(201,168,76,.3);transform:translateY(-3px)}
-.testimonial-stars{color:var(--gold);font-size:.85rem;margin-bottom:14px;letter-spacing:2px}
-.testimonial-text{font-size:.9rem;color:var(--text-muted);line-height:1.8;margin-bottom:18px;font-style:italic}
-.testimonial-author{display:flex;align-items:center;gap:12px}
-.testimonial-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dark));display:flex;align-items:center;justify-content:center;font-weight:700;color:#0d0d0d;font-size:.85rem}
-.testimonial-name{font-weight:600;font-size:.85rem}
-.testimonial-role{font-size:.7rem;color:var(--text-light)}
+        header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        
+        header span { color: var(--accent-color); }
 
-/* PRICING */
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
-.pricing-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;transition:var(--transition);position:relative;overflow:hidden}
-.pricing-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(201,168,76,.2)}
-.pricing-card.popular{border-color:var(--gold);transform:scale(1.03);box-shadow:0 0 30px rgba(201,168,76,.12)}
-.pricing-card.popular:hover{transform:scale(1.03) translateY(-6px)}
-.pricing-badge{position:absolute;top:18px;right:-32px;background:linear-gradient(90deg,var(--gold),var(--gold-light));color:#0d0d0d;padding:4px 40px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;transform:rotate(45deg)}
-.pricing-tier{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
-.pricing-price{font-family:var(--heading);font-size:2.8rem;font-weight:900;margin-bottom:4px}
-.pricing-period{font-size:.75rem;color:var(--text-muted);margin-bottom:20px}
-.pricing-features{list-style:none;margin-bottom:28px;text-align:left}
-.pricing-features li{padding:9px 0;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--text-muted);display:flex;align-items:center;gap:10px}
-.pricing-features li::before{content:'âœ“';color:var(--gold);font-weight:700;font-size:.75rem}
+        /* Background Decorative Text */
+        .bg-text {
+            position: absolute;
+            font-size: 25vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.02);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            text-transform: uppercase;
+            letter-spacing: -1vw;
+        }
 
-/* TEAM */
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.team-card{text-align:center;transition:var(--transition)}
-.team-card:hover{transform:translateY(-6px)}
-.team-photo{width:100%;aspect-ratio:1;border-radius:var(--radius);overflow:hidden;margin-bottom:16px;border:2px solid var(--border);transition:var(--transition);position:relative}
-.team-card:hover .team-photo{border-color:var(--gold);box-shadow:var(--glow)}
-.team-photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.team-card:hover .team-photo img{transform:scale(1.05)}
-.team-card h3{font-size:1rem;margin-bottom:4px}
-.team-card p{color:var(--gold);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:500}
+        /* Main Container */
+        .experience-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
 
-/* FAQ */
-.faq-list{max-width:800px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--border)}
-.faq-question{width:100%;padding:20px 0;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:var(--text);font-family:var(--heading);font-size:1.05rem;cursor:pointer;text-align:left;transition:color .3s}
-.faq-question:hover{color:var(--gold)}
-.faq-question .icon{font-size:1.3rem;transition:transform .35s;color:var(--gold)}
-.faq-item.active .faq-question .icon{transform:rotate(45deg)}
-.faq-answer{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.22,1,.36,1)}
-.faq-answer p{padding:0 0 20px;color:var(--text-muted);line-height:1.8;font-size:.9rem}
+        /* Pizza Plate / Display */
+        .pizza-stage {
+            position: relative;
+            width: var(--pizza-size);
+            height: var(--pizza-size);
+            perspective: 1500px;
+        }
 
-/* CTA */
-.cta-section{background:linear-gradient(135deg,#111 0%,#08080a 100%);color:#f0ece2;text-align:center;padding:80px 0;position:relative;overflow:hidden}
-.cta-section::before{content:'';position:absolute;top:50%;left:50%;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.06),transparent 70%);transform:translate(-50%,-50%);pointer-events:none}
-.cta-section h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:14px}
-.cta-section p{color:#a09a8c;margin-bottom:32px;font-size:1rem}
-.newsletter-form{display:flex;max-width:480px;margin:0 auto;gap:10px}
-.newsletter-form input{flex:1;padding:14px 20px;border-radius:50px;border:1px solid #222;background:#141414;color:#f0ece2;font-family:var(--body);font-size:.85rem;transition:border-color .3s}
-.newsletter-form input::placeholder{color:#555}
-.newsletter-form input:focus{outline:none;border-color:var(--gold);box-shadow:var(--glow)}
+        .pizza-item {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
 
-/* CONTACT */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-.contact-info h3{font-size:1.6rem;margin-bottom:14px}
-.contact-info>p{color:var(--text-muted);margin-bottom:28px;line-height:1.8}
-.contact-detail{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
-.contact-icon{width:44px;height:44px;border-radius:50%;background:var(--bg-alt);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:var(--transition)}
-.contact-detail:hover .contact-icon{border-color:var(--gold);box-shadow:var(--glow)}
-.contact-detail h4{font-size:.85rem;margin-bottom:2px}
-.contact-detail p{color:var(--text-muted);font-size:.85rem}
-.contact-form{display:flex;flex-direction:column;gap:14px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-group label{display:block;font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;color:var(--text-muted)}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:13px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-family:var(--body);font-size:.85rem;transition:var(--transition)}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--gold);box-shadow:var(--glow)}
-.form-group textarea{resize:vertical;min-height:100px}
+        /* Unique Animations States */
+        .pizza-item.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg) scale(1);
+        }
 
-/* FOOTER */
-.footer{background:var(--bg-alt);border-top:1px solid var(--border);padding:50px 0 24px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px}
-.footer-brand p{color:var(--text-muted);font-size:.85rem;margin-top:10px;line-height:1.8}
-.footer h4{font-family:var(--heading);font-size:.95rem;margin-bottom:14px}
-.footer-links{list-style:none}
-.footer-links li{margin-bottom:8px}
-.footer-links a{color:var(--text-muted);font-size:.85rem;transition:var(--transition)}
-.footer-links a:hover{color:var(--gold);padding-left:4px}
-.footer-social{display:flex;gap:10px;margin-top:14px}
-.footer-social a{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:var(--transition);font-size:.85rem}
-.footer-social a:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.08);transform:translateY(-2px)}
-.footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--text-muted)}
+        /* Sliding Left Animation */
+        .pizza-item.exit-left {
+            opacity: 0;
+            transform: translate3d(-150%, 0, -500px) rotateY(-90deg) rotateZ(-45deg) scale(0.5);
+        }
 
-/* ANIMATIONS */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}.reveal.visible{opacity:1;transform:none}
-.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}.reveal-left.visible{opacity:1;transform:none}
-.reveal-right{opacity:0;transform:translateX(30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}.reveal-right.visible{opacity:1;transform:none}
+        .pizza-item.enter-right {
+            opacity: 0;
+            transform: translate3d(150%, 0, -500px) rotateY(90deg) rotateZ(45deg) scale(0.5);
+        }
 
-/* RESPONSIVE */
-@media(max-width:1024px){
- .bento-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto}
- .pricing-grid,.testimonial-grid{grid-template-columns:1fr 1fr}
- .pricing-card.popular{transform:none}
- .team-grid{grid-template-columns:repeat(2,1fr)}
- .footer-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:768px){
- .section{padding:50px 0}
- .nav-links{display:none}
- .nav-hamburger{display:flex}
- .stats-grid{grid-template-columns:repeat(2,1fr);gap:10px}
- .bento-grid{grid-template-columns:1fr}
- .bento-card.span-2{grid-column:auto}
- .bento-card{min-height:auto;padding:24px}
- .gallery-grid{grid-template-columns:1fr 1fr;gap:8px}
- .gallery-item.tall{grid-row:auto;aspect-ratio:4/3}
- .testimonial-grid,.pricing-grid{grid-template-columns:1fr}
- .contact-grid{grid-template-columns:1fr}
- .form-row{grid-template-columns:1fr}
- .footer-grid{grid-template-columns:1fr}
- .footer-bottom{flex-direction:column;gap:10px;text-align:center}
- .newsletter-form{flex-direction:column}
- .hero-content{padding:0 10px}
- .hero-buttons{flex-direction:column;align-items:flex-start}
- .team-grid{grid-template-columns:repeat(2,1fr);gap:10px}
- .section-header{margin-bottom:36px}
- .parallax-section{padding:80px 0;background-attachment:scroll}
-}
-</style>
+        /* Sliding Right Animation */
+        .pizza-item.exit-right {
+            opacity: 0;
+            transform: translate3d(150%, 0, -500px) rotateY(90deg) rotateZ(45deg) scale(0.5);
+        }
+
+        .pizza-item.enter-left {
+            opacity: 0;
+            transform: translate3d(-150%, 0, -500px) rotateY(-90deg) rotateZ(-45deg) scale(0.5);
+        }
+
+        .pizza-img-wrap {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8), 0 0 50px rgba(255, 77, 77, 0.1);
+            border: 10px solid #1a1a1e;
+        }
+
+        .pizza-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .pizza-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Info Display */
+        .info-panel {
+            position: absolute;
+            bottom: 10vh;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .info-content {
+            display: none;
+        }
+
+        .info-content.active {
+            display: block;
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-content h2 {
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .info-content p {
+            font-size: 1.2rem;
+            color: #888;
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Navigation Hints */
+        .nav-hint {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            writing-mode: vertical-lr;
+            padding: 20px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .nav-hint.left { left: 40px; }
+        .nav-hint.right { right: 40px; }
+
+        .experience-container:hover .nav-hint {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Progress Dots */
+        .progress-dots {
+            position: absolute;
+            bottom: 50px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent-color);
+            transform: scale(2);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            :root { --pizza-size: 320px; }
+            .info-content h2 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
 
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"><span class="cursor-text">CLICK</span></div>
 
+    <div class="bg-text" id="bg-text">MARGHERITA</div>
 
-<!-- NAVIGATION -->
-<nav class="nav" id="navbar">
-<div class="container nav-inner">
-  <a href="#" class="nav-logo">RS <span>AUTOMOTIVE</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <header>
+        <h1>Artisan<span>.</span></h1>
+    </header>
 
-  </ul>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-</nav>
+    <div class="nav-hint left">PREVIOUS</div>
+    <div class="nav-hint right">NEXT</div>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-<button class="mobile-close" id="mobileClose">âœ•</button>
-<a href="#about" onclick="closeMobile()">About</a>
-<a href="#gallery" onclick="closeMobile()">Gallery</a>
-<a href="#pricing" onclick="closeMobile()">Pricing</a>
-<a href="#team" onclick="closeMobile()">Team</a>
-<a href="#faq" onclick="closeMobile()">FAQ</a>
-<a href="#contact" onclick="closeMobile()">Contact</a>
+    <div class="experience-container" id="container">
+        
+        <div class="pizza-stage">
+            <div class="pizza-item active" data-index="0">
+                <div class="pizza-img-wrap">
+                    <img src="pizza_margherita_1777138504662.png" alt="Margherita">
+                </div>
+            </div>
+            <div class="pizza-item" data-index="1">
+                <div class="pizza-img-wrap">
+                    <img src="pizza_pepperoni_1777138489343.png" alt="Pepperoni">
+                </div>
+            </div>
+            <div class="pizza-item" data-index="2">
+                <div class="pizza-img-wrap">
+                    <img src="pizza_veggie_1777138521141.png" alt="Vegetarian">
+                </div>
+            </div>
+            <div class="pizza-item" data-index="3">
+                <div class="pizza-img-wrap">
+                    <img src="pizza_bbq_chicken_1777138565267.png" alt="BBQ Chicken">
+                </div>
+            </div>
+        </div>
 
-</div>
+        <div class="info-panel">
+            <div class="info-content active" data-index="0">
+                <h2>Margherita</h2>
+                <p>Simple perfection. Fresh mozzarella, basil, and San Marzano tomatoes.</p>
+            </div>
+            <div class="info-content" data-index="1">
+                <h2>Pepperoni</h2>
+                <p>The timeless classic. Spiced pepperoni with a rich mozzarella blend.</p>
+            </div>
+            <div class="info-content" data-index="2">
+                <h2>Vegetariano</h2>
+                <p>Earth's harvest. Bell peppers, onions, olives, and fresh mushrooms.</p>
+            </div>
+            <div class="info-content" data-index="3">
+                <h2>BBQ Chicken</h2>
+                <p>Bold & smoky. Grilled chicken, red onions, and tangy BBQ base.</p>
+            </div>
+        </div>
 
-<!-- HERO (Video) -->
-<section class="hero" id="hero">
-<div class="hero-bg">
-  <video autoplay muted loop playsinline poster="hero.png">
-    <source src="" type="video/mp4">
-    <img src="hero.png" alt="RS Automotive Hero">
-  </video>
-</div>
-<div class="hero-overlay"></div>
-<div class="hero-content">
-  <div class="hero-badge">ðŸ† Trusted by 500+ Global Partners</div>
-  <h1>Precision <em>Engineered</em> for Performance</h1>
-  <p>RS Automotive manufactures world-class car parts, delivering excellence from India to the global stage. Quality that drives confidence.</p>
-  <div class="hero-buttons">
-    <a href="#pricing" class="btn btn-primary">Explore Plans â†’</a>
-    <a href="#contact" class="btn btn-outline" style="border-color:rgba(255,255,255,.4);color:#fff">Get in Touch</a>
-  </div>
-</div>
-<div class="hero-scroll"><div class="mouse"></div>Scroll</div>
-</section>
-
-<!-- STATS -->
-<section class="stats section" id="stats">
-<div class="container">
-<div class="stats-grid">
-  <div class="stat-item reveal"><h3><span class="counter" data-target="25">0</span>+</h3><p>Years of Excellence</p></div>
-  <div class="stat-item reveal"><h3><span class="counter" data-target="500">0</span>+</h3><p>Global Partners</p></div>
-  <div class="stat-item reveal"><h3><span class="counter" data-target="12000">0</span>+</h3><p>Products Delivered</p></div>
-  <div class="stat-item reveal"><h3><span class="counter" data-target="35">0</span>+</h3><p>Countries Served</p></div>
-</div>
-</div>
-</section>
-
-<!-- BENTO GRID -->
-<section class="section" id="about">
-<div class="container">
-<div class="section-header reveal">
-  <div class="section-label">What We Offer</div>
-  <h2 class="section-title">Engineered for Every Need</h2>
-  <p class="section-subtitle">From engine components to chassis systems â€” precision parts built for the world's finest vehicles.</p>
-</div>
-<div class="bento-grid">
-  <div class="bento-card span-2 featured reveal">
-    <div class="icon">âš™ï¸</div>
-    <h3>Engine Components</h3>
-    <p>Pistons, crankshafts, camshafts, and valve assemblies manufactured to OEM specifications with aerospace-grade materials.</p>
-  </div>
-  <div class="bento-card reveal">
-    <div class="icon">ðŸ”§</div>
-    <h3>Suspension Systems</h3>
-    <p>Complete shock absorbers, struts, and control arms engineered for maximum durability.</p>
-  </div>
-  <div class="bento-card img-card reveal">
-    <img src="gallery-parts.png" alt="Precision parts">
-  </div>
-  <div class="bento-card reveal">
-    <div class="icon">ðŸ›¡ï¸</div>
-    <h3>Brake Systems</h3>
-    <p>High-performance brake pads, rotors, and calipers with superior stopping power.</p>
-  </div>
-  <div class="bento-card reveal">
-    <div class="icon">âš¡</div>
-    <h3>Electrical Parts</h3>
-    <p>Alternators, starters, and wiring harnesses with advanced quality control.</p>
-  </div>
-  <div class="bento-card span-2 reveal">
-    <div class="icon">ðŸŒ</div>
-    <h3>Global Distribution Network</h3>
-    <p>Seamless supply chain across 35+ countries with warehousing in India, UAE, Germany, and USA. Just-in-time delivery for OEMs worldwide.</p>
-  </div>
-</div>
-</div>
-</section>
-
-<!-- PARALLAX CTA -->
-<section class="parallax-section" style="background-image:url('parallax.png')" id="parallax-cta">
-<div class="parallax-overlay"></div>
-<div class="container parallax-content reveal">
-  <div class="section-label">Our Promise</div>
-  <h2>Where Indian Craftsmanship Meets Global Standards</h2>
-  <p>Every component leaves our facility bearing the mark of relentless precision. From raw material sourcing to final quality inspection, RS Automotive upholds the highest standards â€” trusted by OEMs, workshops, and distributors around the world.</p>
-  <a href="#contact" class="btn btn-primary">Partner With Us â†’</a>
-</div>
-</section>
-
-<!-- IMAGE GALLERY -->
-<section class="section" id="gallery">
-<div class="container">
-<div class="section-header reveal">
-  <div class="section-label">Our Facilities</div>
-  <h2 class="section-title">Inside RS Automotive</h2>
-  <p class="section-subtitle">State-of-the-art manufacturing, meticulous quality control, and world-class showrooms.</p>
-</div>
-<div class="gallery-grid">
-  <div class="gallery-item tall reveal" onclick="openLightbox(this)"><img src="gallery-showroom.png" alt="Showroom"></div>
-  <div class="gallery-item reveal" onclick="openLightbox(this)"><img src="gallery-parts.png" alt="Precision parts"></div>
-  <div class="gallery-item reveal" onclick="openLightbox(this)"><img src="gallery-factory.png" alt="Factory floor"></div>
-  <div class="gallery-item reveal" onclick="openLightbox(this)"><img src="hero.png" alt="Product display"></div>
-  <div class="gallery-item reveal" onclick="openLightbox(this)"><img src="parallax.png" alt="Engine assembly"></div>
-</div>
-</div>
-</section>
-
-<!-- LIGHTBOX -->
-<div class="gallery-lightbox" id="lightbox" onclick="closeLightbox()">
-<img src="" alt="Gallery fullview" id="lightboxImg">
-</div>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials section" id="testimonials">
-<div class="container">
-<div class="section-header reveal">
-  <div class="section-label">Testimonials</div>
-  <h2 class="section-title">Trusted Worldwide</h2>
-  <p class="section-subtitle">What our partners and clients say about working with RS Automotive.</p>
-</div>
-<div class="testimonial-grid">
-  <div class="testimonial-card reveal">
-    <div class="testimonial-stars">â˜…â˜…â˜…â˜…â˜…</div>
-    <p class="testimonial-text">"RS Automotive delivers consistent quality that matches European OEM standards. Their brake components have become our go-to across all service centers."</p>
-    <div class="testimonial-author">
-      <div class="testimonial-avatar">MK</div>
-      <div><div class="testimonial-name">Martin KrÃ¼ger</div><div class="testimonial-role">Director, AutoHaus Germany</div></div>
+        <div class="progress-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
     </div>
-  </div>
-  <div class="testimonial-card reveal">
-    <div class="testimonial-stars">â˜…â˜…â˜…â˜…â˜…</div>
-    <p class="testimonial-text">"We've been sourcing engine components from RS for 8 years. Zero defect rate, on-time delivery every single time. A world-class partner."</p>
-    <div class="testimonial-author">
-      <div class="testimonial-avatar">AS</div>
-      <div><div class="testimonial-name">Ahmed Al-Sayed</div><div class="testimonial-role">CEO, Gulf Auto Trading, UAE</div></div>
-    </div>
-  </div>
-  <div class="testimonial-card reveal">
-    <div class="testimonial-stars">â˜…â˜…â˜…â˜…â˜…</div>
-    <p class="testimonial-text">"The suspension systems from RS Automotive transformed our fleet's performance. Outstanding engineering and unbeatable pricing for the quality delivered."</p>
-    <div class="testimonial-author">
-      <div class="testimonial-avatar">PR</div>
-      <div><div class="testimonial-name">Priya Ramanathan</div><div class="testimonial-role">Fleet Manager, Tata Motors India</div></div>
-    </div>
-  </div>
-</div>
-</div>
-</section>
 
-<!-- PRICING -->
-<section class="section" id="pricing">
-<div class="container">
-<div class="section-header reveal">
-  <div class="section-label">Partnership Plans</div>
-  <h2 class="section-title">Flexible Pricing for Every Scale</h2>
-  <p class="section-subtitle">Whether you're a local workshop or a global OEM, we have a plan tailored for you.</p>
-</div>
-<div class="pricing-grid">
-  <div class="pricing-card reveal">
-    <div class="pricing-tier">Starter</div>
-    <div class="pricing-price">$499</div>
-    <div class="pricing-period">per month / min. order</div>
-    <ul class="pricing-features">
-      <li>Up to 200 units/month</li>
-      <li>Standard component catalog</li>
-      <li>Email support (48h SLA)</li>
-      <li>Quarterly quality reports</li>
-      <li>Standard shipping</li>
-    </ul>
-    <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Get Started</a>
-  </div>
-  <div class="pricing-card popular reveal">
-    <div class="pricing-badge">Popular</div>
-    <div class="pricing-tier">Professional</div>
-    <div class="pricing-price">$1,499</div>
-    <div class="pricing-period">per month / min. order</div>
-    <ul class="pricing-features">
-      <li>Up to 2,000 units/month</li>
-      <li>Full component catalog</li>
-      <li>Priority support (12h SLA)</li>
-      <li>Monthly quality reports</li>
-      <li>Express shipping included</li>
-      <li>Dedicated account manager</li>
-    </ul>
-    <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">Get Started</a>
-  </div>
-  <div class="pricing-card reveal">
-    <div class="pricing-tier">Enterprise</div>
-    <div class="pricing-price">Custom</div>
-    <div class="pricing-period">tailored to your needs</div>
-    <ul class="pricing-features">
-      <li>Unlimited units/month</li>
-      <li>Custom manufacturing</li>
-      <li>24/7 dedicated support</li>
-      <li>Real-time quality dashboard</li>
-      <li>Air freight priority</li>
-      <li>On-site quality audits</li>
-      <li>Co-branded packaging</li>
-    </ul>
-    <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Contact Sales</a>
-  </div>
-</div>
-</div>
-</section>
+    <script>
+        const container = document.getElementById('container');
+        const pizzaItems = document.querySelectorAll('.pizza-item');
+        const infoContents = document.querySelectorAll('.info-content');
+        const dots = document.querySelectorAll('.dot');
+        const bgText = document.getElementById('bg-text');
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
 
-<!-- TEAM -->
-<section class="section" id="team" style="background:var(--bg-alt)">
-<div class="container">
-<div class="section-header reveal">
-  <div class="section-label">Leadership</div>
-  <h2 class="section-title">The Minds Behind the Machine</h2>
-  <p class="section-subtitle">Meet the experienced leaders driving RS Automotive's vision forward.</p>
-</div>
-<div class="team-grid">
-  <div class="team-card reveal">
-    <div class="team-photo"><img src="team-ceo.png" alt="Rajesh Sharma"></div>
-    <h3>Rajesh Sharma</h3>
-    <p>Founder &amp; CEO</p>
-  </div>
-  <div class="team-card reveal">
-    <div class="team-photo"><img src="team-cto.png" alt="Vikram Patel"></div>
-    <h3>Vikram Patel</h3>
-    <p>Chief Technology Officer</p>
-  </div>
-  <div class="team-card reveal">
-    <div class="team-photo"><img src="team-ops.png" alt="Ananya Desai"></div>
-    <h3>Ananya Desai</h3>
-    <p>Head of Operations</p>
-  </div>
-  <div class="team-card reveal">
-    <div class="team-photo"><img src="team-design.png" alt="Arjun Mehta"></div>
-    <h3>Arjun Mehta</h3>
-    <p>Design Engineering Lead</p>
-  </div>
-</div>
-</div>
-</section>
+        let currentIndex = 0;
+        let isAnimating = false;
 
-<!-- FAQ -->
-<section class="section" id="faq">
-<div class="container">
-<div class="section-header reveal">
-  <div class="section-label">FAQ</div>
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <p class="section-subtitle">Everything you need to know about partnering with RS Automotive.</p>
-</div>
-<div class="faq-list">
-  <div class="faq-item reveal">
-    <button class="faq-question">What types of automotive parts does RS Automotive manufacture?<span class="icon">+</span></button>
-    <div class="faq-answer"><p>We manufacture a comprehensive range including engine components (pistons, crankshafts, camshafts), braking systems, suspension parts, electrical components, transmission parts, and chassis accessories. All manufactured to OEM specifications with ISO 9001:2015 and IATF 16949 certification.</p></div>
-  </div>
-  <div class="faq-item reveal">
-    <button class="faq-question">What is the minimum order quantity?<span class="icon">+</span></button>
-    <div class="faq-answer"><p>Our Starter plan begins at 200 units per month. For custom or specialized parts, minimum quantities may vary. Contact our sales team for specific requirements â€” we're flexible and happy to accommodate growing businesses.</p></div>
-  </div>
-  <div class="faq-item reveal">
-    <button class="faq-question">Do you ship internationally?<span class="icon">+</span></button>
-    <div class="faq-answer"><p>Absolutely. We operate in 35+ countries with warehousing hubs in India, UAE, Germany, and the USA. We offer standard, express, and air freight shipping options depending on your plan and urgency.</p></div>
-  </div>
-  <div class="faq-item reveal">
-    <button class="faq-question">What quality certifications do you hold?<span class="icon">+</span></button>
-    <div class="faq-answer"><p>RS Automotive holds ISO 9001:2015, IATF 16949, ISO 14001 (Environmental), and ISO 45001 (Occupational Safety) certifications. Every batch undergoes 3-stage quality inspection before dispatch.</p></div>
-  </div>
-  <div class="faq-item reveal">
-    <button class="faq-question">Can you manufacture custom parts to our specifications?<span class="icon">+</span></button>
-    <div class="faq-answer"><p>Yes â€” our Enterprise plan includes fully custom manufacturing. Share your CAD files, specifications, and material requirements, and our engineering team will prototype, test, and mass-produce to your exact standards.</p></div>
-  </div>
-  <div class="faq-item reveal">
-    <button class="faq-question">What is your lead time for orders?<span class="icon">+</span></button>
-    <div class="faq-answer"><p>Standard catalog items ship within 5â€“7 business days. Custom orders typically have a 3â€“6 week lead time depending on complexity. Enterprise clients benefit from dedicated production lines for faster turnaround.</p></div>
-  </div>
-</div>
-</div>
-</section>
+        const pizzas = [
+            { name: "MARGHERITA" },
+            { name: "PEPPERONI" },
+            { name: "VEGETARIANO" },
+            { name: "BBQ CHICKEN" }
+        ];
 
-<!-- NEWSLETTER / CTA -->
-<section class="cta-section" id="newsletter">
-<div class="container reveal">
-  <div class="section-label" style="color:var(--gold)">Stay Connected</div>
-  <h2>Get Industry Updates &amp; Exclusive Offers</h2>
-  <p>Join 10,000+ automotive professionals who trust RS Automotive for insights, product launches, and partner-only pricing.</p>
-  <form class="newsletter-form" onsubmit="event.preventDefault();alert('Thank you for subscribing!')">
-    <input type="email" placeholder="Enter your email address" required>
-    <button type="submit" class="btn btn-primary">Subscribe</button>
-  </form>
-</div>
-</section>
+        // Custom Cursor Logic
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+            
+            const outlineX = e.clientX;
+            const outlineY = e.clientY;
+            
+            // Smoother outline follow
+            setTimeout(() => {
+                cursorOutline.style.left = outlineX + 'px';
+                cursorOutline.style.top = outlineY + 'px';
+            }, 50);
+        });
 
-<!-- CONTACT -->
-<section class="section" id="contact">
-<div class="container">
-<div class="section-header reveal">
-  <div class="section-label">Get in Touch</div>
-  <h2 class="section-title">Let's Build Something Great</h2>
-  <p class="section-subtitle">Ready to partner with RS Automotive? Reach out â€” our team responds within 24 hours.</p>
-</div>
-<div class="contact-grid">
-  <div class="reveal-left">
-    <div class="contact-info">
-      <h3>RS Automotive Pvt. Ltd.</h3>
-      <p>From our manufacturing hub in India, we serve partners across the globe with precision-engineered automotive components. Let's discuss how we can power your business.</p>
-      <div class="contact-detail">
-        <div class="contact-icon">ðŸ“</div>
-        <div><h4>Headquarters</h4><p>Plot 42, Industrial Area Phase II,<br>Pune, Maharashtra 411026, India</p></div>
-      </div>
-      <div class="contact-detail">
-        <div class="contact-icon">ðŸ“ž</div>
-        <div><h4>Phone</h4><p>+91 20 6789 1234</p></div>
-      </div>
-      <div class="contact-detail">
-        <div class="contact-icon">âœ‰ï¸</div>
-        <div><h4>Email</h4><p>partnerships@rsautomotive.com</p></div>
-      </div>
-      <div class="contact-detail">
-        <div class="contact-icon">ðŸ•</div>
-        <div><h4>Business Hours</h4><p>Mon â€” Sat: 9:00 AM â€“ 6:00 PM IST</p></div>
-      </div>
-    </div>
-  </div>
-  <div class="reveal-right">
-    <form class="contact-form" onsubmit="event.preventDefault();alert('Thank you! We\'ll be in touch shortly.')">
-      <div class="form-row">
-        <div class="form-group"><label for="fname">First Name</label><input type="text" id="fname" placeholder="John" required></div>
-        <div class="form-group"><label for="lname">Last Name</label><input type="text" id="lname" placeholder="Doe" required></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="john@company.com" required></div>
-        <div class="form-group"><label for="phone">Phone</label><input type="tel" id="phone" placeholder="+1 234 567 890"></div>
-      </div>
-      <div class="form-group">
-        <label for="interest">Interested In</label>
-        <select id="interest">
-          <option value="">Select a category...</option>
-          <option>Engine Components</option>
-          <option>Brake Systems</option>
-          <option>Suspension Parts</option>
-          <option>Electrical Components</option>
-          <option>Custom Manufacturing</option>
-          <option>Distribution Partnership</option>
-        </select>
-      </div>
-      <div class="form-group"><label for="message">Message</label><textarea id="message" placeholder="Tell us about your requirements..." rows="4"></textarea></div>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Inquiry â†’</button>
-    </form>
-  </div>
-</div>
-</div>
-</section>
+        function switchPizza(direction) {
+            if (isAnimating) return;
+            isAnimating = true;
 
-<!-- FOOTER -->
-<footer class="footer">
-<div class="container">
-<div class="footer-grid">
-  <div class="footer-brand">
-    <a href="#" class="nav-logo">RS <span>AUTOMOTIVE</span></a>
-    <p>Precision-engineered car parts, manufactured in India and delivered globally. Trusted by 500+ partners across 35 countries.</p>
-    <div class="footer-social">
-      <a href="#" aria-label="LinkedIn">in</a>
-      <a href="#" aria-label="Twitter">ð•</a>
-      <a href="#" aria-label="Instagram">ðŸ“·</a>
-      <a href="#" aria-label="YouTube">â–¶</a>
-    </div>
-  </div>
-  <div>
-    <h4>Products</h4>
-    <ul class="footer-links">
-      <li><a href="#">Engine Parts</a></li>
-      <li><a href="#">Brake Systems</a></li>
-      <li><a href="#">Suspension</a></li>
-      <li><a href="#">Electrical</a></li>
-      <li><a href="#">Custom OEM</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Company</h4>
-    <ul class="footer-links">
-      <li><a href="#about">About Us</a></li>
-      <li><a href="#team">Our Team</a></li>
-      <li><a href="#gallery">Facilities</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Certifications</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Support</h4>
-    <ul class="footer-links">
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#">Shipping Info</a></li>
-      <li><a href="#">Returns</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-    </ul>
-  </div>
-</div>
-<div class="footer-bottom">
-  <p>&copy; 2026 RS Automotive Pvt. Ltd. All rights reserved.</p>
-  <p>Made with âš™ï¸ in India</p>
-</div>
-</div>
-</footer>
+            const prevIndex = currentIndex;
+            if (direction === 'next') {
+                currentIndex = (currentIndex + 1) % pizzaItems.length;
+            } else {
+                currentIndex = (currentIndex - 1 + pizzaItems.length) % pizzaItems.length;
+            }
 
-<script>
+            // Update UI
+            updatePizzaAnimation(prevIndex, currentIndex, direction);
+            updateInfo(currentIndex);
+            updateDots(currentIndex);
+            
+            // Change BG Text with a small delay
+            setTimeout(() => {
+                bgText.innerText = pizzas[currentIndex].name;
+            }, 300);
 
-// Navbar scroll
-window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60)});
+            // Unlock animation
+            setTimeout(() => {
+                isAnimating = false;
+            }, 1200);
+        }
 
-// Mobile menu
-document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobileMenu').classList.add('active'));
-document.getElementById('mobileClose').addEventListener('click',closeMobile);
-function closeMobile(){document.getElementById('mobileMenu').classList.remove('active')}
+        function updatePizzaAnimation(prev, current, direction) {
+            const prevItem = pizzaItems[prev];
+            const nextItem = pizzaItems[current];
 
-// Scroll reveal
-const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+            // Reset all classes
+            pizzaItems.forEach(item => {
+                item.className = 'pizza-item';
+            });
 
-// Counter animation
-const counterObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,target=+el.dataset.target;let current=0;const step=target/60,timer=setInterval(()=>{current+=step;if(current>=target){el.textContent=target.toLocaleString();clearInterval(timer)}else{el.textContent=Math.floor(current).toLocaleString()}},25);counterObs.unobserve(el)}})},{threshold:.5});
-document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+            if (direction === 'next') {
+                prevItem.classList.add('exit-left');
+                nextItem.classList.add('enter-right');
+            } else {
+                prevItem.classList.add('exit-right');
+                nextItem.classList.add('enter-left');
+            }
 
-// FAQ accordion
-document.querySelectorAll('.faq-question').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.parentElement,ans=item.querySelector('.faq-answer');const isActive=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('active');i.querySelector('.faq-answer').style.maxHeight=null});if(!isActive){item.classList.add('active');ans.style.maxHeight=ans.scrollHeight+'px'}})});
+            // Trigger reflow to ensure entry animation starts
+            void nextItem.offsetWidth;
 
-// Gallery lightbox
-function openLightbox(el){const lb=document.getElementById('lightbox');document.getElementById('lightboxImg').src=el.querySelector('img').src;lb.classList.add('active');document.body.style.overflow='hidden'}
-function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow=''}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
-</script>
+            nextItem.classList.add('active');
+        }
+
+        function updateInfo(index) {
+            infoContents.forEach(content => content.classList.remove('active'));
+            infoContents[index].classList.add('active');
+        }
+
+        function updateDots(index) {
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+
+        // Handle Clicks
+        container.addEventListener('click', (e) => {
+            const width = window.innerWidth;
+            if (e.clientX > width / 2) {
+                switchPizza('next');
+            } else {
+                switchPizza('prev');
+            }
+        });
+
+        // Mousewheel navigation (bonus)
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY > 0) switchPizza('next');
+            else switchPizza('prev');
+        });
+
+        // Keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') switchPizza('next');
+            if (e.key === 'ArrowLeft') switchPizza('prev');
+        });
+
+    </script>
 </body>
 </html>
