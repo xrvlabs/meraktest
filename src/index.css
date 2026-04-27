@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@utility scrollbar-hide {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@theme {
+  --color-luxury-charcoal: #1a1a1a;
+  --color-luxury-gold: #d4af37;
+  --color-luxury-beige: #f5f5dc;
+  --color-luxury-offwhite: #fafafa;
+  --font-sans: 'Outfit', system-ui, sans-serif;
+  --font-serif: 'Unbounded', sans-serif;
+  --font-iceland: 'Iceland', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-luxury-offwhite text-luxury-charcoal font-sans antialiased overflow-x-hidden;
+  }
+}
