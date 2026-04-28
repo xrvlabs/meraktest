@@ -1,16 +1,315 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Iceland&family=Unbounded:wght@200..900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>MaaKarni Interior | Premium Spaces</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRIDLABS - PROFESSIONAL INVOICE SYSTEM</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --brand-color: #2563eb; }
+        ::-webkit-scrollbar { display: none; }
+        
+        body { 
+            font-family: 'Quantico', sans-serif; 
+            background-color: #f1f5f9; 
+            margin: 0; padding: 0;
+            text-transform: uppercase;
+            -ms-overflow-style: none; scrollbar-width: none;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        .invoice-card {
+            width: 100%;
+            min-height: 1123px; /* A4 Ratio */
+            background: white;
+            padding: 60px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-input { 
+            font-family: 'Quantico', sans-serif;
+            padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 6px; 
+            font-size: 14px; width: 100%; background: #ffffff; text-transform: uppercase;
+            outline: none; transition: all 0.2s;
+        }
+        .field-input:focus { border-color: var(--brand-color); ring: 2px solid #bfdbfe; }
+
+        .text-label { font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 1px; margin-bottom: 4px; display: block; }
+        
+        .table-custom { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .table-custom th { text-align: left; background: #f8fafc; border-bottom: 2px solid #1e293b; padding: 12px; font-size: 13px; color: #1e293b; }
+        .table-custom td { padding: 24px 12px; border-bottom: 1px solid #f1f5f9; font-size: 15px; color: #1e293b; }
+
+        .expandable {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease-in-out;
+            opacity: 0;
+        }
+        .expandable.active {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            font-size: 9px;
+            color: #94a3b8;
+            line-height: 1.4;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container { padding: 10px; }
+            .invoice-card { padding: 30px 20px; }
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .main-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
+            .invoice-card { 
+                box-shadow: none !important; 
+                padding: 60px !important; 
+                width: 100% !important; 
+                height: auto !important;
+                min-height: 1123px !important;
+            }
+            @page { size: A4; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="sidebar w-full no-print">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+                <div class="flex items-center justify-between mb-6 border-b pb-4">
+                    <h2 class="text-xl font-bold text-blue-600 tracking-tight uppercase flex items-center gap-2">
+                        <i data-lucide="layout-dashboard"></i> GridLabs Editor
+                    </h2>
+                    <button onclick="window.print()" class="bg-blue-600 text-white px-8 py-3 rounded-md font-bold text-sm flex items-center gap-2 hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">
+                        <i data-lucide="printer" class="w-4 h-4"></i> PRINT INVOICE
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-4 bg-slate-50 rounded-lg border border-slate-100">
+                        <div>
+                            <label class="text-label">CLIENT NAME</label>
+                            <input type="text" id="iClient" value="MUKEJA MAKHANA" oninput="updateInvoice()" class="field-input mb-3">
+                            <label class="text-label">PHONE NO.</label>
+                            <input type="text" id="iClientPhone" value="+91 73036 79152" oninput="updateInvoice()" class="field-input">
+                        </div>
+                        <div>
+                            <div class="grid grid-cols-2 gap-3 mb-3">
+                                <div><label class="text-label">INV NO.</label><input type="text" id="iInvNum" value="INV-088" oninput="updateInvoice()" class="field-input"></div>
+                                <div><label class="text-label">DATE</label><input type="date" id="iDate" oninput="updateInvoice()" class="field-input"></div>
+                            </div>
+                            <label class="text-label">PROJECT SCOPE</label>
+                            <input type="text" id="iProjName" value="GOOGLE BUSINESS SETUP & SEO" oninput="updateInvoice()" class="field-input">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div><label class="text-label">TOTAL PROJECT COST (₹)</label><input type="number" id="iTotalCost" value="100000" oninput="updateInvoice()" class="field-input"></div>
+                        <div><label class="text-label">ADVANCE RECEIVED (₹)</label><input type="number" id="iAdvance" value="20000" oninput="updateInvoice()" class="field-input"></div>
+                    </div>
+
+                    <div class="flex flex-row gap-4 pt-2">
+                        <div class="flex-1 flex items-center gap-3 p-4 bg-white border rounded-lg cursor-pointer hover:border-blue-400 transition-all">
+                            <input type="checkbox" id="emiToggle" onchange="toggleSection('emi-fields', this); updateInvoice()" class="w-5 h-5 accent-blue-600 cursor-pointer">
+                            <label for="emiToggle" class="text-[11px] font-bold text-slate-700 cursor-pointer uppercase">ACTIVATE EMI CYCLE</label>
+                        </div>
+                        <div class="flex-1 flex items-center gap-3 p-4 bg-white border rounded-lg cursor-pointer hover:border-blue-400 transition-all">
+                            <input type="checkbox" id="amcToggle" onchange="toggleSection('amc-fields', this); updateInvoice()" class="w-5 h-5 accent-blue-600 cursor-pointer" checked>
+                            <label for="amcToggle" class="text-[11px] font-bold text-slate-700 cursor-pointer uppercase">SHOW AMC DETAILS</label>
+                        </div>
+                    </div>
+
+                    <div id="emi-fields" class="expandable">
+                        <div class="grid grid-cols-3 gap-4 p-4 bg-blue-50 border border-blue-100 rounded-lg">
+                            <div><label class="text-label text-blue-600">TENURE (MO)</label><input type="number" id="iTenure" value="4" oninput="updateInvoice()" class="field-input"></div>
+                            <div><label class="text-label text-blue-600">START DATE</label><input type="date" id="iEmiStart" oninput="updateInvoice()" class="field-input"></div>
+                            <div><label class="text-label text-blue-600">NEXT DUE</label><input type="date" id="iEmiNext" oninput="updateInvoice()" class="field-input"></div>
+                        </div>
+                    </div>
+
+                    <div id="amc-fields" class="expandable active">
+                        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                            <label class="text-label">RECURRING AMC CHARGE (₹/YEAR)</label>
+                            <input type="number" id="iYearly" value="10000" oninput="updateInvoice()" class="field-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoice-wrapper">
+            <div class="invoice-card" id="preview-content"></div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener("load", () => {
+            lucide.createIcons();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('iDate').value = today;
+            document.getElementById('iEmiStart').value = today;
+            
+            const nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            document.getElementById('iEmiNext').value = nextMonth.toISOString().split('T')[0];
+            
+            updateInvoice();
+        });
+
+        function toggleSection(id, checkbox) {
+            const el = document.getElementById(id);
+            checkbox.checked ? el.classList.add('active') : el.classList.remove('active');
+        }
+
+        function updateInvoice() {
+            const isEmi = document.getElementById('emiToggle').checked;
+            const isAmc = document.getElementById('amcToggle').checked;
+            
+            const data = {
+                client: document.getElementById('iClient').value || 'GUEST CLIENT',
+                clientPhone: document.getElementById('iClientPhone').value || 'N/A',
+                invNum: document.getElementById('iInvNum').value || '000',
+                date: document.getElementById('iDate').value.split('-').reverse().join('/'),
+                projName: document.getElementById('iProjName').value || 'PROJECT SERVICE',
+                totalCost: parseFloat(document.getElementById('iTotalCost').value) || 0,
+                advance: parseFloat(document.getElementById('iAdvance').value) || 0,
+                yearly: parseFloat(document.getElementById('iYearly').value) || 0,
+                isEmi: isEmi,
+                isAmc: isAmc,
+                tenure: parseInt(document.getElementById('iTenure').value) || 1,
+                emiStart: document.getElementById('iEmiStart').value.split('-').reverse().join('/'),
+                emiNext: document.getElementById('iEmiNext').value.split('-').reverse().join('/')
+            };
+
+            const remaining = data.totalCost - data.advance;
+
+            const html = `
+                <div class="flex justify-between items-start border-b-4 border-slate-900 pb-10 mb-10">
+                    <div class="flex items-center gap-5">
+                        <div class="w-16 h-16 bg-blue-600 text-white flex items-center justify-center text-4xl font-bold rounded-sm">G</div>
+                        <div>
+                            <h1 class="text-4xl font-bold text-slate-900 leading-none tracking-tighter">GridLabs Prod.</h1>
+                            <p class="text-[12px] text-blue-600 tracking-[0.4em] font-bold mt-2">ENGINEERING GROWTH</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <h2 class="text-6xl font-bold text-slate-100 leading-none">INVOICE</h2>
+                        <div class="mt-2">
+                            <p class="font-bold text-slate-800 text-sm tracking-widest">NO: ${data.invNum}</p>
+                            <p class="text-sm text-slate-500 font-bold">ISSUED: ${data.date}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mb-10">
+                    <div class="w-1/2">
+                        <p class="text-blue-600 font-bold text-[12px] mb-3 tracking-[0.2em]">CLIENT INFORMATION</p>
+                        <h3 class="text-xl font-bold text-slate-900">${data.client}</h3>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">PH: ${data.clientPhone}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-slate-400 font-bold text-[12px] mb-3 tracking-[0.2em]">SERVICE PROVIDER</p>
+                        <h3 class="text-xl font-bold text-slate-900">GridLabs Productions</h3>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">PH: +91 95181 59114</p>
+                        <p class="text-[14px] text-slate-500 font-bold uppercase">GridLabs@UPI</p>
+                    </div>
+                </div>
+
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th style="width: 70%;">SERVICE DESCRIPTION</th>
+                            <th style="text-align: right;">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="font-bold text-slate-900 text-lg">${data.projName}</span><br>
+                                <span class="text-[11px] text-slate-400 font-bold tracking-widest mt-2 inline-block">
+                                    ${data.isEmi ? `PAYMENT PLAN: ${data.tenure} MONTHLY INSTALLMENTS` : 'PAYMENT TYPE: STANDARD FULL PROJECT'}
+                                </span>
+                            </td>
+                            <td style="text-align: right;" class="font-bold text-slate-900 text-2xl">₹${data.totalCost.toLocaleString('en-IN')}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="mt-10 flex gap-4">
+                    <div class="flex-1 p-6 border border-slate-200 rounded-md bg-slate-50">
+                        <p class="text-[12px] font-bold text-slate-400 mb-2 tracking-widest">TOTAL PAID</p>
+                        <h4 class="text-3xl font-bold text-green-600">₹${data.advance.toLocaleString('en-IN')}</h4>
+                    </div>
+                    <div class="flex-1 p-6 border border-slate-200 rounded-md bg-slate-50">
+                        <p class="text-[12px] font-bold text-slate-400 mb-2 tracking-widest">OUTSTANDING</p>
+                        <h4 class="text-3xl font-bold text-red-500">₹${Math.round(remaining).toLocaleString('en-IN')}</h4>
+                    </div>
+                    ${data.isAmc ? `
+                    <div class="flex-1 p-6 border border-blue-200 rounded-md bg-blue-50/50">
+                        <p class="text-[12px] font-bold text-blue-400 mb-2 tracking-widest">ANNUAL AMC</p>
+                        <h4 class="text-3xl font-bold text-blue-700">₹${data.yearly.toLocaleString('en-IN')}</h4>
+                    </div>
+                    ` : ''}
+                </div>
+
+                <div class="mt-10">
+                    <p class="text-[12px] font-bold text-slate-900 mb-4 tracking-widest border-b pb-2">UNIVERSAL TERMS & CONDITIONS</p>
+                    <div class="terms-grid">
+                        <div>
+                            <strong>1. PAYMENT & VALIDITY:</strong> All milestone payments are non-refundable. Invoices must be cleared within 7 days of the due date. A late fee of 2% per month applies to overdue balances.
+                            <br><br>
+                            <strong>2. INTELLECTUAL PROPERTY:</strong> Full ownership and source code rights are transferred to the client only upon 100% completion of all financial dues. GridLabs retains the right to showcase the work in portfolios.
+                        </div>
+                        <div>
+                            <strong>3. PROJECT SCOPE:</strong> Any modifications outside the initial scope mentioned in this invoice will be billed as additional work at standard hourly rates.
+                            <br><br>
+                            <strong>4. TERMINATION:</strong> Either party may terminate the contract with 15 days written notice. Client is liable to pay for all work completed up to the date of termination.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-auto pt-10 flex justify-between items-end">
+                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                        COMPUTER GENERATED INVOICE<br>NO PHYSICAL SIGNATURE REQUIRED
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl text-blue-700 font-bold italic mb-1" style="letter-spacing: 2px;">Akshar Chaudhary</div>
+                        <div class="w-56 h-[2px] bg-slate-900 mb-2 mt-1 mx-auto"></div>
+                        <p class="text-[11px] font-bold text-slate-900 tracking-widest">AUTHORIZED SIGNATORY</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('preview-content').innerHTML = html;
+            lucide.createIcons();
+        }
+    </script>
+</body>
 </html>
