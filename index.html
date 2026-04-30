@@ -139,7 +139,7 @@
             font-size: 9px;
             color: #94a3b8 !important;
             line-height: 1.4;
-            padding-top: 10px;
+            padding-top: 4px;
         }
 
         .expandable {
@@ -155,12 +155,12 @@
         }
 
         @media print {
-            html, body { width: auto; max-width: none; overflow: visible; background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            body, .app-container, #view-main, #main-content { height: auto !important; overflow: visible !important; display: block !important; background: white !important; padding: 0 !important; }
+            html, body { width: auto; max-width: none; overflow: visible; background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; margin: 0 !important; padding: 0 !important; }
+            body, .app-container, #view-main, #main-content { height: auto !important; overflow: visible !important; display: block !important; background: white !important; padding: 0 !important; margin: 0 !important; }
             #main-header, #bottom-nav, #login-screen, #email-bs-overlay, #confirm-bs-overlay, #info-bs-overlay, .no-print { display: none !important; }
             
             .invoice-wrapper { overflow: visible; padding: 0; display: block; height: auto !important; width: 100%; margin: 0; }
-            .invoice-card { box-shadow: none !important; border: none !important; margin: 0 !important; width: 100% !important; padding: 40px !important; min-height: 1123px !important; transform: none !important; }
+            .invoice-card { box-shadow: none !important; border: none !important; margin: 0 auto !important; width: 100% !important; padding: 40px !important; min-height: 99vh !important; transform: none !important; page-break-after: avoid; page-break-inside: avoid; }
 
             body.print-bs-mode #view-main, body.print-bs-mode #bottom-nav { display: none !important; }
             body.print-bs-mode #bs-overlay { display: block !important; opacity: 1 !important; position: static !important; background: white !important; }
@@ -231,7 +231,7 @@
         <button onclick="window.openEmailLoginSheet()" class="mt-3 flex items-center gap-3 bg-purple-600 text-white font-bold py-3.5 px-6 rounded-[5px] shadow-sm w-full justify-center transition-all hover:bg-purple-700 active:scale-95">
             <i data-lucide="mail" class="w-5 h-5"></i> Continue with Email
         </button>
-        <p class="text-center text-[10px] text-slate-400 font-bold mt-6 uppercase tracking-widest">Crafted by Akshar Chaudhary</p>
+        <p class="text-center text-[10px] text-slate-400 font-bold mt-6 uppercase tracking-widest">Powered by GridLabs</p>
     </div>
 </div>
 
@@ -281,7 +281,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Email Address</label>
-                    <input type="email" id="auth-email" class="field-input mt-1.5" placeholder="admin@gridlabs.com">
+                    <input type="email" id="auth-email" class="field-input mt-1.5" placeholder="admin@business.com">
                 </div>
                 <div>
                     <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Password</label>
@@ -320,31 +320,24 @@
             <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-[5px]"></div>
         </div>
         <div class="px-6 flex flex-col items-center text-center flex-1 min-h-0 pt-2 pb-5">
-            
             <div class="w-16 h-16 flex-shrink-0 bg-white dark:bg-slate-800 rounded-[10px] flex items-center justify-center mb-2 border-[3px] border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden p-1 z-10 relative">
                 <img src="gridlabs_logo.png" alt="" class="w-full h-full object-contain my-logo-img" onerror="this.style.display='none'">
             </div>
             
             <div id="dev-card-container" class="flex-1 w-[calc(100%+3rem)] -mx-6 -my-2 flex items-center justify-center min-h-0 relative cursor-grab active:cursor-grabbing" style="perspective: 1500px; touch-action: none;">
-                
                 <div id="dev-card-inner" class="w-full max-w-[380px] h-full relative" style="transform-style: preserve-3d; will-change: transform;">
-                    
                     <div class="absolute inset-0 w-full h-full flex items-center justify-center pb-4" style="backface-visibility: hidden;">
-                        <img src="card_front.png" alt="Developer Card Front" class="w-full h-full object-contain scale-[1.20] drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] pointer-events-none" onerror="this.style.display='none'">
+                        <img src="card_front.png" alt="Card Front" class="w-full h-full object-contain scale-[1.20] drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] pointer-events-none" onerror="this.style.display='none'">
                     </div>
-                    
                     <div class="absolute inset-0 w-full h-full flex items-center justify-center pb-4" style="backface-visibility: hidden; transform: rotateY(180deg);">
-                        <img src="card_back.png" alt="Developer Card Back" class="w-full h-full object-contain scale-[1.20] drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] pointer-events-none" onerror="this.style.display='none'">
+                        <img src="card_back.png" alt="Card Back" class="w-full h-full object-contain scale-[1.20] drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] pointer-events-none" onerror="this.style.display='none'">
                     </div>
-                    
                 </div>
-
             </div>
 
-            <button onclick="window.open('https://wa.me/919518159114?text=Hello%2C%20I%20would%20like%20to%20connect', '_blank')" class="w-full max-w-sm flex-shrink-0 btn-primary bg-purple-600 text-white flex items-center justify-center hover:bg-purple-700 shadow-md transition-all mt-2 z-10 relative" style="margin-bottom: 20px;">
-                CONNECT WITH ME
+            <button onclick="window.open('https://wa.me/919518159114?text=Hello', '_blank')" class="w-full max-w-sm flex-shrink-0 btn-primary bg-purple-600 text-white flex items-center justify-center hover:bg-purple-700 shadow-md transition-all mt-2 z-10 relative" style="margin-bottom: 20px;">
+                CONTACT SUPPORT
             </button>
-
         </div>
     </div>
 </div>
@@ -384,93 +377,58 @@
                 setTimeout(() => { splash.remove(); }, 1000);
             }, 2500);
         }
-        
-        // Initialize 3D Card Physics
         setup3DCard();
     });
 
-    // Interactive 3D Physics Logic for Developer Card
     function setup3DCard() {
         const container = document.getElementById('dev-card-container');
         const inner = document.getElementById('dev-card-inner');
         if (!container || !inner) return;
 
         let isDragging = false;
-        let startX, startY;
-        let lastX, lastTime;
-        let velocityX = 0;
-
-        let rotY = 0, rotX = 0;           // Current visible rotation
-        let targetRotY = 0, targetRotX = 0; // The rotation we are easing towards
-        let baseRotY = 0;                   // The snap point (0, 180, 360, etc.)
+        let startX, startY, lastX, lastTime;
+        let velocityX = 0, rotY = 0, rotX = 0;
+        let targetRotY = 0, targetRotX = 0, baseRotY = 0;
 
         container.addEventListener('pointerdown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            lastX = startX;
-            lastTime = performance.now();
-            velocityX = 0;
+            isDragging = true; startX = e.clientX; startY = e.clientY;
+            lastX = startX; lastTime = performance.now(); velocityX = 0;
             container.setPointerCapture(e.pointerId);
         });
 
         container.addEventListener('pointermove', (e) => {
             if (!isDragging) return;
-            
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
+            const deltaX = e.clientX - startX; const deltaY = e.clientY - startY;
+            const now = performance.now(); const dt = now - lastTime;
+            if (dt > 0) velocityX = (e.clientX - lastX) / dt;
+            lastX = e.clientX; lastTime = now;
 
-            // Calculate swipe velocity
-            const now = performance.now();
-            const dt = now - lastTime;
-            if (dt > 0) {
-                velocityX = (e.clientX - lastX) / dt;
-            }
-            lastX = e.clientX;
-            lastTime = now;
-
-            // Update rotation targets based on finger drag
             targetRotY = baseRotY + (deltaX * 0.4); 
-            targetRotX = -(deltaY * 0.15); // Slight tilt up/down
-
-            // Clamp vertical tilt to prevent flipping head-over-heels
+            targetRotX = -(deltaY * 0.15);
             targetRotX = Math.max(-15, Math.min(15, targetRotX));
         });
 
         const release = (e) => {
             if (!isDragging) return;
             isDragging = false;
+            const deltaX = e.clientX - startX; const deltaY = e.clientY - startY;
 
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-
-            // If it was just a quick tap without much movement, flip it completely
             if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) {
                 baseRotY += 180;
             } else {
-                // Otherwise, evaluate swipe velocity and distance to decide if it should snap forward or back
                 const diff = targetRotY - baseRotY;
-                const velThreshold = 0.5; // Swipe speed required to trigger flip
-                const distThreshold = 60; // Degrees turned required to trigger flip
-
+                const velThreshold = 0.5; const distThreshold = 60;
                 if (Math.abs(diff) > distThreshold || Math.abs(velocityX) > velThreshold) {
-                    if (diff > 0 || velocityX > velThreshold) {
-                        baseRotY += 180;
-                    } else {
-                        baseRotY -= 180;
-                    }
+                    if (diff > 0 || velocityX > velThreshold) baseRotY += 180;
+                    else baseRotY -= 180;
                 }
             }
-
-            // Snap back to vertical orientation and closest face
-            targetRotY = baseRotY;
-            targetRotX = 0; 
+            targetRotY = baseRotY; targetRotX = 0; 
         };
 
         container.addEventListener('pointerup', release);
         container.addEventListener('pointercancel', release);
 
-        // Smooth physics render loop (Lerp)
         function render() {
             rotY += (targetRotY - rotY) * 0.1;
             rotX += (targetRotX - rotX) * 0.1;
@@ -503,7 +461,7 @@
     window.currentUser = null;
     window.isProfileLoaded = false;
     window.isInvoicesLoaded = false;
-    window.appData = { invoices: [], profile: { name: '', phone: '' } };
+    window.appData = { invoices: [], profile: { name: '', phone: '', businessName: '', upiId: '' } };
     window.currentTab = localStorage.getItem('currentTab') || 'dashboard';
     window.viewingInvoiceId = localStorage.getItem('viewingInvoiceId') || null;
     window.isInvoiceSimulatingLoad = false;
@@ -515,19 +473,14 @@
         const isDark = document.documentElement.classList.contains('dark');
         const lightSrc = localStorage.getItem('cached_gridlabs_logo') || 'gridlabs_logo.png';
         const darkSrc = localStorage.getItem('cached_gridlabs_logo') || 'gridlabs_logo.png';
-        
         const currentSrc = isDark ? darkSrc : lightSrc;
         
         document.querySelectorAll('.my-logo-img, img[src="gridlabs_logo.png"]').forEach(img => {
-            if (!img.src.includes('googleusercontent')) {
-                img.src = currentSrc;
-            }
+            if (!img.src.includes('googleusercontent')) img.src = currentSrc;
         });
     };
 
-    window.loadCachedImages = () => {
-        window.updateLogoTheme();
-    };
+    window.loadCachedImages = () => { window.updateLogoTheme(); };
     window.loadCachedImages();
 
     window.cacheImages = async () => {
@@ -542,9 +495,7 @@
                     window.loadCachedImages();
                 };
                 reader.readAsDataURL(blob);
-            } catch (e) {
-                console.log(`Could not cache ${url}`, e);
-            }
+            } catch (e) { console.log(`Could not cache ${url}`, e); }
         };
         cacheImg('gridlabs_logo.png', 'cached_gridlabs_logo');
     };
@@ -569,29 +520,19 @@
                 sheetClosed = true;
             }
         });
-
-        if (sheetClosed) {
-            history.pushState(null, null, location.href);
-            return;
-        }
-
+        if (sheetClosed) { history.pushState(null, null, location.href); return; }
         if (window.currentUser && window.currentTab !== 'dashboard') {
-            switchTab('dashboard');
-            history.pushState(null, null, location.href);
-            return;
+            switchTab('dashboard'); history.pushState(null, null, location.href); return;
         }
     });
-
     history.pushState(null, null, location.href);
 
     const today = () => new Date().toISOString().split('T')[0];
     const fmt = n => '₹ ' + parseFloat(n).toLocaleString('en-IN');
 
-    // Email/Password Authentication Function (Firebase Live)
     window.doAuth = async () => {
         const email = document.getElementById('auth-email').value.trim();
         const pass = document.getElementById('auth-pass').value.trim();
-        
         const loginBtn = document.getElementById('btn-login');
         const originalHtml = `LOGIN`;
 
@@ -599,7 +540,6 @@
             loginBtn.innerHTML = 'ENTER DETAILS';
             loginBtn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
             loginBtn.classList.add('bg-red-600', 'animate-shake');
-
             setTimeout(() => {
                 loginBtn.innerHTML = originalHtml;
                 loginBtn.classList.remove('bg-red-600', 'animate-shake');
@@ -608,29 +548,19 @@
             return;
         }
 
-        loginBtn.innerHTML = `
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            AUTHENTICATING
-        `;
+        loginBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> AUTHENTICATING`;
         loginBtn.classList.add('opacity-90', 'pointer-events-none');
 
         try {
             await setPersistence(auth, browserLocalPersistence);
             await signInWithEmailAndPassword(auth, email, pass);
-            
             window.closeEmailLoginSheet();
-            
             loginBtn.innerHTML = originalHtml;
             loginBtn.classList.remove('opacity-90', 'pointer-events-none');
-            
         } catch (error) {
             loginBtn.innerHTML = 'INVALID CREDENTIALS';
             loginBtn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
             loginBtn.classList.add('bg-red-600', 'animate-shake');
-
             setTimeout(() => {
                 loginBtn.innerHTML = originalHtml;
                 loginBtn.classList.remove('bg-red-600', 'animate-shake', 'opacity-90', 'pointer-events-none');
@@ -642,10 +572,8 @@
     window.openEmailLoginSheet = () => {
         const overlay = document.getElementById('email-bs-overlay');
         const content = document.getElementById('email-bs-content');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-100');
-        content.classList.remove('translate-y-full');
-        content.classList.add('translate-y-0');
+        overlay.classList.remove('opacity-0', 'pointer-events-none'); overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full'); content.classList.add('translate-y-0');
         history.pushState(null, null, location.href);
     };
 
@@ -653,17 +581,14 @@
         const overlay = document.getElementById('email-bs-overlay');
         const content = document.getElementById('email-bs-content');
         if(!overlay.classList.contains('opacity-0')) {
-             content.classList.remove('translate-y-0');
-             content.classList.add('translate-y-full');
-             overlay.classList.remove('opacity-100');
-             overlay.classList.add('opacity-0');
+             content.classList.remove('translate-y-0'); content.classList.add('translate-y-full');
+             overlay.classList.remove('opacity-100'); overlay.classList.add('opacity-0');
              setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
         }
     };
 
     function showLoginScreen() {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('currentTab');
+        localStorage.removeItem('isLoggedIn'); localStorage.removeItem('currentTab');
         window.currentUser = null;
         document.getElementById('login-screen').style.display = 'flex';
         document.getElementById('app').style.display = 'none';
@@ -674,55 +599,47 @@
         window.currentUser = user;
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('app').style.display = 'flex';
-
         window.cacheImages();
-        window.isProfileLoaded = false;
-        window.isInvoicesLoaded = false;
+        window.isProfileLoaded = false; window.isInvoicesLoaded = false;
         window.switchTab(window.currentTab);
 
         const profileRef = ref(database, `INVOYR/users/${user.uid}/profile`);
         onValue(profileRef, (snapshot) => {
             let p = snapshot.val();
             let needsUpdate = false;
-            
             const fallbackName = user.displayName || (user.email ? user.email.split('@')[0].toUpperCase() : 'NEW USER');
-            const now = Date.now();
-            const oneDayMs = 24 * 60 * 60 * 1000;
+            const now = Date.now(); const oneDayMs = 24 * 60 * 60 * 1000;
 
             if (!p) {
                 p = { 
+                    businessName: fallbackName + ' ENTERPRISES',
                     name: fallbackName, 
-                    phone: '+91 95181 59114', 
+                    phone: '+91 00000 00000', 
+                    upiId: 'yourupi@bank',
                     created_at: now,
                     expires_at: now + (365 * oneDayMs),
                     membership_days: 365 
                 };
                 needsUpdate = true;
             } else {
+                if(!p.businessName) { p.businessName = fallbackName + ' ENTERPRISES'; needsUpdate = true; }
                 if(!p.name) { p.name = fallbackName; needsUpdate = true; }
-                if(!p.phone) { p.phone = '+91 95181 59114'; needsUpdate = true; }
+                if(!p.phone) { p.phone = '+91 00000 00000'; needsUpdate = true; }
+                if(!p.upiId) { p.upiId = 'yourupi@bank'; needsUpdate = true; }
                 if(!p.created_at) { p.created_at = now; needsUpdate = true; }
-                
                 if(!p.expires_at) { 
                     const oldMemDays = p.membership_days || 365;
                     p.expires_at = p.created_at + (oldMemDays * oneDayMs); 
                     needsUpdate = true; 
                 }
-
                 let daysLeft = Math.ceil((p.expires_at - now) / oneDayMs);
                 if (daysLeft < 0) daysLeft = 0;
-
                 if(p.membership_days !== daysLeft) {
-                    p.membership_days = daysLeft;
-                    needsUpdate = true;
+                    p.membership_days = daysLeft; needsUpdate = true;
                 }
             }
-
             if (needsUpdate) set(profileRef, p).catch(e => console.warn(e));
-
-            window.appData.profile = p;
-            window.isProfileLoaded = true;
-            checkAndReRender();
+            window.appData.profile = p; window.isProfileLoaded = true; checkAndReRender();
         });
 
         const invoicesRef = ref(database, `INVOYR/users/${user.uid}/invoices`);
@@ -732,56 +649,39 @@
             } else {
                 window.appData.invoices = [];
             }
-            window.isInvoicesLoaded = true;
-            checkAndReRender();
+            window.isInvoicesLoaded = true; checkAndReRender();
         });
     }
 
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            initAppForUser(user);
-        } else {
-            showLoginScreen();
-        }
+        if (user) initAppForUser(user);
+        else showLoginScreen();
     });
 
     function checkAndReRender() {
         if (window.isProfileLoaded && window.isInvoicesLoaded) {
             document.getElementById('main-content').innerHTML = renderPage(window.currentTab);
             lucide.createIcons();
-
             if (window.currentTab === 'add-invoice' || window.currentTab === 'view-invoice') {
-                if(window.currentTab === 'add-invoice' && !window.isEditing) {
-                    window.runInvoiceCalculation();
-                }
+                if(window.currentTab === 'add-invoice' && !window.isEditing) window.runInvoiceCalculation();
                 setTimeout(window.applyInvoiceScaling, 50);
             }
         }
     }
 
-    window.openNewInvoice = () => {
-        window.isEditing = false;
-        window.isSaved = false;
-        window.switchTab('add-invoice');
-    }
-
+    window.openNewInvoice = () => { window.isEditing = false; window.isSaved = false; window.switchTab('add-invoice'); }
     window.viewProfile = () => {
-        window.isProfileSimulatingLoad = true;
-        window.switchTab('profile');
+        window.isProfileSimulatingLoad = true; window.switchTab('profile');
         setTimeout(() => {
             window.isProfileSimulatingLoad = false;
             if (window.currentTab === 'profile') {
-                document.getElementById('main-content').innerHTML = renderPage('profile');
-                lucide.createIcons();
+                document.getElementById('main-content').innerHTML = renderPage('profile'); lucide.createIcons();
             }
         }, 500);
     }
 
     window.switchTab = (tab) => {
-        window.currentTab = tab;
-        localStorage.setItem('currentTab', tab);
-        window.isSaved = false;
-
+        window.currentTab = tab; localStorage.setItem('currentTab', tab); window.isSaved = false;
         document.querySelectorAll('#bottom-nav button').forEach(b => b.classList.remove('text-purple-600', 'dark:text-purple-400'));
         const activeNav = document.getElementById('nav-btn-' + tab);
         if(activeNav) activeNav.classList.add('text-purple-600', 'dark:text-purple-400');
@@ -789,106 +689,73 @@
         const titles = { dashboard: 'Dashboard', profile: 'Settings', 'add-invoice': 'Create Invoice', 'view-invoice': 'Invoice Details' };
         document.getElementById('app-title').innerText = titles[tab] || 'GRIDLABS';
 
-        document.getElementById('main-content').innerHTML = renderPage(tab);
-        lucide.createIcons();
+        document.getElementById('main-content').innerHTML = renderPage(tab); lucide.createIcons();
 
         if (window.isProfileLoaded && window.isInvoicesLoaded) {
-            if (tab === 'add-invoice' && !window.isEditing) {
-                window.runInvoiceCalculation();
-            }
+            if (tab === 'add-invoice' && !window.isEditing) window.runInvoiceCalculation();
             setTimeout(window.applyInvoiceScaling, 50);
         }
-
-        window.updateThemeIcon();
-        window.scrollTo(0,0);
-
+        window.updateThemeIcon(); window.scrollTo(0,0);
         history.pushState(null, null, location.href);
     }
 
     window.toggleTheme = () => {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('inv_theme', isDark ? 'dark' : 'light');
-
-    // Dynamically update the status bar color
-    const statusBar = document.getElementById('status-bar-color');
-    if (statusBar) {
-        statusBar.setAttribute("content", isDark ? "#0f172a" : "#f8fafc");
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('inv_theme', isDark ? 'dark' : 'light');
+        const statusBar = document.getElementById('status-bar-color');
+        if (statusBar) statusBar.setAttribute("content", isDark ? "#0f172a" : "#f8fafc");
+        window.updateThemeIcon(); window.updateLogoTheme();
     }
-
-    window.updateThemeIcon();
-    window.updateLogoTheme();
-}
 
     window.updateThemeIcon = () => {
         const i = document.getElementById('theme-icon');
-        if (i) {
-            i.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
-            lucide.createIcons();
-        }
+        if (i) { i.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon'); lucide.createIcons(); }
     }
 
     window.openBottomSheet = () => {
-        const overlay = document.getElementById('bs-overlay');
-        const content = document.getElementById('bs-content');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-100');
-        content.classList.remove('translate-y-full');
-        content.classList.add('translate-y-0');
-        setTimeout(window.applyInvoiceScaling, 50);
-        history.pushState(null, null, location.href);
+        const overlay = document.getElementById('bs-overlay'); const content = document.getElementById('bs-content');
+        overlay.classList.remove('opacity-0', 'pointer-events-none'); overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full'); content.classList.add('translate-y-0');
+        setTimeout(window.applyInvoiceScaling, 50); history.pushState(null, null, location.href);
     };
 
     window.closeBottomSheet = () => {
-        const overlay = document.getElementById('bs-overlay');
-        const content = document.getElementById('bs-content');
+        const overlay = document.getElementById('bs-overlay'); const content = document.getElementById('bs-content');
         if(!overlay.classList.contains('opacity-0')) {
-             content.classList.remove('translate-y-0');
-             content.classList.add('translate-y-full');
-             overlay.classList.remove('opacity-100');
-             overlay.classList.add('opacity-0');
+             content.classList.remove('translate-y-0'); content.classList.add('translate-y-full');
+             overlay.classList.remove('opacity-100'); overlay.classList.add('opacity-0');
              setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
         }
     };
 
     window.openInfoSheet = () => {
-        const overlay = document.getElementById('info-bs-overlay');
-        const content = document.getElementById('info-bs-content');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-100');
-        content.classList.remove('translate-y-full');
-        content.classList.add('translate-y-0');
+        const overlay = document.getElementById('info-bs-overlay'); const content = document.getElementById('info-bs-content');
+        overlay.classList.remove('opacity-0', 'pointer-events-none'); overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full'); content.classList.add('translate-y-0');
         history.pushState(null, null, location.href);
     };
 
     window.closeInfoSheet = () => {
-        const overlay = document.getElementById('info-bs-overlay');
-        const content = document.getElementById('info-bs-content');
+        const overlay = document.getElementById('info-bs-overlay'); const content = document.getElementById('info-bs-content');
         if(!overlay.classList.contains('opacity-0')) {
-            content.classList.remove('translate-y-0');
-            content.classList.add('translate-y-full');
-            overlay.classList.remove('opacity-100');
-            overlay.classList.add('opacity-0');
+            content.classList.remove('translate-y-0'); content.classList.add('translate-y-full');
+            overlay.classList.remove('opacity-100'); overlay.classList.add('opacity-0');
             setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
         }
     };
 
     window.applyInvoiceScaling = () => {
         document.querySelectorAll('.invoice-wrapper').forEach(wrapper => {
-            const card = wrapper.querySelector('.invoice-card');
-            if (!card) return;
-            const wrapperWidth = wrapper.clientWidth;
-            if(wrapperWidth === 0) return;
-            const originalWidth = 1000;
-            const scale = wrapperWidth / originalWidth;
-            card.style.transform = `scale(${scale})`;
-            wrapper.style.height = `${card.offsetHeight * scale}px`;
+            const card = wrapper.querySelector('.invoice-card'); if (!card) return;
+            const wrapperWidth = wrapper.clientWidth; if(wrapperWidth === 0) return;
+            const originalWidth = 1000; const scale = wrapperWidth / originalWidth;
+            card.style.transform = `scale(${scale})`; wrapper.style.height = `${card.offsetHeight * scale}px`;
         });
     }
     window.addEventListener('resize', window.applyInvoiceScaling);
 
     window.printPreview = () => {
-        document.body.classList.add('print-bs-mode');
-        window.print();
+        document.body.classList.add('print-bs-mode'); window.print();
         setTimeout(() => document.body.classList.remove('print-bs-mode'), 1000);
     }
 
@@ -896,89 +763,59 @@
         for(let i=0; i<40; i++) {
             let drop = document.createElement('div');
             drop.className = 'fixed w-1.5 h-3 rounded-[5px] z-[9999] pointer-events-none animate-confetti-rain';
-            drop.style.left = Math.random() * 100 + 'vw';
-            drop.style.top = '-20px';
+            drop.style.left = Math.random() * 100 + 'vw'; drop.style.top = '-20px';
             drop.style.backgroundColor = ['#a855f7', '#3b82f6', '#10b981', '#f59e0b', '#ec4899'][Math.floor(Math.random()*5)];
-            drop.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
-            drop.style.animationDelay = (Math.random() * 0.2) + 's';
-            document.body.appendChild(drop);
-            setTimeout(() => drop.remove(), 3500);
+            drop.style.animationDuration = (Math.random() * 1.5 + 1) + 's'; drop.style.animationDelay = (Math.random() * 0.2) + 's';
+            document.body.appendChild(drop); setTimeout(() => drop.remove(), 3500);
         }
     }
 
     window.pendingConfirmAction = null;
     const setupSlider = () => {
-        const thumb = document.getElementById('slide-thumb');
-        const fill = document.getElementById('slide-fill');
-        const track = document.getElementById('slide-track');
-        const text = document.getElementById('slide-text');
+        const thumb = document.getElementById('slide-thumb'); const fill = document.getElementById('slide-fill');
+        const track = document.getElementById('slide-track'); const text = document.getElementById('slide-text');
         if(!thumb) return;
-
-        let isDragging = false;
-        let startX = 0;
+        let isDragging = false; let startX = 0;
 
         const handleStart = (e) => {
-            isDragging = true;
-            startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            thumb.style.transition = 'none';
-            fill.style.transition = 'none';
+            isDragging = true; startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            thumb.style.transition = 'none'; fill.style.transition = 'none';
         };
 
         const handleMove = (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
+            if (!isDragging) return; e.preventDefault();
             const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            let diff = currentX - startX;
-            const maxTrack = track.clientWidth - thumb.clientWidth - 8;
+            let diff = currentX - startX; const maxTrack = track.clientWidth - thumb.clientWidth - 8;
+            if (diff < 0) diff = 0; if (diff > maxTrack) diff = maxTrack;
 
-            if (diff < 0) diff = 0;
-            if (diff > maxTrack) diff = maxTrack;
-
-            thumb.style.transform = `translateX(${diff}px)`;
-            fill.style.width = `calc(${diff}px + 1.5rem)`;
+            thumb.style.transform = `translateX(${diff}px)`; fill.style.width = `calc(${diff}px + 1.5rem)`;
             text.style.opacity = 1 - (diff / maxTrack);
 
             if (diff >= maxTrack * 0.90) {
-                isDragging = false;
-                thumb.style.transform = `translateX(${maxTrack}px)`;
+                isDragging = false; thumb.style.transform = `translateX(${maxTrack}px)`;
                 setTimeout(() => {
-                    const actionToExecute = window.pendingConfirmAction;
-                    window.closeConfirmSheet();
+                    const actionToExecute = window.pendingConfirmAction; window.closeConfirmSheet();
                     if(actionToExecute) actionToExecute();
                 }, 150);
             }
         };
 
         const handleEnd = () => {
-            if (!isDragging) return;
-            isDragging = false;
-            thumb.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-            fill.style.transition = 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+            if (!isDragging) return; isDragging = false;
+            thumb.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'; fill.style.transition = 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
             text.style.transition = 'opacity 0.3s ease';
-            thumb.style.transform = `translateX(0px)`;
-            fill.style.width = '0px';
-            text.style.opacity = '1';
+            thumb.style.transform = `translateX(0px)`; fill.style.width = '0px'; text.style.opacity = '1';
         };
 
-        thumb.addEventListener('touchstart', handleStart, {passive: false});
-        document.addEventListener('touchmove', handleMove, {passive: false});
-        document.addEventListener('touchend', handleEnd);
-
-        thumb.addEventListener('mousedown', handleStart);
-        document.addEventListener('mousemove', handleMove);
-        document.addEventListener('mouseup', handleEnd);
+        thumb.addEventListener('touchstart', handleStart, {passive: false}); document.addEventListener('touchmove', handleMove, {passive: false}); document.addEventListener('touchend', handleEnd);
+        thumb.addEventListener('mousedown', handleStart); document.addEventListener('mousemove', handleMove); document.addEventListener('mouseup', handleEnd);
     };
-
     setupSlider();
 
     window.openConfirmSheet = (title, msg, isDestructive, actionFn) => {
         window.pendingConfirmAction = actionFn;
-        document.getElementById('confirm-title').innerText = title;
-        document.getElementById('confirm-message').innerText = msg;
-
-        const iconBox = document.getElementById('confirm-icon-box');
-        const thumb = document.getElementById('slide-thumb');
-        const fill = document.getElementById('slide-fill');
+        document.getElementById('confirm-title').innerText = title; document.getElementById('confirm-message').innerText = msg;
+        const iconBox = document.getElementById('confirm-icon-box'); const thumb = document.getElementById('slide-thumb'); const fill = document.getElementById('slide-fill');
 
         if (isDestructive) {
             iconBox.className = "w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-[5px] flex items-center justify-center mb-4";
@@ -994,38 +831,27 @@
         lucide.createIcons();
 
         thumb.style.transition = 'none'; fill.style.transition = 'none';
-        thumb.style.transform = `translateX(0px)`; fill.style.width = '0px';
-        document.getElementById('slide-text').style.opacity = '1';
+        thumb.style.transform = `translateX(0px)`; fill.style.width = '0px'; document.getElementById('slide-text').style.opacity = '1';
 
-        const overlay = document.getElementById('confirm-bs-overlay');
-        const content = document.getElementById('confirm-bs-content');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-100');
-        content.classList.remove('translate-y-full');
-        content.classList.add('translate-y-0');
-
+        const overlay = document.getElementById('confirm-bs-overlay'); const content = document.getElementById('confirm-bs-content');
+        overlay.classList.remove('opacity-0', 'pointer-events-none'); overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full'); content.classList.add('translate-y-0');
         history.pushState(null, null, location.href);
     };
 
     window.closeConfirmSheet = () => {
         window.pendingConfirmAction = null;
-        const overlay = document.getElementById('confirm-bs-overlay');
-        const content = document.getElementById('confirm-bs-content');
+        const overlay = document.getElementById('confirm-bs-overlay'); const content = document.getElementById('confirm-bs-content');
         if(!overlay.classList.contains('opacity-0')) {
-             content.classList.remove('translate-y-0');
-             content.classList.add('translate-y-full');
-             overlay.classList.remove('opacity-100');
-             overlay.classList.add('opacity-0');
+             content.classList.remove('translate-y-0'); content.classList.add('translate-y-full');
+             overlay.classList.remove('opacity-100'); overlay.classList.add('opacity-0');
              setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
         }
     };
 
     window.viewInvoice = (id) => {
-        window.viewingInvoiceId = id;
-        localStorage.setItem('viewingInvoiceId', id);
-        window.isInvoiceSimulatingLoad = true;
-        window.switchTab('view-invoice');
-
+        window.viewingInvoiceId = id; localStorage.setItem('viewingInvoiceId', id);
+        window.isInvoiceSimulatingLoad = true; window.switchTab('view-invoice');
         setTimeout(() => {
             window.isInvoiceSimulatingLoad = false;
             if(window.currentTab === 'view-invoice') window.switchTab('view-invoice');
@@ -1033,10 +859,8 @@
     }
 
     window.editInvoice = (id) => {
-        const inv = window.appData.invoices.find(i => i.id === id);
-        if(!inv) return;
-        window.isEditing = true;
-        window.switchTab('add-invoice');
+        const inv = window.appData.invoices.find(i => i.id === id); if(!inv) return;
+        window.isEditing = true; window.switchTab('add-invoice');
 
         setTimeout(() => {
             document.getElementById('iClient').value = inv.client || '';
@@ -1063,10 +887,7 @@
 
     window.deleteInvoice = (id) => {
         if(!window.currentUser) return;
-        window.openConfirmSheet(
-            "Delete Invoice",
-            "Are you sure you want to delete this invoice? This action cannot be undone.",
-            true,
+        window.openConfirmSheet("Delete Invoice", "Are you sure you want to delete this invoice? This action cannot be undone.", true,
             () => {
                 set(ref(database, `INVOYR/users/${window.currentUser.uid}/invoices/${id}`), null)
                     .then(() => window.switchTab('dashboard'))
@@ -1076,14 +897,7 @@
     }
 
     window.logoutUser = () => {
-        window.openConfirmSheet(
-            "Sign Out",
-            "Are you sure you want to sign out of GRIDLABS?",
-            false,
-            () => {
-                signOut(auth);
-            }
-        );
+        window.openConfirmSheet("Sign Out", "Are you sure you want to sign out?", false, () => { signOut(auth); });
     };
 
     // GENERATE GRIDLABS INVOICE FORMAT
@@ -1093,9 +907,25 @@
         const logoSrc = localStorage.getItem('cached_gridlabs_logo') || 'gridlabs_logo.png';
 
         let totalCards = 3;
-        if (data.isEmi) totalCards += 2;
-        if (data.isAmc) totalCards += 1;
+        if (data.isEmi) totalCards += 2; if (data.isAmc) totalCards += 1;
         const gridClass = totalCards === 4 ? 'grid-cols-2' : 'grid-cols-3';
+        
+        const brandName = profile.businessName || 'GRIDLABS PROD.';
+        const ownerName = profile.name || 'Owner Name';
+        const ownerPhone = profile.phone || 'Phone Number';
+        const upi = profile.upiId || 'YOURUPI@BANK';
+
+        let qrHtml = '';
+        if (upi && upi.trim() !== '' && upi.toLowerCase() !== 'yourupi@bank') {
+            let upiString = `upi://pay?pa=${upi.trim()}&pn=${ownerName}&cu=INR`;
+            if (remaining > 0) {
+                upiString += `&am=${Math.round(remaining)}`;
+            }
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(upiString)}&margin=0`;
+            qrHtml = `
+                <img src="${qrUrl}" alt="UPI QR Code" class="w-32 h-32 rounded-[5px] mix-blend-darken border border-slate-200 p-1 bg-white" crossorigin="anonymous" />
+            `;
+        }
 
         return `
             <div class="invoice-card" id="printable-invoice">
@@ -1103,15 +933,12 @@
                     <div class="flex items-center gap-3">
                         <img src="${logoSrc}" alt="Logo" class="h-20 w-auto object-contain" onerror="this.style.display='none'">
                         <div>
-                            <h1 class="text-4xl font-bold text-slate-900 leading-none tracking-tighter">GridLabs Prod.</h1>
-                            <p class="text-[12px] text-blue-600 tracking-[0.4em] font-bold mt-2">GROWS YOUR OWN BRAND</p>
+                            <h1 class="text-4xl font-bold text-slate-900 leading-none tracking-tighter">GRIDLABS PROD.</h1>
+                            <p class="text-[12px] text-blue-600 tracking-[0.4em] font-bold mt-2">GROWS DIGITAL BRANDINGS</p>
                         </div>
                     </div>
-                    <div class="text-right">
-                        <h2 class="text-6xl font-bold text-slate-100 leading-none">INVOICE</h2>
-                        <div class="mt-2">
-                            <p class="font-bold text-slate-800 text-sm tracking-widest">NO: ${data.id || '000'}</p>
-                        </div>
+                    <div class="flex-shrink-0">
+                        ${qrHtml}
                     </div>
                 </div>
 
@@ -1121,12 +948,13 @@
                         <h3 class="text-xl font-bold text-slate-900">${data.client || 'GUEST CLIENT'}</h3>
                         <p class="text-[14px] text-slate-500 font-bold mt-1">PHONE: ${data.clientPhone || 'N/A'}</p>
                         <p class="text-[14px] text-slate-500 font-bold mt-1">ISSUED ON: ${data.date || 'N/A'}</p>
+                        <p class="text-[14px] text-slate-800 font-black mt-2 tracking-widest">INV NO: ${data.id || '000'}</p>
                     </div>
                     <div class="text-right">
                         <p class="text-slate-400 font-bold text-[12px] mb-3 tracking-[0.2em]">SERVICE PROVIDER</p>
-                        <h3 class="text-xl font-bold text-slate-900 uppercase">${profile.name || 'Akshar Chaudhary'}</h3>
-                        <p class="text-[14px] text-slate-500 font-bold mt-1">PHONE: ${profile.phone || '+91 95181 59114'}</p>
-                        <p class="text-[14px] text-slate-500 font-bold mt-1">UPI : GRIDLABSPROD@SLC</p>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">${brandName}</h3>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">PHONE: ${ownerPhone}</p>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">UPI : ${upi}</p>
                     </div>
                 </div>
 
@@ -1183,12 +1011,12 @@
                 </div>
 
                 <div class="mt-8">
-                    <p class="text-[12px] font-bold text-slate-900 mb-3 tracking-widest border-b border-slate-200 pb-2">UNIVERSAL TERMS & CONDITIONS</p>
+                    <p class="text-[12px] font-bold text-slate-900 mb-1 tracking-widest border-b border-slate-200 pb-1">UNIVERSAL TERMS & CONDITIONS</p>
                     <div class="terms-grid">
                         <div>
                             <strong>1. PAYMENT & VALIDITY:</strong> All milestone payments are non-refundable. Invoices must be cleared within 7 days of the due date. A late fee of 2% per month applies to overdue balances.
                             <br><br>
-                            <strong>2. INTELLECTUAL PROPERTY:</strong> Full ownership and source code rights are transferred to the client only upon 100% completion of all financial dues. GridLabs retains the right to showcase the work in portfolios.
+                            <strong>2. INTELLECTUAL PROPERTY:</strong> Full ownership and source code rights are transferred to the client only upon 100% completion of all financial dues. We retain the right to showcase the work in portfolios.
                         </div>
                         <div>
                             <strong>3. PROJECT SCOPE:</strong> Any modifications outside the initial scope mentioned in this invoice will be billed as additional work at standard hourly rates.
@@ -1199,11 +1027,13 @@
                 </div>
 
                 <div class="mt-auto pt-10 flex justify-between items-end">
-                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                        COMPUTER GENERATED INVOICE<br>NO PHYSICAL SIGNATURE REQUIRED
+                    <div class="flex flex-col justify-end">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                            COMPUTER GENERATED INVOICE<br>NO PHYSICAL SIGNATURE REQUIRED
+                        </div>
                     </div>
                     <div class="text-center">
-                        <div class="text-xl text-blue-700 font-bold" style="letter-spacing: 2px;">${profile.name || 'Akshar Chaudhary'}</div>
+                        <div class="text-xl text-blue-700 font-bold" style="letter-spacing: 2px;">${ownerName}</div>
                         <div class="w-56 h-[2px] bg-slate-900 mb-2 mt-1 mx-auto"></div>
                         <p class="text-[11px] font-bold text-slate-900 tracking-widest">AUTHORIZED SIGNATORY</p>
                     </div>
@@ -1346,7 +1176,7 @@
                         <div class="w-20 h-20 mx-auto bg-slate-100 dark:bg-slate-800 rounded-[5px] border-[3px] border-slate-200 dark:border-slate-700 overflow-hidden mb-3">
                             <img src="${avatarUrl}" class="w-full h-full object-contain" onerror="this.style.display='none'">
                         </div>
-                        <h2 class="font-black text-base uppercase truncate">${profile.name || 'Settings'}</h2>
+                        <h2 class="font-black text-base uppercase truncate">${profile.businessName || profile.name || 'Settings'}</h2>
                         <p class="text-xs text-slate-500 font-bold">${window.currentUser?.email}</p>
                     </div>
 
@@ -1363,18 +1193,26 @@
 
                     <div class="space-y-4 pb-2 pt-2 w-full">
                         <div class="w-full">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Business Name</label>
+                            <input type="text" id="p-bizname" value="${profile.businessName || ''}" placeholder="e.g. GRIDLABS PROD." onchange="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
+                        </div>
+                        <div class="w-full">
                             <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Owner Name (Signature)</label>
-                            <input type="text" id="p-name" value="${profile.name || ''}" oninput="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
+                            <input type="text" id="p-name" value="${profile.name || ''}" onchange="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
                         </div>
                         <div class="w-full">
                             <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Phone Number</label>
-                            <input type="text" id="p-phone" value="${profile.phone || ''}" oninput="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
+                            <input type="text" id="p-phone" value="${profile.phone || ''}" onchange="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
+                        </div>
+                        <div class="w-full">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">UPI ID for Payments</label>
+                            <input type="text" id="p-upi" value="${profile.upiId || ''}" placeholder="username@bank" onchange="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
                         </div>
                     </div>
 
                     <div class="glass-card rounded-[5px] p-4 text-center border border-slate-200 dark:border-slate-700 w-full">
                          <button onclick="window.logoutUser()" class="text-slate-600 dark:text-slate-300 font-bold text-sm uppercase flex items-center justify-center w-full hover:text-purple-600 transition-colors">
-                            <i data-lucide="log-out" class="w-4 h-4 inline mr-2"></i> Sign Out of GRIDLABS
+                            <i data-lucide="log-out" class="w-4 h-4 inline mr-2"></i> Sign Out
                          </button>
                     </div>
                 </div>
@@ -1407,9 +1245,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-4 bg-white dark:bg-slate-800 rounded-[5px] border border-slate-200 dark:border-slate-700 mb-4 shadow-sm">
                     <div>
                         <label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Client Name</label>
-                        <input type="text" id="iClient" value="MUKEJA MAKHANA" oninput="runInvoiceCalculation()" class="field-input mb-3">
+                        <input type="text" id="iClient" value="" placeholder="e.g. MUKEJA MAKHANA" oninput="runInvoiceCalculation()" class="field-input mb-3">
                         <label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Phone No.</label>
-                        <input type="text" id="iClientPhone" value="+91 73036 79152" oninput="runInvoiceCalculation()" class="field-input">
+                        <input type="text" id="iClientPhone" value="" placeholder="+91 00000 00000" oninput="runInvoiceCalculation()" class="field-input">
                     </div>
                     <div>
                         <div class="grid grid-cols-2 gap-3 mb-3">
@@ -1417,13 +1255,13 @@
                             <div><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Date</label><input type="date" id="iDate" value="${today()}" oninput="runInvoiceCalculation()" class="field-input"></div>
                         </div>
                         <label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Project Scope</label>
-                        <input type="text" id="iProjName" value="GOOGLE BUSINESS SETUP & SEO" oninput="runInvoiceCalculation()" class="field-input">
+                        <input type="text" id="iProjName" value="" placeholder="e.g. SEO SERVICES" oninput="runInvoiceCalculation()" class="field-input">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[5px] border border-slate-200 dark:border-slate-700"><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Total Project Cost (₹)</label><input type="number" id="iTotalCost" value="100000" oninput="runInvoiceCalculation()" class="field-input"></div>
-                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[5px] border border-slate-200 dark:border-slate-700"><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Advance Received (₹)</label><input type="number" id="iAdvance" value="20000" oninput="runInvoiceCalculation()" class="field-input"></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[5px] border border-slate-200 dark:border-slate-700"><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Total Project Cost (₹)</label><input type="number" id="iTotalCost" value="0" oninput="runInvoiceCalculation()" class="field-input"></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[5px] border border-slate-200 dark:border-slate-700"><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Advance Received (₹)</label><input type="number" id="iAdvance" value="0" oninput="runInvoiceCalculation()" class="field-input"></div>
                 </div>
 
                 <div class="flex flex-row gap-4 mb-2">
@@ -1448,7 +1286,7 @@
                 <div id="amc-fields" class="expandable active w-full mb-6">
                     <div class="p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[5px]">
                         <label class="text-[11px] font-bold text-slate-500 uppercase block mb-1">Recurring AMC Charge (₹/Year)</label>
-                        <input type="number" id="iYearly" value="10000" oninput="runInvoiceCalculation()" class="field-input">
+                        <input type="number" id="iYearly" value="0" oninput="runInvoiceCalculation()" class="field-input">
                     </div>
                 </div>
 
@@ -1474,7 +1312,13 @@
 
     window.saveProfile = () => {
         if (!window.currentUser) return;
-        const p = { ...window.appData.profile, name: document.getElementById('p-name').value, phone: document.getElementById('p-phone').value };
+        const p = { 
+            ...window.appData.profile, 
+            businessName: document.getElementById('p-bizname').value || 'GRIDLABS PROD.',
+            name: document.getElementById('p-name').value, 
+            phone: document.getElementById('p-phone').value,
+            upiId: document.getElementById('p-upi').value
+        };
         window.appData.profile = p;
         set(ref(database, `INVOYR/users/${window.currentUser.uid}/profile`), p);
     }
@@ -1582,8 +1426,7 @@
         }
 
         const markAsSaved = () => {
-            window.isEditing = true;
-            window.isSaved = true;
+            window.isEditing = true; window.isSaved = true;
             const btn = document.getElementById('save-btn');
             if(btn) {
                 btn.innerHTML = `GENERATED SUCCESSFULLY`;
