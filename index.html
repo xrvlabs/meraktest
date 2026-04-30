@@ -2,58 +2,145 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRIDLABS - PROFESSIONAL INVOICE SYSTEM</title>
+    <meta name="theme-color" id="status-bar-color" content="#f8fafc">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GRIDLABS PROD. - INVOICING</title>
     
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GRIDLABS">
+    <link rel="manifest" href="manifest.json">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    screens: { 'xs': '380px' },
+                    fontFamily: {
+                        'sans': ['Quantico', 'sans-serif'],
+                        'signature': ['Dancing Script', 'cursive']
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'confetti-rain': 'confettiRain 2.5s ease-out forwards',
+                        'shake': 'shake 0.4s ease-in-out'
+                    },
+                    keyframes: {
+                        slideUp: { '0%': { transform: 'translateY(100%)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        float: { '0%, 100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-20px)' } },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        confettiRain: {
+                            '0%': { transform: 'translateY(-10vh) rotate(0deg)', opacity: 1 },
+                            '100%': { transform: 'translateY(100vh) rotate(720deg)', opacity: 0 }
+                        },
+                        shake: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '20%, 60%': { transform: 'translateX(-5px)' },
+                            '40%, 80%': { transform: 'translateX(5px)' }
+                        }
+                    }
+                }
+            }
+        }
+        if (!localStorage.getItem('inv_theme')) localStorage.setItem('inv_theme', 'light');
+        if (localStorage.getItem('inv_theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.addEventListener('DOMContentLoaded', () => {
+                const statusBar = document.getElementById('status-bar-color');
+                if (statusBar) statusBar.setAttribute("content", "#0f172a");
+            });
+        }
+
+        // Security & UX Rules Setup
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => { if (e.key.match(/^F([1-9]|1[0-2])$/)) { e.preventDefault(); } });
+        document.addEventListener('wheel', e => { if (e.ctrlKey) { e.preventDefault(); } }, { passive: false });
+        document.addEventListener('touchstart', e => { if (e.touches.length > 1) { e.preventDefault(); } }, { passive: false });
+    </script>
 
     <style>
-        :root { --brand-color: #2563eb; }
-        ::-webkit-scrollbar { display: none; }
+        :root { --safe-bottom: env(safe-area-inset-bottom, 0px); --brand-color: #6a1b9a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; overscroll-behavior-x: none; }
+        body { font-family: 'Quantico', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #f8fafc; touch-action: manipulation; -webkit-user-select: none; user-select: none; text-transform: uppercase; }
+        input, textarea, select { -webkit-user-select: auto; user-select: auto; }
         
-        body { 
-            font-family: 'Quantico', sans-serif; 
-            background-color: #f1f5f9; 
-            margin: 0; padding: 0;
+        .dark body { background-color: #0f172a; }
+        body * { transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease; }
+        button, h1, h2, h3, h4, h5, h6 { text-transform: uppercase !important; }
+
+        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid #e2e8f0; border-radius: 5px; }
+        .dark .glass-card { background: rgba(30, 41, 59, 0.85); border-color: #334155; }
+        .app-container { height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; width: 100%; max-width: 100%; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .field-input { padding: 12px 14px; border: 1px solid #cbd5e1; outline: none; border-radius: 5px; font-size: 14px; width: 100%; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-transform: uppercase; }
+        .field-input:focus { border-color: #6a1b9a; box-shadow: 0 0 0 2px rgba(106,27,154,0.1); }
+        .dark .field-input { border-color: #334155; background: #1e293b; color: #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+        .dark .field-input:focus { border-color: #a855f7; box-shadow: 0 0 0 2px rgba(168,85,247,0.1); }
+
+        .btn-primary { padding: 12px 16px; font-weight: 700; border-radius: 5px; font-size: 14px; transition: all 0.2s; }
+        .btn-primary:active { transform: translateY(2px); }
+        .stat-card { padding: 12px; border: 1px solid #e2e8f0; border-radius: 5px; }
+        .dark .stat-card { border-color: #334155; }
+
+        #main-content { padding: 10px; padding-bottom: 80px; width: 100%; overflow-x: hidden; }
+        #bottom-nav { padding-bottom: calc(var(--safe-bottom) + 4px); border-top: 1px solid #e2e8f0; height: 60px; width: 100%; }
+        .dark #bottom-nav { border-top-color: #334155; }
+
+        @keyframes shimmerAnim { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .shimmer-box { background: linear-gradient(90deg, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%); background-size: 200% 100%; animation: shimmerAnim 1.5s infinite linear; border-radius: 5px; }
+        .dark .shimmer-box { background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%); background-size: 200% 100%; }
+
+        .bottom-sheet-overlay { transition: opacity 0.3s ease; }
+        .bottom-sheet-content { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 5px 5px 0 0; }
+        .pb-safe { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); }
+
+        /* GRIDLABS INVOICE STYLES */
+        .invoice-wrapper { width: 100%; display: flex; justify-content: center; position: relative; overflow: hidden; }
+        .invoice-card { 
+            width: 1000px; 
+            min-height: 1123px; 
+            flex-shrink: 0; 
+            background: white !important; 
+            color: #0f172a !important; 
+            padding: 60px; 
+            box-sizing: border-box; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+            border: 1px solid #e2e8f0; 
+            transform-origin: top center; 
+            margin: 0 auto; 
+            display: flex;
+            flex-direction: column;
             text-transform: uppercase;
-            -ms-overflow-style: none; scrollbar-width: none;
         }
-
-        .main-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 2rem 0;
-        }
-
-        .invoice-card {
-            width: 100%;
-            min-height: 1123px; /* A4 Ratio */
-            background: white;
-            padding: 60px;
-            box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .field-input { 
-            font-family: 'Quantico', sans-serif;
-            padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 6px; 
-            font-size: 14px; width: 100%; background: #ffffff; text-transform: uppercase;
-            outline: none; transition: all 0.2s;
-        }
-        .field-input:focus { border-color: var(--brand-color); ring: 2px solid #bfdbfe; }
-
-        .text-label { font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 1px; margin-bottom: 4px; display: block; }
+        .invoice-card * { transition: none !important; }
         
         .table-custom { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .table-custom th { text-align: left; background: #f8fafc; border-bottom: 2px solid #1e293b; padding: 12px; font-size: 13px; color: #1e293b; }
-        .table-custom td { padding: 24px 12px; border-bottom: 1px solid #f1f5f9; font-size: 15px; color: #1e293b; }
+        .table-custom th { text-align: left; background: #f8fafc !important; border-bottom: 2px solid #1e293b !important; padding: 12px; font-size: 13px; color: #1e293b !important; }
+        .table-custom td { padding: 24px 12px; border-bottom: 1px solid #f1f5f9 !important; font-size: 15px; color: #1e293b !important; }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            font-size: 9px;
+            color: #94a3b8 !important;
+            line-height: 1.4;
+            padding-top: 10px;
+        }
 
         .expandable {
             max-height: 0;
@@ -64,156 +151,957 @@
         .expandable.active {
             max-height: 500px;
             opacity: 1;
-            margin-top: 1rem;
-        }
-
-        .terms-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            font-size: 9px;
-            color: #94a3b8;
-            line-height: 1.4;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 20px;
-        }
-
-        @media (max-width: 1024px) {
-            .main-container { padding: 10px; }
-            .invoice-card { padding: 30px 20px; }
+            margin-top: 0.75rem;
         }
 
         @media print {
-            .no-print { display: none !important; }
-            body { background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            .main-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
-            .invoice-card { 
-                box-shadow: none !important; 
-                padding: 60px !important; 
-                width: 100% !important; 
-                height: auto !important;
-                min-height: 1123px !important;
-            }
+            html, body { width: auto; max-width: none; overflow: visible; background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            body, .app-container, #view-main, #main-content { height: auto !important; overflow: visible !important; display: block !important; background: white !important; padding: 0 !important; }
+            #main-header, #bottom-nav, #login-screen, #email-bs-overlay, #confirm-bs-overlay, #info-bs-overlay, .no-print { display: none !important; }
+            
+            .invoice-wrapper { overflow: visible; padding: 0; display: block; height: auto !important; width: 100%; margin: 0; }
+            .invoice-card { box-shadow: none !important; border: none !important; margin: 0 !important; width: 100% !important; padding: 40px !important; min-height: 1123px !important; transform: none !important; }
+
+            body.print-bs-mode #view-main, body.print-bs-mode #bottom-nav { display: none !important; }
+            body.print-bs-mode #bs-overlay { display: block !important; opacity: 1 !important; position: static !important; background: white !important; }
+            body.print-bs-mode #bs-content { box-shadow: none !important; transform: none !important; height: auto !important; position: static !important; background: white !important; }
+            body.print-bs-mode #bs-drag-handle, body.print-bs-mode #bs-header { display: none !important; }
+            body.print-bs-mode #bs-content .flex-1 { padding: 0 !important; background: white !important; overflow: visible !important; }
+            
             @page { size: A4; margin: 0; }
         }
     </style>
 </head>
-<body>
+<body class="text-slate-900 dark:text-slate-100">
 
-    <div class="main-container">
-        <div class="sidebar w-full no-print">
-            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
-                <div class="flex items-center justify-between mb-6 border-b pb-4">
-                    <h2 class="text-xl font-bold text-blue-600 tracking-tight uppercase flex items-center gap-2">
-                        <i data-lucide="layout-dashboard"></i> GridLabs Editor
-                    </h2>
-                    <button onclick="window.print()" class="bg-blue-600 text-white px-8 py-3 rounded-md font-bold text-sm flex items-center gap-2 hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">
-                        <i data-lucide="printer" class="w-4 h-4"></i> PRINT INVOICE
-                    </button>
+<div id="splash-screen" class="fixed inset-0 bg-purple-50 dark:bg-slate-950 z-[9999] flex flex-col justify-center items-center transition-all duration-1000 ease-in-out">
+    <div class="relative flex flex-col items-center justify-center p-6 w-full h-full">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-300 dark:bg-purple-900/40 rounded-full blur-3xl opacity-60 animate-pulse"></div>
+        <div class="w-28 h-28 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl flex items-center justify-center mb-8 border-4 border-white dark:border-slate-700 relative z-10 animate-slide-up p-2 opacity-0" style="animation-delay: 0.1s;">
+            <img src="gridlabs_logo.png" alt="" class="w-full h-full object-contain my-logo-img" onerror="this.style.display='none'">
+        </div>
+        <h1 class="text-4xl font-black text-purple-600 dark:text-purple-400 mb-6 tracking-tight uppercase animate-fade-in relative z-10 opacity-0" style="animation-delay: 0.4s;">
+            GRIDLABS
+        </h1>
+        <div class="text-center animate-fade-in relative z-10 opacity-0" style="animation-delay: 0.8s;">
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-bold tracking-widest uppercase mb-1">SEAMLESS INVOICING</p>
+            <p class="text-sm text-purple-500 dark:text-purple-400 font-black tracking-widest uppercase">Ultimate Sophistication</p>
+        </div>
+        <div class="flex gap-2 mt-12 animate-fade-in relative z-10 opacity-0" style="animation-delay: 1.2s;">
+            <div class="w-2.5 h-2.5 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0ms;"></div>
+            <div class="w-2.5 h-2.5 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 150ms;"></div>
+            <div class="w-2.5 h-2.5 bg-purple-600 rounded-full animate-bounce" style="animation-delay: 300ms;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="login-screen" class="fixed inset-0 bg-purple-50 dark:bg-slate-900 z-[100] flex flex-col justify-between overflow-hidden">
+    <div class="relative flex-1 w-full overflow-hidden flex flex-col items-center justify-center p-6">
+        <div class="absolute top-10 left-4 w-20 h-20 bg-purple-200 dark:bg-purple-900/30 rounded-full blur-2xl opacity-50"></div>
+        <div class="absolute bottom-20 right-4 w-32 h-32 bg-blue-200 dark:bg-blue-900/30 rounded-full blur-2xl opacity-50"></div>
+
+        <div class="w-full max-w-sm relative h-48 mb-8">
+            <div class="glass-card absolute top-0 left-0 w-3/4 p-4 rounded-[5px] shadow-lg rotate-[-6deg] animate-float opacity-80 border-purple-200 dark:border-purple-800">
+                <div class="w-8 h-8 rounded-[5px] bg-purple-100 text-purple-600 flex items-center justify-center mb-2"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                <div class="h-2 w-1/2 bg-slate-200 dark:bg-slate-700 rounded-[5px] mb-1"></div>
+                <div class="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded-[5px]"></div>
+            </div>
+            <div class="glass-card absolute bottom-0 right-0 w-3/4 p-4 rounded-[5px] shadow-xl rotate-[4deg] animate-float-delayed z-10 border-blue-200 dark:border-blue-800 bg-white/90 dark:bg-slate-800/90">
+                <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-2 mb-2">
+                    <span class="text-xs font-bold text-slate-400">INVOICE</span>
+                    <span class="text-xs font-bold text-emerald-500">PAID</span>
                 </div>
-                
-                <div class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-4 bg-slate-50 rounded-lg border border-slate-100">
-                        <div>
-                            <label class="text-label">CLIENT NAME</label>
-                            <input type="text" id="iClient" value="MUKEJA MAKHANA" oninput="updateInvoice()" class="field-input mb-3">
-                            <label class="text-label">PHONE NO.</label>
-                            <input type="text" id="iClientPhone" value="+91 73036 79152" oninput="updateInvoice()" class="field-input">
-                        </div>
-                        <div>
-                            <div class="grid grid-cols-2 gap-3 mb-3">
-                                <div><label class="text-label">INV NO.</label><input type="text" id="iInvNum" value="INV-088" oninput="updateInvoice()" class="field-input"></div>
-                                <div><label class="text-label">DATE</label><input type="date" id="iDate" oninput="updateInvoice()" class="field-input"></div>
-                            </div>
-                            <label class="text-label">PROJECT SCOPE</label>
-                            <input type="text" id="iProjName" value="GOOGLE BUSINESS SETUP & SEO" oninput="updateInvoice()" class="field-input">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div><label class="text-label">TOTAL PROJECT COST (₹)</label><input type="number" id="iTotalCost" value="100000" oninput="updateInvoice()" class="field-input"></div>
-                        <div><label class="text-label">ADVANCE RECEIVED (₹)</label><input type="number" id="iAdvance" value="20000" oninput="updateInvoice()" class="field-input"></div>
-                    </div>
-
-                    <div class="flex flex-row gap-4 pt-2">
-                        <div class="flex-1 flex items-center gap-3 p-4 bg-white border rounded-lg cursor-pointer hover:border-blue-400 transition-all">
-                            <input type="checkbox" id="emiToggle" onchange="toggleSection('emi-fields', this); updateInvoice()" class="w-5 h-5 accent-blue-600 cursor-pointer">
-                            <label for="emiToggle" class="text-[11px] font-bold text-slate-700 cursor-pointer uppercase">ACTIVATE EMI CYCLE</label>
-                        </div>
-                        <div class="flex-1 flex items-center gap-3 p-4 bg-white border rounded-lg cursor-pointer hover:border-blue-400 transition-all">
-                            <input type="checkbox" id="amcToggle" onchange="toggleSection('amc-fields', this); updateInvoice()" class="w-5 h-5 accent-blue-600 cursor-pointer" checked>
-                            <label for="amcToggle" class="text-[11px] font-bold text-slate-700 cursor-pointer uppercase">SHOW AMC DETAILS</label>
-                        </div>
-                    </div>
-
-                    <div id="emi-fields" class="expandable">
-                        <div class="grid grid-cols-3 gap-4 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-                            <div><label class="text-label text-blue-600">TENURE (MO)</label><input type="number" id="iTenure" value="4" oninput="updateInvoice()" class="field-input"></div>
-                            <div><label class="text-label text-blue-600">START DATE</label><input type="date" id="iEmiStart" oninput="updateInvoice()" class="field-input"></div>
-                            <div><label class="text-label text-blue-600">NEXT DUE</label><input type="date" id="iEmiNext" oninput="updateInvoice()" class="field-input"></div>
-                        </div>
-                    </div>
-
-                    <div id="amc-fields" class="expandable active">
-                        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg">
-                            <label class="text-label">RECURRING AMC CHARGE (₹/YEAR)</label>
-                            <input type="number" id="iYearly" value="10000" oninput="updateInvoice()" class="field-input">
-                        </div>
-                    </div>
-                </div>
+                <h3 class="font-black text-lg">₹ 1,00,000</h3>
+                <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-700 rounded-[5px] mt-2"></div>
             </div>
         </div>
 
-        <div class="invoice-wrapper">
-            <div class="invoice-card" id="preview-content"></div>
+        <div class="text-center z-10">
+            <div class="w-20 h-20 mx-auto bg-white dark:bg-slate-800 rounded-[5px] flex items-center justify-center mb-4 shadow-md border-4 border-white dark:border-slate-700 overflow-hidden p-1">
+                <img src="gridlabs_logo.png" alt="" class="w-full h-full object-contain my-logo-img" onerror="this.style.display='none'">
+            </div>
+            <h1 class="text-3xl font-black text-purple-600 dark:text-purple-400 mb-2 tracking-tight uppercase">GRIDLABS</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-bold tracking-wider mb-2">PROFESSIONAL SYSTEM</p>
         </div>
     </div>
 
-    <script>
-        window.addEventListener("load", () => {
-            lucide.createIcons();
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('iDate').value = today;
-            document.getElementById('iEmiStart').value = today;
+    <div class="bg-white dark:bg-slate-800 w-full rounded-t-[5px] pt-8 pb-10 px-6 shadow-[0_-15px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_-15px_40px_rgba(0,0,0,0.5)] relative z-20 animate-slide-up">
+        <div class="w-12 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-[5px] mx-auto mb-6"></div>
+        <h2 class="text-center font-black text-xl mb-6">Get Started</h2>
+        <button onclick="window.openEmailLoginSheet()" class="mt-3 flex items-center gap-3 bg-purple-600 text-white font-bold py-3.5 px-6 rounded-[5px] shadow-sm w-full justify-center transition-all hover:bg-purple-700 active:scale-95">
+            <i data-lucide="mail" class="w-5 h-5"></i> Continue with Email
+        </button>
+        <p class="text-center text-[10px] text-slate-400 font-bold mt-6 uppercase tracking-widest">Crafted by Akshar Chaudhary</p>
+    </div>
+</div>
+
+<div id="app" class="app-container" style="display: none;">
+    <section id="view-main" class="flex-1 flex flex-col overflow-hidden w-full max-w-full">
+        <div class="flex-1 flex flex-col overflow-hidden w-full max-w-full">
+            <header id="main-header" class="flex items-center justify-between bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-[10px] py-3 z-10 relative w-full">
+                <h2 id="app-title" class="font-black text-base tracking-wide text-purple-600 dark:text-purple-400 truncate flex-1 pr-2"></h2>
+                <div class="flex items-center gap-3 flex-shrink-0">
+                    <button onclick="window.openInfoSheet()" class="w-9 h-9 rounded-[5px] border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        <i data-lucide="qr-code" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="toggleTheme()" class="w-9 h-9 rounded-[5px] border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </header>
+            <main id="main-content" class="flex-1 overflow-y-auto no-scrollbar relative w-full max-w-full"></main>
+        </div>
+
+        <nav id="bottom-nav" class="flex justify-around items-center bg-white dark:bg-slate-900 z-50 w-full relative">
+            <button id="nav-btn-dashboard" onclick="switchTab('dashboard')" class="flex flex-col items-center gap-1 text-slate-400 p-2 w-16 transition-colors">
+                <i data-lucide="home" class="w-6 h-6"></i>
+                <span class="text-[11px] font-bold">Home</span>
+            </button>
+            <button onclick="window.openNewInvoice()" class="flex flex-col items-center -mt-6 relative z-10 p-2">
+                <div class="w-14 h-14 bg-purple-600 text-white rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-900 transition-transform active:scale-95">
+                    <i data-lucide="plus" class="w-6 h-6"></i>
+                </div>
+            </button>
+            <button id="nav-btn-profile" onclick="window.viewProfile()" class="flex flex-col items-center gap-1 text-slate-400 p-2 w-16 transition-colors">
+                <i data-lucide="settings" class="w-6 h-6"></i>
+                <span class="text-[11px] font-bold">Settings</span>
+            </button>
+        </nav>
+    </section>
+</div>
+
+<div id="email-bs-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] opacity-0 pointer-events-none bottom-sheet-overlay flex flex-col justify-end no-print">
+    <div class="flex-1 w-full" onclick="window.closeEmailLoginSheet()"></div>
+    <div id="email-bs-content" class="bg-white dark:bg-slate-900 w-full shadow-2xl flex flex-col transform translate-y-full bottom-sheet-content pb-safe">
+        <div class="w-full flex justify-center py-3 cursor-pointer" onclick="window.closeEmailLoginSheet()">
+            <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-[5px]"></div>
+        </div>
+        <div class="px-6 pb-8 pt-2">
+            <h3 class="font-black text-xl mb-4 text-slate-800 dark:text-slate-100 uppercase tracking-wide">Email Authentication</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Email Address</label>
+                    <input type="email" id="auth-email" class="field-input mt-1.5" placeholder="admin@gridlabs.com">
+                </div>
+                <div>
+                    <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Password</label>
+                    <input type="password" id="auth-pass" class="field-input mt-1.5" placeholder="••••••••">
+                </div>
+                <div class="flex mt-4">
+                    <button id="btn-login" onclick="window.doAuth()" class="w-full btn-primary bg-purple-600 text-white flex items-center justify-center hover:bg-purple-700 shadow-md transition-all text-base">
+                        LOGIN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bs-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] opacity-0 pointer-events-none bottom-sheet-overlay flex flex-col justify-end no-print">
+    <div class="flex-1 w-full" onclick="closeBottomSheet()"></div>
+    <div id="bs-content" class="bg-white dark:bg-slate-900 w-full h-[88vh] shadow-2xl flex flex-col transform translate-y-full bottom-sheet-content">
+        <div id="bs-drag-handle" class="w-full flex justify-center py-3 cursor-pointer" onclick="closeBottomSheet()">
+            <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-[5px]"></div>
+        </div>
+        <div id="bs-header" class="px-4 pb-3 flex justify-center items-center border-b border-slate-100 dark:border-slate-800">
+            <h3 class="font-black text-sm text-slate-600 dark:text-slate-300 tracking-widest uppercase">Live Preview</h3>
+        </div>
+        <div class="flex-1 overflow-y-auto no-scrollbar p-2 pb-24 bg-slate-50 dark:bg-slate-950 w-full relative block">
+            <div class="invoice-wrapper w-full" id="bs-invoice-inner">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="info-bs-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[250] opacity-0 pointer-events-none bottom-sheet-overlay flex flex-col justify-end no-print">
+    <div class="flex-1 w-full" onclick="window.closeInfoSheet()"></div>
+    <div id="info-bs-content" class="bg-white dark:bg-slate-900 w-full h-[80vh] shadow-2xl flex flex-col transform translate-y-full bottom-sheet-content rounded-t-[15px]">
+        <div class="w-full flex justify-center py-3 cursor-pointer flex-shrink-0" onclick="window.closeInfoSheet()">
+            <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-[5px]"></div>
+        </div>
+        <div class="px-6 flex flex-col items-center text-center flex-1 min-h-0 pt-2 pb-5">
             
-            const nextMonth = new Date();
-            nextMonth.setMonth(nextMonth.getMonth() + 1);
-            document.getElementById('iEmiNext').value = nextMonth.toISOString().split('T')[0];
+            <div class="w-16 h-16 flex-shrink-0 bg-white dark:bg-slate-800 rounded-[10px] flex items-center justify-center mb-2 border-[3px] border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden p-1 z-10 relative">
+                <img src="gridlabs_logo.png" alt="" class="w-full h-full object-contain my-logo-img" onerror="this.style.display='none'">
+            </div>
             
-            updateInvoice();
+            <div id="dev-card-container" class="flex-1 w-[calc(100%+3rem)] -mx-6 -my-2 flex items-center justify-center min-h-0 relative cursor-grab active:cursor-grabbing" style="perspective: 1500px; touch-action: none;">
+                
+                <div id="dev-card-inner" class="w-full max-w-[380px] h-full relative" style="transform-style: preserve-3d; will-change: transform;">
+                    
+                    <div class="absolute inset-0 w-full h-full flex items-center justify-center pb-4" style="backface-visibility: hidden;">
+                        <img src="card_front.png" alt="Developer Card Front" class="w-full h-full object-contain scale-[1.20] drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] pointer-events-none" onerror="this.style.display='none'">
+                    </div>
+                    
+                    <div class="absolute inset-0 w-full h-full flex items-center justify-center pb-4" style="backface-visibility: hidden; transform: rotateY(180deg);">
+                        <img src="card_back.png" alt="Developer Card Back" class="w-full h-full object-contain scale-[1.20] drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] pointer-events-none" onerror="this.style.display='none'">
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <button onclick="window.open('https://wa.me/919518159114?text=Hello%2C%20I%20would%20like%20to%20connect', '_blank')" class="w-full max-w-sm flex-shrink-0 btn-primary bg-purple-600 text-white flex items-center justify-center hover:bg-purple-700 shadow-md transition-all mt-2 z-10 relative" style="margin-bottom: 20px;">
+                CONNECT WITH ME
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<div id="confirm-bs-overlay" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[300] opacity-0 pointer-events-none bottom-sheet-overlay flex flex-col justify-end no-print">
+    <div class="flex-1 w-full" onclick="closeConfirmSheet()"></div>
+    <div id="confirm-bs-content" class="bg-white dark:bg-slate-900 w-full shadow-2xl flex flex-col transform translate-y-full bottom-sheet-content pb-safe">
+        <div class="w-full flex justify-center py-3 cursor-pointer" onclick="closeConfirmSheet()">
+            <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-[5px]"></div>
+        </div>
+        <div class="px-6 pb-6 pt-2 flex flex-col items-center text-center">
+            <div id="confirm-icon-box" class="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-[5px] flex items-center justify-center mb-4">
+                <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+            </div>
+            <h3 id="confirm-title" class="font-black text-xl mb-2 text-slate-800 dark:text-slate-100 uppercase tracking-wide">Confirm Action</h3>
+            <p id="confirm-message" class="text-sm text-slate-500 dark:text-slate-400 font-bold mb-8">Are you sure?</p>
+
+            <div id="slide-track" class="relative w-full max-w-sm h-14 bg-slate-100 dark:bg-slate-800 rounded-[5px] overflow-hidden flex items-center border border-slate-200 dark:border-slate-700 shadow-inner select-none touch-none">
+                <div id="slide-text" class="absolute w-full text-center text-xs font-black text-slate-400 dark:text-slate-500 z-0 pointer-events-none tracking-widest uppercase transition-opacity duration-200">SLIDE TO CONFIRM</div>
+                <div id="slide-fill" class="absolute left-0 top-0 h-full bg-red-500/10 dark:bg-red-500/20 w-0 z-0 transition-none"></div>
+                <div id="slide-thumb" class="absolute left-1 w-12 h-12 bg-white dark:bg-slate-700 rounded-[5px] shadow-md flex items-center justify-center z-10 cursor-grab text-red-500 active:cursor-grabbing transition-none border border-slate-200 dark:border-slate-600">
+                    <i data-lucide="chevron-right" class="w-6 h-6 pointer-events-none"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener("load", () => {
+        lucide.createIcons();
+        const splash = document.getElementById('splash-screen');
+        if (splash) {
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                splash.style.transform = 'scale(1.05)';
+                setTimeout(() => { splash.remove(); }, 1000);
+            }, 2500);
+        }
+        
+        // Initialize 3D Card Physics
+        setup3DCard();
+    });
+
+    // Interactive 3D Physics Logic for Developer Card
+    function setup3DCard() {
+        const container = document.getElementById('dev-card-container');
+        const inner = document.getElementById('dev-card-inner');
+        if (!container || !inner) return;
+
+        let isDragging = false;
+        let startX, startY;
+        let lastX, lastTime;
+        let velocityX = 0;
+
+        let rotY = 0, rotX = 0;           // Current visible rotation
+        let targetRotY = 0, targetRotX = 0; // The rotation we are easing towards
+        let baseRotY = 0;                   // The snap point (0, 180, 360, etc.)
+
+        container.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            lastX = startX;
+            lastTime = performance.now();
+            velocityX = 0;
+            container.setPointerCapture(e.pointerId);
         });
 
-        function toggleSection(id, checkbox) {
+        container.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+
+            // Calculate swipe velocity
+            const now = performance.now();
+            const dt = now - lastTime;
+            if (dt > 0) {
+                velocityX = (e.clientX - lastX) / dt;
+            }
+            lastX = e.clientX;
+            lastTime = now;
+
+            // Update rotation targets based on finger drag
+            targetRotY = baseRotY + (deltaX * 0.4); 
+            targetRotX = -(deltaY * 0.15); // Slight tilt up/down
+
+            // Clamp vertical tilt to prevent flipping head-over-heels
+            targetRotX = Math.max(-15, Math.min(15, targetRotX));
+        });
+
+        const release = (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+
+            // If it was just a quick tap without much movement, flip it completely
+            if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) {
+                baseRotY += 180;
+            } else {
+                // Otherwise, evaluate swipe velocity and distance to decide if it should snap forward or back
+                const diff = targetRotY - baseRotY;
+                const velThreshold = 0.5; // Swipe speed required to trigger flip
+                const distThreshold = 60; // Degrees turned required to trigger flip
+
+                if (Math.abs(diff) > distThreshold || Math.abs(velocityX) > velThreshold) {
+                    if (diff > 0 || velocityX > velThreshold) {
+                        baseRotY += 180;
+                    } else {
+                        baseRotY -= 180;
+                    }
+                }
+            }
+
+            // Snap back to vertical orientation and closest face
+            targetRotY = baseRotY;
+            targetRotX = 0; 
+        };
+
+        container.addEventListener('pointerup', release);
+        container.addEventListener('pointercancel', release);
+
+        // Smooth physics render loop (Lerp)
+        function render() {
+            rotY += (targetRotY - rotY) * 0.1;
+            rotX += (targetRotX - rotX) * 0.1;
+            inner.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            requestAnimationFrame(render);
+        }
+        render();
+    }
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCU-LarCrQsqXpRwattZYV8p6b8CIwHz3s",
+        authDomain: "invoyr-gridlabsprod.firebaseapp.com",
+        databaseURL: "https://invoyr-gridlabsprod-default-rtdb.firebaseio.com",
+        projectId: "invoyr-gridlabsprod",
+        storageBucket: "invoyr-gridlabsprod.firebasestorage.app",
+        messagingSenderId: "297208200103",
+        appId: "1:297208200103:web:a464db2d08df14c5c69482"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+
+    window.currentUser = null;
+    window.isProfileLoaded = false;
+    window.isInvoicesLoaded = false;
+    window.appData = { invoices: [], profile: { name: '', phone: '' } };
+    window.currentTab = localStorage.getItem('currentTab') || 'dashboard';
+    window.viewingInvoiceId = localStorage.getItem('viewingInvoiceId') || null;
+    window.isInvoiceSimulatingLoad = false;
+    window.isProfileSimulatingLoad = false;
+    window.isEditing = false;
+    window.isSaved = false;
+
+    window.updateLogoTheme = () => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const lightSrc = localStorage.getItem('cached_gridlabs_logo') || 'gridlabs_logo.png';
+        const darkSrc = localStorage.getItem('cached_gridlabs_logo') || 'gridlabs_logo.png';
+        
+        const currentSrc = isDark ? darkSrc : lightSrc;
+        
+        document.querySelectorAll('.my-logo-img, img[src="gridlabs_logo.png"]').forEach(img => {
+            if (!img.src.includes('googleusercontent')) {
+                img.src = currentSrc;
+            }
+        });
+    };
+
+    window.loadCachedImages = () => {
+        window.updateLogoTheme();
+    };
+    window.loadCachedImages();
+
+    window.cacheImages = async () => {
+        const cacheImg = async (url, key) => {
+            if (localStorage.getItem(key)) return;
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    localStorage.setItem(key, reader.result);
+                    window.loadCachedImages();
+                };
+                reader.readAsDataURL(blob);
+            } catch (e) {
+                console.log(`Could not cache ${url}`, e);
+            }
+        };
+        cacheImg('gridlabs_logo.png', 'cached_gridlabs_logo');
+    };
+
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+        const savedTab = localStorage.getItem('currentTab') || 'dashboard';
+        const titles = { dashboard: 'Dashboard', profile: 'Settings', 'add-invoice': 'Create Invoice', 'view-invoice': 'Invoice Details' };
+        document.getElementById('app-title').innerText = titles[savedTab] || 'Dashboard';
+    }
+
+    window.addEventListener('popstate', (e) => {
+        let sheetClosed = false;
+        ['bs-overlay', 'info-bs-overlay', 'confirm-bs-overlay', 'email-bs-overlay'].forEach(id => {
             const el = document.getElementById(id);
-            checkbox.checked ? el.classList.add('active') : el.classList.remove('active');
+            if (el && !el.classList.contains('opacity-0')) {
+                if(id === 'bs-overlay') window.closeBottomSheet();
+                else if(id === 'info-bs-overlay') window.closeInfoSheet();
+                else if(id === 'confirm-bs-overlay') window.closeConfirmSheet();
+                else if(id === 'email-bs-overlay') window.closeEmailLoginSheet();
+                sheetClosed = true;
+            }
+        });
+
+        if (sheetClosed) {
+            history.pushState(null, null, location.href);
+            return;
         }
 
-        function updateInvoice() {
-            const isEmi = document.getElementById('emiToggle').checked;
-            const isAmc = document.getElementById('amcToggle').checked;
+        if (window.currentUser && window.currentTab !== 'dashboard') {
+            switchTab('dashboard');
+            history.pushState(null, null, location.href);
+            return;
+        }
+    });
+
+    history.pushState(null, null, location.href);
+
+    const today = () => new Date().toISOString().split('T')[0];
+    const fmt = n => '₹ ' + parseFloat(n).toLocaleString('en-IN');
+
+    // Email/Password Authentication Function (Firebase Live)
+    window.doAuth = async () => {
+        const email = document.getElementById('auth-email').value.trim();
+        const pass = document.getElementById('auth-pass').value.trim();
+        
+        const loginBtn = document.getElementById('btn-login');
+        const originalHtml = `LOGIN`;
+
+        if(!email || !pass) {
+            loginBtn.innerHTML = 'ENTER DETAILS';
+            loginBtn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+            loginBtn.classList.add('bg-red-600', 'animate-shake');
+
+            setTimeout(() => {
+                loginBtn.innerHTML = originalHtml;
+                loginBtn.classList.remove('bg-red-600', 'animate-shake');
+                loginBtn.classList.add('bg-purple-600', 'hover:bg-purple-700');
+            }, 1000);
+            return;
+        }
+
+        loginBtn.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            AUTHENTICATING
+        `;
+        loginBtn.classList.add('opacity-90', 'pointer-events-none');
+
+        try {
+            await setPersistence(auth, browserLocalPersistence);
+            await signInWithEmailAndPassword(auth, email, pass);
             
-            const data = {
-                client: document.getElementById('iClient').value || 'GUEST CLIENT',
-                clientPhone: document.getElementById('iClientPhone').value || 'N/A',
-                invNum: document.getElementById('iInvNum').value || '000',
-                date: document.getElementById('iDate').value.split('-').reverse().join('/'),
-                projName: document.getElementById('iProjName').value || 'PROJECT SERVICE',
-                totalCost: parseFloat(document.getElementById('iTotalCost').value) || 0,
-                advance: parseFloat(document.getElementById('iAdvance').value) || 0,
-                yearly: parseFloat(document.getElementById('iYearly').value) || 0,
-                isEmi: isEmi,
-                isAmc: isAmc,
-                tenure: parseInt(document.getElementById('iTenure').value) || 1,
-                emiStart: document.getElementById('iEmiStart').value.split('-').reverse().join('/'),
-                emiNext: document.getElementById('iEmiNext').value.split('-').reverse().join('/')
-            };
+            window.closeEmailLoginSheet();
+            
+            loginBtn.innerHTML = originalHtml;
+            loginBtn.classList.remove('opacity-90', 'pointer-events-none');
+            
+        } catch (error) {
+            loginBtn.innerHTML = 'INVALID CREDENTIALS';
+            loginBtn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+            loginBtn.classList.add('bg-red-600', 'animate-shake');
 
-            const remaining = data.totalCost - data.advance;
+            setTimeout(() => {
+                loginBtn.innerHTML = originalHtml;
+                loginBtn.classList.remove('bg-red-600', 'animate-shake', 'opacity-90', 'pointer-events-none');
+                loginBtn.classList.add('bg-purple-600', 'hover:bg-purple-700');
+            }, 1000);
+        }
+    };
 
-            const html = `
+    window.openEmailLoginSheet = () => {
+        const overlay = document.getElementById('email-bs-overlay');
+        const content = document.getElementById('email-bs-content');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full');
+        content.classList.add('translate-y-0');
+        history.pushState(null, null, location.href);
+    };
+
+    window.closeEmailLoginSheet = () => {
+        const overlay = document.getElementById('email-bs-overlay');
+        const content = document.getElementById('email-bs-content');
+        if(!overlay.classList.contains('opacity-0')) {
+             content.classList.remove('translate-y-0');
+             content.classList.add('translate-y-full');
+             overlay.classList.remove('opacity-100');
+             overlay.classList.add('opacity-0');
+             setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
+        }
+    };
+
+    function showLoginScreen() {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentTab');
+        window.currentUser = null;
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('app').style.display = 'none';
+    }
+
+    function initAppForUser(user) {
+        localStorage.setItem('isLoggedIn', 'true');
+        window.currentUser = user;
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+
+        window.cacheImages();
+        window.isProfileLoaded = false;
+        window.isInvoicesLoaded = false;
+        window.switchTab(window.currentTab);
+
+        const profileRef = ref(database, `INVOYR/users/${user.uid}/profile`);
+        onValue(profileRef, (snapshot) => {
+            let p = snapshot.val();
+            let needsUpdate = false;
+            
+            const fallbackName = user.displayName || (user.email ? user.email.split('@')[0].toUpperCase() : 'NEW USER');
+            const now = Date.now();
+            const oneDayMs = 24 * 60 * 60 * 1000;
+
+            if (!p) {
+                p = { 
+                    name: fallbackName, 
+                    phone: '+91 95181 59114', 
+                    created_at: now,
+                    expires_at: now + (365 * oneDayMs),
+                    membership_days: 365 
+                };
+                needsUpdate = true;
+            } else {
+                if(!p.name) { p.name = fallbackName; needsUpdate = true; }
+                if(!p.phone) { p.phone = '+91 95181 59114'; needsUpdate = true; }
+                if(!p.created_at) { p.created_at = now; needsUpdate = true; }
+                
+                if(!p.expires_at) { 
+                    const oldMemDays = p.membership_days || 365;
+                    p.expires_at = p.created_at + (oldMemDays * oneDayMs); 
+                    needsUpdate = true; 
+                }
+
+                let daysLeft = Math.ceil((p.expires_at - now) / oneDayMs);
+                if (daysLeft < 0) daysLeft = 0;
+
+                if(p.membership_days !== daysLeft) {
+                    p.membership_days = daysLeft;
+                    needsUpdate = true;
+                }
+            }
+
+            if (needsUpdate) set(profileRef, p).catch(e => console.warn(e));
+
+            window.appData.profile = p;
+            window.isProfileLoaded = true;
+            checkAndReRender();
+        });
+
+        const invoicesRef = ref(database, `INVOYR/users/${user.uid}/invoices`);
+        onValue(invoicesRef, (snapshot) => {
+            if (snapshot.exists()) {
+                window.appData.invoices = Object.values(snapshot.val()).sort((a,b) => a.id.localeCompare(b.id));
+            } else {
+                window.appData.invoices = [];
+            }
+            window.isInvoicesLoaded = true;
+            checkAndReRender();
+        });
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            initAppForUser(user);
+        } else {
+            showLoginScreen();
+        }
+    });
+
+    function checkAndReRender() {
+        if (window.isProfileLoaded && window.isInvoicesLoaded) {
+            document.getElementById('main-content').innerHTML = renderPage(window.currentTab);
+            lucide.createIcons();
+
+            if (window.currentTab === 'add-invoice' || window.currentTab === 'view-invoice') {
+                if(window.currentTab === 'add-invoice' && !window.isEditing) {
+                    window.runInvoiceCalculation();
+                }
+                setTimeout(window.applyInvoiceScaling, 50);
+            }
+        }
+    }
+
+    window.openNewInvoice = () => {
+        window.isEditing = false;
+        window.isSaved = false;
+        window.switchTab('add-invoice');
+    }
+
+    window.viewProfile = () => {
+        window.isProfileSimulatingLoad = true;
+        window.switchTab('profile');
+        setTimeout(() => {
+            window.isProfileSimulatingLoad = false;
+            if (window.currentTab === 'profile') {
+                document.getElementById('main-content').innerHTML = renderPage('profile');
+                lucide.createIcons();
+            }
+        }, 500);
+    }
+
+    window.switchTab = (tab) => {
+        window.currentTab = tab;
+        localStorage.setItem('currentTab', tab);
+        window.isSaved = false;
+
+        document.querySelectorAll('#bottom-nav button').forEach(b => b.classList.remove('text-purple-600', 'dark:text-purple-400'));
+        const activeNav = document.getElementById('nav-btn-' + tab);
+        if(activeNav) activeNav.classList.add('text-purple-600', 'dark:text-purple-400');
+
+        const titles = { dashboard: 'Dashboard', profile: 'Settings', 'add-invoice': 'Create Invoice', 'view-invoice': 'Invoice Details' };
+        document.getElementById('app-title').innerText = titles[tab] || 'GRIDLABS';
+
+        document.getElementById('main-content').innerHTML = renderPage(tab);
+        lucide.createIcons();
+
+        if (window.isProfileLoaded && window.isInvoicesLoaded) {
+            if (tab === 'add-invoice' && !window.isEditing) {
+                window.runInvoiceCalculation();
+            }
+            setTimeout(window.applyInvoiceScaling, 50);
+        }
+
+        window.updateThemeIcon();
+        window.scrollTo(0,0);
+
+        history.pushState(null, null, location.href);
+    }
+
+    window.toggleTheme = () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('inv_theme', isDark ? 'dark' : 'light');
+
+    // Dynamically update the status bar color
+    const statusBar = document.getElementById('status-bar-color');
+    if (statusBar) {
+        statusBar.setAttribute("content", isDark ? "#0f172a" : "#f8fafc");
+    }
+
+    window.updateThemeIcon();
+    window.updateLogoTheme();
+}
+
+    window.updateThemeIcon = () => {
+        const i = document.getElementById('theme-icon');
+        if (i) {
+            i.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
+            lucide.createIcons();
+        }
+    }
+
+    window.openBottomSheet = () => {
+        const overlay = document.getElementById('bs-overlay');
+        const content = document.getElementById('bs-content');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full');
+        content.classList.add('translate-y-0');
+        setTimeout(window.applyInvoiceScaling, 50);
+        history.pushState(null, null, location.href);
+    };
+
+    window.closeBottomSheet = () => {
+        const overlay = document.getElementById('bs-overlay');
+        const content = document.getElementById('bs-content');
+        if(!overlay.classList.contains('opacity-0')) {
+             content.classList.remove('translate-y-0');
+             content.classList.add('translate-y-full');
+             overlay.classList.remove('opacity-100');
+             overlay.classList.add('opacity-0');
+             setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
+        }
+    };
+
+    window.openInfoSheet = () => {
+        const overlay = document.getElementById('info-bs-overlay');
+        const content = document.getElementById('info-bs-content');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full');
+        content.classList.add('translate-y-0');
+        history.pushState(null, null, location.href);
+    };
+
+    window.closeInfoSheet = () => {
+        const overlay = document.getElementById('info-bs-overlay');
+        const content = document.getElementById('info-bs-content');
+        if(!overlay.classList.contains('opacity-0')) {
+            content.classList.remove('translate-y-0');
+            content.classList.add('translate-y-full');
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
+        }
+    };
+
+    window.applyInvoiceScaling = () => {
+        document.querySelectorAll('.invoice-wrapper').forEach(wrapper => {
+            const card = wrapper.querySelector('.invoice-card');
+            if (!card) return;
+            const wrapperWidth = wrapper.clientWidth;
+            if(wrapperWidth === 0) return;
+            const originalWidth = 1000;
+            const scale = wrapperWidth / originalWidth;
+            card.style.transform = `scale(${scale})`;
+            wrapper.style.height = `${card.offsetHeight * scale}px`;
+        });
+    }
+    window.addEventListener('resize', window.applyInvoiceScaling);
+
+    window.printPreview = () => {
+        document.body.classList.add('print-bs-mode');
+        window.print();
+        setTimeout(() => document.body.classList.remove('print-bs-mode'), 1000);
+    }
+
+    window.fireRain = () => {
+        for(let i=0; i<40; i++) {
+            let drop = document.createElement('div');
+            drop.className = 'fixed w-1.5 h-3 rounded-[5px] z-[9999] pointer-events-none animate-confetti-rain';
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.top = '-20px';
+            drop.style.backgroundColor = ['#a855f7', '#3b82f6', '#10b981', '#f59e0b', '#ec4899'][Math.floor(Math.random()*5)];
+            drop.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+            drop.style.animationDelay = (Math.random() * 0.2) + 's';
+            document.body.appendChild(drop);
+            setTimeout(() => drop.remove(), 3500);
+        }
+    }
+
+    window.pendingConfirmAction = null;
+    const setupSlider = () => {
+        const thumb = document.getElementById('slide-thumb');
+        const fill = document.getElementById('slide-fill');
+        const track = document.getElementById('slide-track');
+        const text = document.getElementById('slide-text');
+        if(!thumb) return;
+
+        let isDragging = false;
+        let startX = 0;
+
+        const handleStart = (e) => {
+            isDragging = true;
+            startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            thumb.style.transition = 'none';
+            fill.style.transition = 'none';
+        };
+
+        const handleMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            let diff = currentX - startX;
+            const maxTrack = track.clientWidth - thumb.clientWidth - 8;
+
+            if (diff < 0) diff = 0;
+            if (diff > maxTrack) diff = maxTrack;
+
+            thumb.style.transform = `translateX(${diff}px)`;
+            fill.style.width = `calc(${diff}px + 1.5rem)`;
+            text.style.opacity = 1 - (diff / maxTrack);
+
+            if (diff >= maxTrack * 0.90) {
+                isDragging = false;
+                thumb.style.transform = `translateX(${maxTrack}px)`;
+                setTimeout(() => {
+                    const actionToExecute = window.pendingConfirmAction;
+                    window.closeConfirmSheet();
+                    if(actionToExecute) actionToExecute();
+                }, 150);
+            }
+        };
+
+        const handleEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            thumb.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+            fill.style.transition = 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+            text.style.transition = 'opacity 0.3s ease';
+            thumb.style.transform = `translateX(0px)`;
+            fill.style.width = '0px';
+            text.style.opacity = '1';
+        };
+
+        thumb.addEventListener('touchstart', handleStart, {passive: false});
+        document.addEventListener('touchmove', handleMove, {passive: false});
+        document.addEventListener('touchend', handleEnd);
+
+        thumb.addEventListener('mousedown', handleStart);
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleEnd);
+    };
+
+    setupSlider();
+
+    window.openConfirmSheet = (title, msg, isDestructive, actionFn) => {
+        window.pendingConfirmAction = actionFn;
+        document.getElementById('confirm-title').innerText = title;
+        document.getElementById('confirm-message').innerText = msg;
+
+        const iconBox = document.getElementById('confirm-icon-box');
+        const thumb = document.getElementById('slide-thumb');
+        const fill = document.getElementById('slide-fill');
+
+        if (isDestructive) {
+            iconBox.className = "w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-[5px] flex items-center justify-center mb-4";
+            iconBox.innerHTML = '<i data-lucide="alert-triangle" class="w-8 h-8"></i>';
+            thumb.className = "absolute left-1 w-12 h-12 bg-white dark:bg-slate-700 rounded-[5px] shadow-md flex items-center justify-center z-10 cursor-grab text-red-500 active:cursor-grabbing transition-none border border-slate-200 dark:border-slate-600";
+            fill.className = "absolute left-0 top-0 h-full bg-red-500/10 dark:bg-red-500/20 w-0 z-0 transition-none";
+        } else {
+            iconBox.className = "w-16 h-16 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-[5px] flex items-center justify-center mb-4";
+            iconBox.innerHTML = '<i data-lucide="log-out" class="w-8 h-8"></i>';
+            thumb.className = "absolute left-1 w-12 h-12 bg-white dark:bg-slate-700 rounded-[5px] shadow-md flex items-center justify-center z-10 cursor-grab text-purple-500 active:cursor-grabbing transition-none border border-slate-200 dark:border-slate-600";
+            fill.className = "absolute left-0 top-0 h-full bg-purple-500/10 dark:bg-purple-500/20 w-0 z-0 transition-none";
+        }
+        lucide.createIcons();
+
+        thumb.style.transition = 'none'; fill.style.transition = 'none';
+        thumb.style.transform = `translateX(0px)`; fill.style.width = '0px';
+        document.getElementById('slide-text').style.opacity = '1';
+
+        const overlay = document.getElementById('confirm-bs-overlay');
+        const content = document.getElementById('confirm-bs-content');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100');
+        content.classList.remove('translate-y-full');
+        content.classList.add('translate-y-0');
+
+        history.pushState(null, null, location.href);
+    };
+
+    window.closeConfirmSheet = () => {
+        window.pendingConfirmAction = null;
+        const overlay = document.getElementById('confirm-bs-overlay');
+        const content = document.getElementById('confirm-bs-content');
+        if(!overlay.classList.contains('opacity-0')) {
+             content.classList.remove('translate-y-0');
+             content.classList.add('translate-y-full');
+             overlay.classList.remove('opacity-100');
+             overlay.classList.add('opacity-0');
+             setTimeout(() => overlay.classList.add('pointer-events-none'), 300);
+        }
+    };
+
+    window.viewInvoice = (id) => {
+        window.viewingInvoiceId = id;
+        localStorage.setItem('viewingInvoiceId', id);
+        window.isInvoiceSimulatingLoad = true;
+        window.switchTab('view-invoice');
+
+        setTimeout(() => {
+            window.isInvoiceSimulatingLoad = false;
+            if(window.currentTab === 'view-invoice') window.switchTab('view-invoice');
+        }, 1000);
+    }
+
+    window.editInvoice = (id) => {
+        const inv = window.appData.invoices.find(i => i.id === id);
+        if(!inv) return;
+        window.isEditing = true;
+        window.switchTab('add-invoice');
+
+        setTimeout(() => {
+            document.getElementById('iClient').value = inv.client || '';
+            document.getElementById('iClientPhone').value = inv.clientPhone || '';
+            document.getElementById('iInvNum').value = inv.id;
+            document.getElementById('iDate').value = (inv.date && inv.date.includes('/')) ? inv.date.split('/').reverse().join('-') : (inv.date || today());
+            document.getElementById('iProjName').value = inv.projName || '';
+            document.getElementById('iTotalCost').value = inv.totalCost || 0;
+            document.getElementById('iAdvance').value = inv.advance || 0;
+            
+            document.getElementById('emiToggle').checked = inv.isEmi || false;
+            document.getElementById('amcToggle').checked = inv.isAmc || false;
+            window.toggleSection('emi-fields', document.getElementById('emiToggle'));
+            window.toggleSection('amc-fields', document.getElementById('amcToggle'));
+
+            document.getElementById('iTenure').value = inv.tenure || 1;
+            document.getElementById('iEmiStart').value = (inv.emiStart && inv.emiStart.includes('/')) ? inv.emiStart.split('/').reverse().join('-') : (inv.emiStart || today());
+            document.getElementById('iEmiNext').value = (inv.emiNext && inv.emiNext.includes('/')) ? inv.emiNext.split('/').reverse().join('-') : (inv.emiNext || today());
+            document.getElementById('iYearly').value = inv.yearly || 0;
+            
+            window.runInvoiceCalculation();
+        }, 100);
+    }
+
+    window.deleteInvoice = (id) => {
+        if(!window.currentUser) return;
+        window.openConfirmSheet(
+            "Delete Invoice",
+            "Are you sure you want to delete this invoice? This action cannot be undone.",
+            true,
+            () => {
+                set(ref(database, `INVOYR/users/${window.currentUser.uid}/invoices/${id}`), null)
+                    .then(() => window.switchTab('dashboard'))
+                    .catch((err) => { alert("Failed to delete the invoice."); console.error(err); });
+            }
+        );
+    }
+
+    window.logoutUser = () => {
+        window.openConfirmSheet(
+            "Sign Out",
+            "Are you sure you want to sign out of GRIDLABS?",
+            false,
+            () => {
+                signOut(auth);
+            }
+        );
+    };
+
+    // GENERATE GRIDLABS INVOICE FORMAT
+    function generateInvoiceCardHTML(data, profile) {
+        const remaining = (data.totalCost || 0) - (data.advance || 0);
+        const monthlyEmi = data.tenure ? Math.round(remaining / data.tenure) : 0;
+        const logoSrc = localStorage.getItem('cached_gridlabs_logo') || 'gridlabs_logo.png';
+
+        let totalCards = 3;
+        if (data.isEmi) totalCards += 2;
+        if (data.isAmc) totalCards += 1;
+        const gridClass = totalCards === 4 ? 'grid-cols-2' : 'grid-cols-3';
+
+        return `
+            <div class="invoice-card" id="printable-invoice">
                 <div class="flex justify-between items-start border-b-4 border-slate-900 pb-10 mb-10">
                     <div class="flex items-center gap-3">
-                        <img src="gridlabs_logo.png" alt="Logo" class="h-20 w-auto object-contain">
+                        <img src="${logoSrc}" alt="Logo" class="h-20 w-auto object-contain" onerror="this.style.display='none'">
                         <div>
                             <h1 class="text-4xl font-bold text-slate-900 leading-none tracking-tighter">GridLabs Prod.</h1>
                             <p class="text-[12px] text-blue-600 tracking-[0.4em] font-bold mt-2">GROWS YOUR OWN BRAND</p>
@@ -222,24 +1110,23 @@
                     <div class="text-right">
                         <h2 class="text-6xl font-bold text-slate-100 leading-none">INVOICE</h2>
                         <div class="mt-2">
-                            <p class="font-bold text-slate-800 text-sm tracking-widest">NO: ${data.invNum}</p>
-                            <p class="text-sm text-slate-500 font-bold">ISSUED: ${data.date}</p>
+                            <p class="font-bold text-slate-800 text-sm tracking-widest">NO: ${data.id || '000'}</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between mb-10">
+                <div class="flex justify-between mb-8">
                     <div class="w-1/2">
                         <p class="text-blue-600 font-bold text-[12px] mb-3 tracking-[0.2em]">CLIENT INFORMATION</p>
-                        <h3 class="text-xl font-bold text-slate-900">${data.client}</h3>
-                        <p class="text-[14px] text-slate-500 font-bold mt-1">PH: ${data.clientPhone}</p>
+                        <h3 class="text-xl font-bold text-slate-900">${data.client || 'GUEST CLIENT'}</h3>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">PHONE: ${data.clientPhone || 'N/A'}</p>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">ISSUED ON: ${data.date || 'N/A'}</p>
                     </div>
                     <div class="text-right">
                         <p class="text-slate-400 font-bold text-[12px] mb-3 tracking-[0.2em]">SERVICE PROVIDER</p>
-                        <h3 class="text-xl font-bold text-slate-900 uppercase">Akshar Chaudhary</h3>
-                       
-                        <p class="text-[14px] text-slate-500 font-bold mt-1">PH: +91 95181 59114</p>
-                        
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">${profile.name || 'Akshar Chaudhary'}</h3>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">PHONE: ${profile.phone || '+91 95181 59114'}</p>
+                        <p class="text-[14px] text-slate-500 font-bold mt-1">UPI : GRIDLABSPROD@SLC</p>
                     </div>
                 </div>
 
@@ -253,35 +1140,50 @@
                     <tbody>
                         <tr>
                             <td>
-                                <span class="font-bold text-slate-900 text-lg">${data.projName}</span><br>
+                                <span class="font-bold text-slate-900 text-lg">${data.projName || 'PROJECT SERVICE'}</span><br>
                                 <span class="text-[11px] text-slate-400 font-bold tracking-widest mt-2 inline-block">
-                                    ${data.isEmi ? `PAYMENT PLAN: ${data.tenure} MONTHLY INSTALLMENTS` : 'PAYMENT TYPE: STANDARD FULL PROJECT'}
+                                    ${data.isEmi ? 'PAYMENT TYPE: EMI PLAN' : 'PAYMENT TYPE: STANDARD FULL PROJECT'}
                                 </span>
                             </td>
-                            <td style="text-align: right;" class="font-bold text-slate-900 text-2xl">₹${data.totalCost.toLocaleString('en-IN')}</td>
+                            <td style="text-align: right;" class="font-bold text-slate-900 text-2xl">₹${(data.totalCost || 0).toLocaleString('en-IN')}</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <div class="mt-10 flex gap-4">
-                    <div class="flex-1 p-6 border border-slate-200 rounded-md bg-slate-50">
-                        <p class="text-[12px] font-bold text-slate-400 mb-2 tracking-widest">TOTAL PAID</p>
-                        <h4 class="text-3xl font-bold text-green-600">₹${data.advance.toLocaleString('en-IN')}</h4>
+                <div class="mt-8 grid ${gridClass} gap-4">
+                    <div class="p-5 border border-slate-200 rounded-md bg-slate-50">
+                        <p class="text-[11px] font-bold text-slate-400 mb-1 tracking-widest">TOTAL COST</p>
+                        <h4 class="text-2xl font-bold text-slate-800">₹${(data.totalCost || 0).toLocaleString('en-IN')}</h4>
                     </div>
-                    <div class="flex-1 p-6 border border-slate-200 rounded-md bg-slate-50">
-                        <p class="text-[12px] font-bold text-slate-400 mb-2 tracking-widest">OUTSTANDING</p>
-                        <h4 class="text-3xl font-bold text-red-500">₹${Math.round(remaining).toLocaleString('en-IN')}</h4>
+                    <div class="p-5 border border-slate-200 rounded-md bg-slate-50">
+                        <p class="text-[11px] font-bold text-slate-400 mb-1 tracking-widest">TOTAL PAID</p>
+                        <h4 class="text-2xl font-bold text-green-600">₹${(data.advance || 0).toLocaleString('en-IN')}</h4>
                     </div>
+                    <div class="p-5 border border-slate-200 rounded-md bg-slate-50">
+                        <p class="text-[11px] font-bold text-slate-400 mb-1 tracking-widest">OUTSTANDING</p>
+                        <h4 class="text-2xl font-bold text-red-500">₹${Math.round(remaining).toLocaleString('en-IN')}</h4>
+                    </div>
+                    ${data.isEmi ? `
+                    <div class="p-5 border border-slate-200 rounded-md bg-slate-50">
+                        <p class="text-[11px] font-bold text-slate-400 mb-1 tracking-widest">EMI TENURE</p>
+                        <h4 class="text-2xl font-bold text-slate-800">${data.tenure || 0} MONTHS</h4>
+                    </div>
+                    <div class="p-5 border border-slate-200 rounded-md bg-slate-50">
+                        <p class="text-[11px] font-bold text-slate-400 mb-1 tracking-widest">MONTHLY EMI</p>
+                        <h4 class="text-2xl font-bold text-slate-800">₹${monthlyEmi.toLocaleString('en-IN')}</h4>
+                        <p class="text-[10px] font-bold text-blue-600 mt-2 tracking-widest">NEXT DUE: ${data.emiNext}</p>
+                    </div>
+                    ` : ''}
                     ${data.isAmc ? `
-                    <div class="flex-1 p-6 border border-blue-200 rounded-md bg-blue-50/50">
-                        <p class="text-[12px] font-bold text-blue-400 mb-2 tracking-widest">ANNUAL AMC</p>
-                        <h4 class="text-3xl font-bold text-blue-700">₹${data.yearly.toLocaleString('en-IN')}</h4>
+                    <div class="p-5 border border-blue-200 rounded-md bg-blue-50/50">
+                        <p class="text-[11px] font-bold text-blue-400 mb-1 tracking-widest">ANNUAL AMC</p>
+                        <h4 class="text-2xl font-bold text-blue-700">₹${(data.yearly || 0).toLocaleString('en-IN')}</h4>
                     </div>
                     ` : ''}
                 </div>
 
-                <div class="mt-10">
-                    <p class="text-[12px] font-bold text-slate-900 mb-4 tracking-widest border-b pb-2">UNIVERSAL TERMS & CONDITIONS</p>
+                <div class="mt-8">
+                    <p class="text-[12px] font-bold text-slate-900 mb-3 tracking-widest border-b border-slate-200 pb-2">UNIVERSAL TERMS & CONDITIONS</p>
                     <div class="terms-grid">
                         <div>
                             <strong>1. PAYMENT & VALIDITY:</strong> All milestone payments are non-refundable. Invoices must be cleared within 7 days of the due date. A late fee of 2% per month applies to overdue balances.
@@ -301,16 +1203,413 @@
                         COMPUTER GENERATED INVOICE<br>NO PHYSICAL SIGNATURE REQUIRED
                     </div>
                     <div class="text-center">
-                        <div class="text-xl text-blue-700 font-bold" style="letter-spacing: 2px;">Akshar Chaudhary</div>
+                        <div class="text-xl text-blue-700 font-bold" style="letter-spacing: 2px;">${profile.name || 'Akshar Chaudhary'}</div>
                         <div class="w-56 h-[2px] bg-slate-900 mb-2 mt-1 mx-auto"></div>
                         <p class="text-[11px] font-bold text-slate-900 tracking-widest">AUTHORIZED SIGNATORY</p>
                     </div>
                 </div>
+            </div>
+        `;
+    }
+
+    function renderPage(tab) {
+        const isLoaded = window.isProfileLoaded && window.isInvoicesLoaded;
+        const invoices = window.appData.invoices;
+        const profile = window.appData.profile;
+
+        if (tab === 'dashboard') {
+            if (!isLoaded) {
+                return `
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="stat-card glass-card rounded-[5px] flex flex-col justify-center py-4 h-[88px]"><p class="font-bold text-slate-500 text-[11px] truncate">TOTAL INVOICES</p><div class="shimmer-box h-7 w-12 mt-1"></div></div>
+                    <div class="stat-card glass-card rounded-[5px] flex flex-col justify-center py-4 h-[88px]"><p class="font-bold text-slate-500 text-[11px] truncate">TOTAL REVENUE</p><div class="shimmer-box h-7 w-24 mt-1"></div></div>
+                </div>
+                <div class="flex justify-between items-end mb-3 px-1"><h3 class="font-black text-sm text-slate-400 truncate">RECENT INVOICES</h3></div>
+                <div class="space-y-3 pb-4">
+                    <div class="glass-card p-4 rounded-[5px] flex justify-between items-center"><div class="flex-1"><div class="shimmer-box h-5 w-3/4 mb-2"></div><div class="shimmer-box h-3 w-1/2"></div></div><div class="shimmer-box h-6 w-20"></div></div>
+                    <div class="glass-card p-4 rounded-[5px] flex justify-between items-center"><div class="flex-1"><div class="shimmer-box h-5 w-2/3 mb-2"></div><div class="shimmer-box h-3 w-1/3"></div></div><div class="shimmer-box h-6 w-20"></div></div>
+                </div>`;
+            }
+
+            const totalRevs = invoices.reduce((sum, i) => sum + (i.totalCost || 0), 0);
+            let html = `
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="stat-card glass-card rounded-[5px] flex flex-col justify-center py-4">
+                        <p class="font-bold text-slate-500 text-[11px] truncate">TOTAL INVOICES</p>
+                        <h3 class="font-black text-2xl text-slate-800 dark:text-white truncate">${invoices.length}</h3>
+                    </div>
+                    <div class="stat-card bg-purple-600 text-white rounded-[5px] border-none shadow-md flex flex-col justify-center py-4">
+                        <p class="font-bold opacity-80 text-[11px] truncate">TOTAL REVENUE</p>
+                        <h3 class="font-black text-2xl truncate">${fmt(totalRevs)}</h3>
+                    </div>
+                </div>
             `;
-            
-            document.getElementById('preview-content').innerHTML = html;
+
+            if (invoices.length === 0) {
+                html += `
+                <div class="flex-1 flex flex-col items-center justify-center pt-10 pb-12 animate-fade-in">
+                    <div class="w-32 h-32 relative mb-8 mt-4">
+                        <div class="absolute inset-0 bg-purple-200 dark:bg-purple-900/40 rounded-[5px] blur-2xl animate-pulse"></div>
+                        <div class="relative bg-white dark:bg-slate-800 w-full h-full rounded-[5px] shadow-lg border border-slate-100 dark:border-slate-700 flex items-center justify-center animate-float">
+                            <i data-lucide="folder-open" class="w-12 h-12 text-purple-400"></i>
+                        </div>
+                        <div class="absolute -bottom-2 -right-2 bg-emerald-100 dark:bg-emerald-900/50 w-12 h-12 rounded-[5px] border-[3px] border-[#f8fafc] dark:border-[#0f172a] flex items-center justify-center z-10 animate-float-delayed">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-emerald-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-black text-xl text-slate-800 dark:text-slate-100 mb-2 uppercase tracking-tight">No Invoices Yet</h3>
+                    <p class="text-sm font-bold text-slate-400 text-center max-w-[250px] mb-8">Start your journey by creating your very first invoice right now.</p>
+                    <button onclick="window.openNewInvoice()" class="px-6 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black rounded-[5px] shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center gap-2">
+                        <i data-lucide="plus" class="w-5 h-5"></i> Create Invoice
+                    </button>
+                </div>`;
+            } else {
+                html += `
+                <div class="flex justify-between items-end mb-3 px-1"><h3 class="font-black text-sm text-slate-400 truncate">RECENT INVOICES</h3></div>
+                <div class="space-y-3 pb-4">`;
+                [...invoices].reverse().forEach(inv => {
+                    const shortClient = inv.client ? inv.client.trim().split(/\s+/).slice(0, 2).join(' ') : 'CLIENT';
+                    const sDate = (inv.date && inv.date.includes('-')) ? inv.date.split('-').reverse().join('/') : (inv.date || '');
+                    html += `
+                    <div onclick="viewInvoice('${inv.id}')" class="glass-card p-4 rounded-[5px] flex justify-between items-end gap-2 cursor-pointer hover:border-purple-400 transition-colors">
+                        <div class="min-w-0 flex-1">
+                            <h4 class="font-black text-base truncate leading-tight">${shortClient}</h4>
+                            <p class="font-bold text-sm text-purple-600 mt-1 truncate leading-none">${inv.id} • ${sDate}</p>
+                        </div>
+                        <div class="text-right flex-shrink-0">
+                            <h3 class="font-black text-base text-emerald-600 leading-none">${fmt(inv.totalCost)}</h3>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+            return html;
+        }
+
+        if (tab === 'view-invoice') {
+            if (!isLoaded || window.isInvoiceSimulatingLoad) {
+                return `
+                <div class="flex items-center justify-between mb-4 gap-2">
+                    <div class="shimmer-box h-9 w-12 rounded-[5px]"></div>
+                    <div class="shimmer-box h-9 w-32 rounded-[5px]"></div>
+                </div>
+                <div class="invoice-wrapper"><div class="shimmer-box w-[1000px] h-[1123px] max-w-full rounded-[5px]"></div></div>`;
+            }
+
+            const inv = invoices.find(i => i.id === window.viewingInvoiceId);
+            if(!inv) return `<div class="text-center p-10 font-bold text-red-500">Invoice Not Found.</div>`;
+
+            return `
+                <div class="animate-fade-in w-full">
+                    <div class="flex items-center justify-between mb-4 no-print gap-2">
+                        <button onclick="switchTab('dashboard')" class="p-2 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-[5px] hover:bg-slate-300 transition-colors">
+                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="editInvoice('${inv.id}')" class="p-2 bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 rounded-[5px] hover:bg-blue-200 transition-colors" title="Edit Invoice">
+                                <i data-lucide="edit-3" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="deleteInvoice('${inv.id}')" class="p-2 bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 rounded-[5px] hover:bg-red-200 transition-colors" title="Delete Invoice">
+                                <i data-lucide="trash-2" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="window.print()" class="px-4 py-2 flex items-center gap-2 bg-purple-600 text-white rounded-[5px] font-bold text-sm shadow hover:bg-purple-700 transition-colors">
+                                <i data-lucide="printer" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="invoice-wrapper">
+                        ${generateInvoiceCardHTML(inv, profile)}
+                    </div>
+                </div>
+            `;
+        }
+
+        if (tab === 'profile') {
+            if (!isLoaded || window.isProfileSimulatingLoad) {
+                 return `
+                <div class="space-y-4 w-full">
+                    <div class="glass-card rounded-[5px] p-6 text-center border border-slate-200 dark:border-slate-700 flex flex-col items-center"><div class="w-20 h-20 rounded-[5px] mb-3 shimmer-box"></div><div class="shimmer-box h-5 w-32 mb-2"></div><div class="shimmer-box h-3 w-40"></div></div>
+                    <div class="glass-card rounded-[5px] p-4 border border-slate-200 dark:border-slate-700 space-y-4"><div class="shimmer-box h-4 w-32 mb-2"></div><div><div class="shimmer-box h-10 w-full mt-1.5"></div></div><div><div class="shimmer-box h-10 w-full mt-1.5"></div></div></div>
+                </div>`;
+            }
+
+            const defaultAvatar = localStorage.getItem('cached_gridlabs_logo') || "gridlabs_logo.png";
+            const avatarUrl = window.currentUser?.photoURL || defaultAvatar;
+
+            const expiresAt = profile.expires_at || Date.now();
+            const daysLeft = profile.membership_days || 0;
+            const expiryDate = new Date(expiresAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            return `
+                <div class="space-y-4 animate-fade-in w-full">
+                    <div class="glass-card rounded-[5px] p-6 text-center border border-slate-200 dark:border-slate-700 w-full">
+                        <div class="w-20 h-20 mx-auto bg-slate-100 dark:bg-slate-800 rounded-[5px] border-[3px] border-slate-200 dark:border-slate-700 overflow-hidden mb-3">
+                            <img src="${avatarUrl}" class="w-full h-full object-contain" onerror="this.style.display='none'">
+                        </div>
+                        <h2 class="font-black text-base uppercase truncate">${profile.name || 'Settings'}</h2>
+                        <p class="text-xs text-slate-500 font-bold">${window.currentUser?.email}</p>
+                    </div>
+
+                    <div class="glass-card rounded-[5px] p-4 border border-slate-200 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-purple-50 dark:from-purple-900/10 to-transparent w-full">
+                        <div>
+                            <h3 class="font-black text-[10px] text-slate-400 tracking-widest uppercase mb-1">MEMBERSHIP EXPIRES</h3>
+                            <p class="font-bold text-sm text-slate-800 dark:text-slate-200">${expiryDate}</p>
+                        </div>
+                        <div class="bg-purple-600 text-white px-3 py-1.5 rounded-[5px] flex flex-col items-center justify-center shadow-md">
+                            <span class="text-lg font-black leading-none mb-0.5">${daysLeft}</span>
+                            <span class="text-[9px] uppercase tracking-widest font-bold text-purple-100">Days Left</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 pb-2 pt-2 w-full">
+                        <div class="w-full">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Owner Name (Signature)</label>
+                            <input type="text" id="p-name" value="${profile.name || ''}" oninput="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
+                        </div>
+                        <div class="w-full">
+                            <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Phone Number</label>
+                            <input type="text" id="p-phone" value="${profile.phone || ''}" oninput="window.saveProfile()" class="field-input mt-1.5 shadow-sm w-full">
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-[5px] p-4 text-center border border-slate-200 dark:border-slate-700 w-full">
+                         <button onclick="window.logoutUser()" class="text-slate-600 dark:text-slate-300 font-bold text-sm uppercase flex items-center justify-center w-full hover:text-purple-600 transition-colors">
+                            <i data-lucide="log-out" class="w-4 h-4 inline mr-2"></i> Sign Out of GRIDLABS
+                         </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        if (tab === 'add-invoice') {
+            if (!isLoaded) {
+                 return `
+                 <div class="w-full pb-10">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                        ${Array(12).fill('<div class="shimmer-box h-[68px] w-full rounded-[5px]"></div>').join('')}
+                    </div>
+                 </div>`;
+            }
+
+            let maxNum = 0;
+            invoices.forEach(i => {
+                const match = i.id.match(/INV-(\d+)/);
+                if(match) {
+                    const num = parseInt(match[1]);
+                    if(num > maxNum) maxNum = num;
+                }
+            });
+            const nextId = 'INV-' + String(maxNum + 1).padStart(3, '0');
+
+            return `
+            <div class="flex flex-col w-full max-w-full pb-10 animate-fade-in">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-4 bg-white dark:bg-slate-800 rounded-[5px] border border-slate-200 dark:border-slate-700 mb-4 shadow-sm">
+                    <div>
+                        <label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Client Name</label>
+                        <input type="text" id="iClient" value="MUKEJA MAKHANA" oninput="runInvoiceCalculation()" class="field-input mb-3">
+                        <label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Phone No.</label>
+                        <input type="text" id="iClientPhone" value="+91 73036 79152" oninput="runInvoiceCalculation()" class="field-input">
+                    </div>
+                    <div>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Inv No.</label><input type="text" id="iInvNum" value="${window.isEditing ? '...' : nextId}" oninput="runInvoiceCalculation()" class="field-input" ${window.isEditing ? 'disabled style="opacity:0.6"' : ''}></div>
+                            <div><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Date</label><input type="date" id="iDate" value="${today()}" oninput="runInvoiceCalculation()" class="field-input"></div>
+                        </div>
+                        <label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Project Scope</label>
+                        <input type="text" id="iProjName" value="GOOGLE BUSINESS SETUP & SEO" oninput="runInvoiceCalculation()" class="field-input">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[5px] border border-slate-200 dark:border-slate-700"><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Total Project Cost (₹)</label><input type="number" id="iTotalCost" value="100000" oninput="runInvoiceCalculation()" class="field-input"></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-[5px] border border-slate-200 dark:border-slate-700"><label class="text-[11px] font-bold text-slate-500 uppercase mb-1 ml-1 block">Advance Received (₹)</label><input type="number" id="iAdvance" value="20000" oninput="runInvoiceCalculation()" class="field-input"></div>
+                </div>
+
+                <div class="flex flex-row gap-4 mb-2">
+                    <div class="flex-1 flex items-center gap-3 p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[5px] cursor-pointer">
+                        <input type="checkbox" id="emiToggle" onchange="toggleSection('emi-fields', this); runInvoiceCalculation()" class="w-5 h-5 accent-purple-600 cursor-pointer">
+                        <label for="emiToggle" class="text-[11px] font-bold text-slate-700 dark:text-slate-300 cursor-pointer uppercase">ACTIVATE EMI CYCLE</label>
+                    </div>
+                    <div class="flex-1 flex items-center gap-3 p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[5px] cursor-pointer">
+                        <input type="checkbox" id="amcToggle" onchange="toggleSection('amc-fields', this); runInvoiceCalculation()" class="w-5 h-5 accent-purple-600 cursor-pointer" checked>
+                        <label for="amcToggle" class="text-[11px] font-bold text-slate-700 dark:text-slate-300 cursor-pointer uppercase">SHOW AMC DETAILS</label>
+                    </div>
+                </div>
+
+                <div id="emi-fields" class="expandable w-full">
+                    <div class="grid grid-cols-3 gap-3 p-4 bg-purple-50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/30 rounded-[5px]">
+                        <div><label class="text-[11px] font-bold text-purple-600 dark:text-purple-400 uppercase block mb-1">Tenure (Mo)</label><input type="number" id="iTenure" value="4" oninput="runInvoiceCalculation()" class="field-input"></div>
+                        <div><label class="text-[11px] font-bold text-purple-600 dark:text-purple-400 uppercase block mb-1">Start Date</label><input type="date" id="iEmiStart" value="${today()}" oninput="runInvoiceCalculation()" class="field-input"></div>
+                        <div><label class="text-[11px] font-bold text-purple-600 dark:text-purple-400 uppercase block mb-1">Next Due</label><input type="date" id="iEmiNext" value="${today()}" oninput="runInvoiceCalculation()" class="field-input"></div>
+                    </div>
+                </div>
+
+                <div id="amc-fields" class="expandable active w-full mb-6">
+                    <div class="p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[5px]">
+                        <label class="text-[11px] font-bold text-slate-500 uppercase block mb-1">Recurring AMC Charge (₹/Year)</label>
+                        <input type="number" id="iYearly" value="10000" oninput="runInvoiceCalculation()" class="field-input">
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-4">
+                    <button id="save-btn" onclick="saveAndPrintInvoice()" class="flex-1 btn-primary bg-purple-600 text-white flex items-center justify-center hover:bg-purple-700 shadow-md transition-all tracking-wide">
+                        ${window.isEditing ? 'UPDATE RECORD' : 'SAVE RECORD'}
+                    </button>
+                    <button onclick="window.openBottomSheet()" class="px-5 btn-primary bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm" title="Live Preview">
+                        <i data-lucide="eye" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>`;
+        }
+
+        return '';
+    }
+
+    window.toggleSection = (id, checkbox) => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        checkbox.checked ? el.classList.add('active') : el.classList.remove('active');
+    }
+
+    window.saveProfile = () => {
+        if (!window.currentUser) return;
+        const p = { ...window.appData.profile, name: document.getElementById('p-name').value, phone: document.getElementById('p-phone').value };
+        window.appData.profile = p;
+        set(ref(database, `INVOYR/users/${window.currentUser.uid}/profile`), p);
+    }
+
+    window.runInvoiceCalculation = () => {
+        if(!window.isProfileLoaded || !window.isInvoicesLoaded) return;
+
+        if (window.isSaved) {
+            window.isSaved = false;
+            const btn = document.getElementById('save-btn');
+            if (btn) {
+                btn.innerHTML = window.isEditing ? 'UPDATE RECORD' : 'SAVE RECORD';
+                btn.classList.remove('bg-emerald-600', 'pointer-events-none', 'opacity-90');
+                btn.classList.add('bg-purple-600', 'hover:bg-purple-700');
+                btn.disabled = false;
+            }
+        }
+
+        let invNum = document.getElementById('iInvNum').value;
+        if(!window.isEditing && (!invNum || invNum === '...')) {
+             let maxNum = 0;
+             window.appData.invoices.forEach(i => {
+                const match = i.id.match(/INV-(\d+)/);
+                if(match) {
+                    const num = parseInt(match[1]);
+                    if(num > maxNum) maxNum = num;
+                }
+             });
+             invNum = 'INV-' + String(maxNum + 1).padStart(3, '0');
+             document.getElementById('iInvNum').value = invNum;
+        }
+
+        const isEmi = document.getElementById('emiToggle').checked;
+        const isAmc = document.getElementById('amcToggle').checked;
+        
+        const dateRaw = document.getElementById('iDate').value;
+        const emiStartRaw = document.getElementById('iEmiStart').value;
+        const emiNextRaw = document.getElementById('iEmiNext').value;
+
+        const liveInv = {
+            id: invNum,
+            client: document.getElementById('iClient').value || 'GUEST CLIENT',
+            clientPhone: document.getElementById('iClientPhone').value || 'N/A',
+            date: dateRaw.includes('-') ? dateRaw.split('-').reverse().join('/') : dateRaw,
+            projName: document.getElementById('iProjName').value || 'PROJECT SERVICE',
+            totalCost: parseFloat(document.getElementById('iTotalCost').value) || 0,
+            advance: parseFloat(document.getElementById('iAdvance').value) || 0,
+            yearly: parseFloat(document.getElementById('iYearly').value) || 0,
+            isEmi: isEmi,
+            isAmc: isAmc,
+            tenure: parseInt(document.getElementById('iTenure').value) || 1,
+            emiStart: emiStartRaw.includes('-') ? emiStartRaw.split('-').reverse().join('/') : emiStartRaw,
+            emiNext: emiNextRaw.includes('-') ? emiNextRaw.split('-').reverse().join('/') : emiNextRaw
+        };
+
+        const container = document.getElementById('bs-invoice-inner');
+        if(container) {
+            container.innerHTML = generateInvoiceCardHTML(liveInv, window.appData.profile);
             lucide.createIcons();
         }
-    </script>
+    }
+
+    window.saveAndPrintInvoice = () => {
+        if(!window.currentUser) return alert("You must be logged in to save.");
+
+        const invNum = document.getElementById('iInvNum').value;
+        const isEmi = document.getElementById('emiToggle').checked;
+        const isAmc = document.getElementById('amcToggle').checked;
+        
+        const dateRaw = document.getElementById('iDate').value;
+        const emiStartRaw = document.getElementById('iEmiStart').value;
+        const emiNextRaw = document.getElementById('iEmiNext').value;
+
+        const invoiceData = {
+            id: invNum,
+            client: document.getElementById('iClient').value || 'GUEST CLIENT',
+            clientPhone: document.getElementById('iClientPhone').value || 'N/A',
+            date: dateRaw.includes('-') ? dateRaw.split('-').reverse().join('/') : dateRaw,
+            projName: document.getElementById('iProjName').value || 'PROJECT SERVICE',
+            totalCost: parseFloat(document.getElementById('iTotalCost').value) || 0,
+            advance: parseFloat(document.getElementById('iAdvance').value) || 0,
+            yearly: parseFloat(document.getElementById('iYearly').value) || 0,
+            isEmi: isEmi,
+            isAmc: isAmc,
+            tenure: parseInt(document.getElementById('iTenure').value) || 1,
+            emiStart: emiStartRaw.includes('-') ? emiStartRaw.split('-').reverse().join('/') : emiStartRaw,
+            emiNext: emiNextRaw.includes('-') ? emiNextRaw.split('-').reverse().join('/') : emiNextRaw,
+            createdAt: new Date().toISOString()
+        };
+
+        const isDuplicate = window.appData.invoices.some(inv =>
+            inv.client === invoiceData.client &&
+            inv.projName === invoiceData.projName &&
+            inv.date === invoiceData.date &&
+            inv.totalCost == invoiceData.totalCost &&
+            inv.advance == invoiceData.advance &&
+            inv.isEmi == invoiceData.isEmi &&
+            inv.isAmc == invoiceData.isAmc &&
+            inv.id !== invoiceData.id
+        );
+
+        if (isDuplicate) {
+            alert("An invoice with these exact details already exists! Duplicates are not allowed.");
+            return;
+        }
+
+        const markAsSaved = () => {
+            window.isEditing = true;
+            window.isSaved = true;
+            const btn = document.getElementById('save-btn');
+            if(btn) {
+                btn.innerHTML = `GENERATED SUCCESSFULLY`;
+                btn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                btn.classList.add('bg-emerald-600', 'pointer-events-none', 'opacity-90');
+                btn.disabled = true;
+            }
+            window.fireRain();
+        };
+
+        set(ref(database, `INVOYR/users/${window.currentUser.uid}/invoices/${invNum}`), invoiceData).then(() => {
+            markAsSaved();
+        }).catch((err) => {
+            console.error("Save Error:", err);
+            alert("Failed to save invoice.");
+        });
+    }
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registered!', reg))
+                .catch(err => console.error('Service Worker registration failed: ', err));
+        });
+    }
+</script>
 </body>
 </html>
